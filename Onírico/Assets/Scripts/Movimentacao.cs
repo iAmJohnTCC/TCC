@@ -23,6 +23,8 @@ public class Movimentacao : MonoBehaviour
     RaycastHit2D Hit;
     [SerializeField] Light2D light;
     public bool lanterna = false;
+    Porta porta;
+    [SerializeField] LayerMask interagiveis;
 
 
     [Header("Localização")]
@@ -68,24 +70,18 @@ public class Movimentacao : MonoBehaviour
                 light.intensity = 0.18f;
             }
 
-            Hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0f), 1.5f);
+            Hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0f), 1.5f,interagiveis);
 
             if (Hit.transform != null && Input.GetKeyDown(KeyCode.E))
             {
                 if (Hit.transform.gameObject.GetComponent<Porta>() != null && !Hit.transform.gameObject.CompareTag("Sópracozinha"))
                 {
-                    Porta porta = Hit.transform.gameObject.GetComponent<Porta>();
+                    porta = Hit.transform.gameObject.GetComponent<Porta>();
 
                     if (porta.Aberto)
                     {
-                        transform.position = porta.posicao.transform.position;
-
-                        Localizacao.text = porta.Localizacao;
-
-                        if (porta.Andaratual != "")
-                        {
-                            AndarAtual.text = porta.Andaratual;
-                        }
+                        GameObject.Find("GameController").GetComponent<GameController>().Fadeout();
+                        Invoke("Teleporte", 1.6f);
                     }
 
                     else
@@ -104,14 +100,30 @@ public class Movimentacao : MonoBehaviour
                 }
                 else
                 {
+                   
+                        porta = null;
+                    
                     if (Hit.transform.gameObject.GetComponent<Notas>() != null)
                     {
                         GameObject.Find("Display_notas").GetComponent<Display_notas>().Pegarnota(Hit.transform.gameObject.GetComponent<Notas>());
                     }
                 }
+                
             }
 
         }
+    }
+    void Teleporte()
+    {
+        transform.position = porta.posicao.transform.position;
+
+        Localizacao.text = porta.Localizacao;
+
+        if (porta.Andaratual != "")
+        {
+            AndarAtual.text = porta.Andaratual;
+        }
+        porta = null;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

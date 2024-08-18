@@ -10,6 +10,7 @@ public class Lanterna : MonoBehaviour
     [SerializeField]int Qtd_Pilha;
     [SerializeField] Animator Stun;
     [SerializeField] TMP_Text Porcentagem;
+    public bool Stunning=false;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class Lanterna : MonoBehaviour
         {
             Energia = 100;
             Qtd_Pilha--;
+            Stunning=false;
             CancelInvoke();
         }
         Porcentagem.text = Energia.ToString() + "%";
@@ -43,7 +45,7 @@ public class Lanterna : MonoBehaviour
                 InvokeRepeating("Perdaenergia", 0f, 4f);
             }
         }
-        if(Input.GetKeyDown(KeyCode.Space)&& Energia>50&&Luz.active==true)
+        if(Input.GetKeyDown(KeyCode.Space)&& Energia>0&&Luz.active==true&&!Stunning)
         {
             Stun.Play("Laterna_Stun");
             Invoke("Lettherebelight", 0.1f);
@@ -54,22 +56,35 @@ public class Lanterna : MonoBehaviour
     { 
      if(Energia>0)
         {
-            Energia -= 5;
-
-            if(Energia==0)
+            if(GameObject.Find("Player").GetComponent<Movimentacao>().Standby == false&&!Stunning)
             {
-                Luz.SetActive(false);
-                CancelInvoke();
+                Energia -= 5;
             }
+     
         }
      else
         {
+            Luz.SetActive(false);
             CancelInvoke();
         }
     }
     void Lettherebelight()
     {
-       
+       Stunning=true;
         Energia -= 50;
+       if(Energia>0)
+        {
+         Invoke("Cooldown",0.5f);
+        }
+       if(Energia<0)
+        {
+         Energia=0;
+          
+        }
+      Invoke("Cooldown",0.5f);
     }
+   void Cooldown()
+   {
+    Stunning=false; 
+   }
 }

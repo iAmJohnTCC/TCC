@@ -11,9 +11,6 @@ public class Display_notas : MonoBehaviour
     [SerializeField] GameObject Escuro;
     [SerializeField]public Notas nota;
     [SerializeField] Image imagem;
-    float cor;
-    string Tipoanim;
-    
      int Num_pagina;
     // Start is called before the first frame update
     void Start()
