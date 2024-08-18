@@ -11,6 +11,8 @@ public class Lanterna : MonoBehaviour
     [SerializeField] Animator Stun;
     [SerializeField] TMP_Text Porcentagem;
     public bool Stunning=false;
+    RaycastHit2D Hit;
+    [SerializeField]LayerMask Inimigos;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +31,13 @@ public class Lanterna : MonoBehaviour
             Stunning=false;
             CancelInvoke();
         }
+        if(GameObject.Find("Player").GetComponent<Movimentacao>().Standby == true)
+        {
+            Luz.SetActive(false);
+            CancelInvoke();
+        }
         Porcentagem.text = Energia.ToString() + "%";
+
         if (Input.GetKeyDown(KeyCode.F) && Energia>0)
         {
             if (Luz.activeSelf == true)
@@ -42,13 +50,30 @@ public class Lanterna : MonoBehaviour
             else
             {
                 Luz.SetActive(true);
-                InvokeRepeating("Perdaenergia", 0f, 4f);
+                InvokeRepeating(nameof(Perdaenergia), 0f, 4f);
             }
         }
-        if(Input.GetKeyDown(KeyCode.Space)&& Energia>0&&Luz.active==true&&!Stunning)
+       if(Luz.activeSelf)
+        {
+            Hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0f), 4.5f, Inimigos);
+            {
+                if (Hit && Hit.transform.gameObject.GetComponent<Escuro>() != null)
+                {
+                    if (!Stunning)
+                    {
+                        Hit.transform.gameObject.GetComponent<Escuro>().health -= 7 * Time.deltaTime;
+                    }
+                    else
+                    {
+                        Hit.transform.gameObject.GetComponent<Escuro>().health = 0;
+                    }
+                }
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Space)&& Energia>0&&Luz.activeSelf==true&&!Stunning)
         {
             Stun.Play("Laterna_Stun");
-            Invoke("Lettherebelight", 0.1f);
+            Invoke(nameof(Lettherebelight), 0.1f);
         }
         
     }
@@ -74,14 +99,15 @@ public class Lanterna : MonoBehaviour
         Energia -= 50;
        if(Energia>0)
         {
-         Invoke("Cooldown",0.5f);
+         Invoke(nameof(Cooldown), 0.5f);
         }
        if(Energia<0)
         {
          Energia=0;
-          
+            CancelInvoke(nameof(Perdaenergia));
+            Invoke(nameof(Perdaenergia), 0.5f);
         }
-      Invoke("Cooldown",0.5f);
+       
     }
    void Cooldown()
    {

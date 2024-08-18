@@ -14,9 +14,9 @@ public class Movimentacao : MonoBehaviour
      float horizontal;
     public bool Standby=false;
     Rigidbody2D Rb;
-
+    public bool escondido = false;
     [Header("Itens")]
-    [SerializeField] public string [] ItemAtual;
+    public string [] ItemAtual;
     
 
     [Header("Outros")]
@@ -24,12 +24,13 @@ public class Movimentacao : MonoBehaviour
     [SerializeField] Light2D light;
     public bool lanterna = false;
     Porta porta;
+    GameObject esconderijo;
     [SerializeField] LayerMask interagiveis;
 
 
     [Header("Localização")]
-    [SerializeField] public TMP_Text Localizacao;
-    [SerializeField] public TMP_Text AndarAtual;
+     public TMP_Text Localizacao;
+     public TMP_Text AndarAtual;
     
    
     void Start()
@@ -38,18 +39,25 @@ public class Movimentacao : MonoBehaviour
     }
     void Update()
     {
+        if (Standby && escondido && Input.GetKeyDown(KeyCode.E))
+        {
+
+
+            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.5f);
+            Invoke(nameof(Escondido), 0.51f);
+        }
         if (!Standby)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                Rb.velocity = Vector2.right * horizontal * Velocidade * 1.5f;
+                Rb.velocity = 1.5f * horizontal * Velocidade * Vector2.right;
             }
 
             else
             {
-                Rb.velocity = Vector2.right * horizontal * Velocidade;
+                Rb.velocity = horizontal * Velocidade * Vector2.right;
             }
 
             if (horizontal != 0)
@@ -69,48 +77,93 @@ public class Movimentacao : MonoBehaviour
             {
                 light.intensity = 0.18f;
             }
-
-            Hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0f), 1.5f,interagiveis);
-
-            if (Hit.transform != null && Input.GetKeyDown(KeyCode.E))
+            if(Input.GetKeyDown(KeyCode.E))
             {
-                if (Hit.transform.gameObject.GetComponent<Porta>() != null && !Hit.transform.gameObject.CompareTag("Sópracozinha"))
+                Interagir();
+            }
+            
+
+        }
+
+    }
+    void Interagir()
+    {
+        Hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0f), 1.5f, interagiveis);
+
+        if (Hit.transform != null )
+        {
+            if (Hit.transform.gameObject.GetComponent<Porta>() != null && !Hit.transform.gameObject.CompareTag("Sópracozinha"))
+            {
+                porta = Hit.transform.gameObject.GetComponent<Porta>();
+
+                if (porta.Aberto)
                 {
-                    porta = Hit.transform.gameObject.GetComponent<Porta>();
+                    GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f);
+                    Invoke(nameof(Teleporte), 1.5f);
+                }
 
-                    if (porta.Aberto)
+                else
+                {
+                    if (porta.CompareTag("PortaComTeia") && !porta.Aberto && ItemAtual[0] == "Velaacesa")
                     {
-                        GameObject.Find("GameController").GetComponent<GameController>().Fadeout();
-                        Invoke("Teleporte", 1.6f);
+                        Destroy(porta.Bloqueio);
+                        porta.Aberto = true;
                     }
 
-                    else
+                    if (porta.Iten_desbloqueio == ItemAtual[0] && !porta.CompareTag("PortaComTeia"))
                     {
-                        if (porta.CompareTag("PortaComTeia") && !porta.Aberto && ItemAtual[0] == "Velaacesa")
-                        {
-                            Destroy(porta.Bloqueio);
-                            porta.Aberto = true;
-                        }
-
-                        if (porta.Iten_desbloqueio == ItemAtual[0] && !porta.CompareTag("PortaComTeia"))
-                        {
-                            porta.Aberto = true;
-                        }
+                        porta.Aberto = true;
                     }
+                }
+            }
+            else
+            {
+
+                porta = null;
+
+                if (Hit.transform.gameObject.GetComponent<Notas>() != null)
+                {
+                    GameObject.Find("Display_notas").GetComponent<Display_notas>().Pegarnota(Hit.transform.gameObject.GetComponent<Notas>());
                 }
                 else
                 {
-                   
-                        porta = null;
-                    
-                    if (Hit.transform.gameObject.GetComponent<Notas>() != null)
+                    if (Hit.transform.gameObject.CompareTag("Esconderijo"))
                     {
-                        GameObject.Find("Display_notas").GetComponent<Display_notas>().Pegarnota(Hit.transform.gameObject.GetComponent<Notas>());
+                        esconderijo = Hit.transform.gameObject;
+                        Standby = true;
+                        GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.5f);
+                        Invoke(nameof(Escondido), 0.7f);
+                        
+                    }
+                    else
+                    {
+                        if(Hit.transform.gameObject.CompareTag("Luz_gerador"))
+                        {
+                            GameObject.Find("GameController").GetComponent<GameController>().Ligarluz(Hit.transform.gameObject);
+
+                        }
                     }
                 }
                 
             }
 
+        }
+
+    }
+    void Escondido()
+    {
+        if (!escondido)
+        {
+            transform.position = esconderijo.transform.position;
+            escondido = true;
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
+        else
+        {
+
+            escondido = false;
+            Standby = false;
+            gameObject.GetComponent<SpriteRenderer>().enabled = true;
         }
     }
     void Teleporte()

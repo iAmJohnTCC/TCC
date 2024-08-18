@@ -53,7 +53,7 @@ public class Palhaco : MonoBehaviour
         
             if (!To_Vendo_Player)
             {
-                Invoke("PfVai", 2f);
+                Invoke(nameof(PfVai), 2f);
             }      
                 if (!To_Vendo_Player && PararDeVer == 0 && Objetivo==666 || Cheguei_No_Fim)
                 {

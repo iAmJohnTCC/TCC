@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.U2D;
 public class GameController : MonoBehaviour
 {
    [SerializeField] Image image;
-   
+    GameObject luz;
     void Start()
     {
         image.CrossFadeAlpha(0, 0, false);
@@ -18,17 +19,30 @@ public class GameController : MonoBehaviour
       
     }
     
-    public void Fadeout()
+    public void Fadeout(float time)
     {
         GameObject.Find("Player").GetComponent<Movimentacao>().Standby = true;
         image.CrossFadeAlpha(0, 0, false);
-        image.CrossFadeAlpha(1.5f, 1, false);
-        Invoke("Fadein",1.5f);
+        image.CrossFadeAlpha(time, 1, false);
+        Invoke(nameof(Fadein), time+0.2f);
     }
     void Fadein()
     {
+        GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
         image.CrossFadeAlpha(1, 0, false);
         image.CrossFadeAlpha(0, 0.5f, false);
-        GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
+       
+    }
+    public void Ligarluz(GameObject luzes)
+    {
+        luzes.GetComponent<Light2DBase>().enabled = true;
+        luzes.GetComponent<PolygonCollider2D>().enabled = true;
+        luz = luzes;
+        Invoke(nameof(Desligarluz),0.6f);
+    }
+    void Desligarluz()
+    {
+        luz.GetComponent<Light2DBase>().enabled = false;
+        luz.GetComponent<PolygonCollider2D>().enabled = false;
     }
 }
