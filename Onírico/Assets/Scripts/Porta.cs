@@ -10,14 +10,7 @@ public class Porta : MonoBehaviour
     public string Iten_desbloqueio;
     public string Localizacao;
     public string Andaratual;
-    void Start()
-    {
-        
-    }
-    void Update()
-    {
-        
-    }
+   
     
 }
 

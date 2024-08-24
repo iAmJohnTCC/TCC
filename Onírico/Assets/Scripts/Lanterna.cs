@@ -55,13 +55,13 @@ public class Lanterna : MonoBehaviour
         }
        if(Luz.activeSelf)
         {
-            Hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0f), 4.5f, Inimigos);
+            Hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0f), 5f, Inimigos);
             {
-                if (Hit && Hit.transform.gameObject.GetComponent<Escuro>() != null)
+                if (Hit && Hit.transform.gameObject.GetComponent<Escuro>() != null && Hit.transform.gameObject.GetComponent<Escuro>().comportamentoatual!="Nas sombras")
                 {
                     if (!Stunning)
                     {
-                        Hit.transform.gameObject.GetComponent<Escuro>().health -= 7 * Time.deltaTime;
+                        Hit.transform.gameObject.GetComponent<Escuro>().health -= 20 * Time.deltaTime;
                     }
                     else
                     {
@@ -69,6 +69,10 @@ public class Lanterna : MonoBehaviour
                     }
                 }
             }
+        }
+       if(Energia==0 && !Stunning)
+        {
+            Invoke(nameof(Perdaenergia), 0f);
         }
         if (Input.GetKeyDown(KeyCode.Space)&& Energia>0&&Luz.activeSelf==true&&!Stunning)
         {
@@ -99,9 +103,9 @@ public class Lanterna : MonoBehaviour
         Energia -= 50;
        if(Energia>0)
         {
-         Invoke(nameof(Cooldown), 0.5f);
+         Invoke(nameof(Cooldown), 0.6f);
         }
-       if(Energia<0)
+       if(Energia<=0)
         {
          Energia=0;
             CancelInvoke(nameof(Perdaenergia));
