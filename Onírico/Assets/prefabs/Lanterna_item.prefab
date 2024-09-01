@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1527867599452137133}
   - component: {fileID: 5193341940897107851}
   - component: {fileID: 7337781119832949268}
-  - component: {fileID: 8528900177608873048}
+  - component: {fileID: 7215433196947937515}
   m_Layer: 0
   m_Name: Lanterna_item
   m_TagString: Untagged
@@ -100,7 +100,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8528900177608873048
+--- !u!61 &7215433196947937515
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

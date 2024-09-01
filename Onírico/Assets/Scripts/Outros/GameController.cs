@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
     }
     void Fadein()
     {
-        GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
+        
         image.CrossFadeAlpha(1, 0, false);
         image.CrossFadeAlpha(0, 0.5f, false);
        

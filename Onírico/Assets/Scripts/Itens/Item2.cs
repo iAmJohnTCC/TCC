@@ -12,18 +12,12 @@ public class Item2 : MonoBehaviour
         Renderer.sprite = Meu_Item.Sprite_No_Cenario;
     }
 
-    void Update()
+    
+    public void Adicionarinventario(Movimentacao Player)
     {
+        Player.AdicionarItem(Meu_Item.Iten);
+        Destroy(this.gameObject);
 
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject == GameObject.Find("Player") )
-        {
-            collision.gameObject.GetComponent<Movimentacao>().AdicionarItem(Meu_Item.Iten);
-            Destroy(this.gameObject);
-        }
     }
 
 

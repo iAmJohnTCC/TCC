@@ -5,7 +5,7 @@ using UnityEngine.U2D;
 using TMPro;
 public class Lanterna : MonoBehaviour
 {
-    [SerializeField] GameObject Luz;
+    public GameObject Luz;
     [SerializeField]int Energia;
     [SerializeField]int Qtd_Pilha;
     [SerializeField] Animator Stun;
@@ -17,13 +17,17 @@ public class Lanterna : MonoBehaviour
     void Start()
     {
         Luz.SetActive(false);
-       
-        
+        Porcentagem = GameObject.Find("Hud_bateria").GetComponent<TMP_Text>();
     }
-
+    private void OnDisable()
+    {
+        Luz.SetActive(false);
+        Stunning = false;
+    }
     // Update is called once per frame
     void Update()
     {
+        
         if(Qtd_Pilha>0 && Input.GetKeyDown(KeyCode.R)&&Energia==0)
         {
             Energia = 100;
@@ -57,15 +61,25 @@ public class Lanterna : MonoBehaviour
         {
             Hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0f), 5f, Inimigos);
             {
-                if (Hit && Hit.transform.gameObject.GetComponent<Escuro>() != null && Hit.transform.gameObject.GetComponent<Escuro>().comportamentoatual!="Nas sombras")
+                if (Hit )
                 {
-                    if (!Stunning)
+                    if (Hit.transform.gameObject.GetComponent<Escuro>() != null && Hit.transform.gameObject.GetComponent<Escuro>().comportamentoatual != "Nas sombras")
                     {
-                        Hit.transform.gameObject.GetComponent<Escuro>().health -= 20 * Time.deltaTime;
+                        if (!Stunning)
+                        {
+                            Hit.transform.gameObject.GetComponent<Escuro>().health -= 20 * Time.deltaTime;
+                        }
+                        else
+                        {
+                            Hit.transform.gameObject.GetComponent<Escuro>().health = 0;
+                        }
                     }
                     else
                     {
-                        Hit.transform.gameObject.GetComponent<Escuro>().health = 0;
+                        if(Hit.transform.gameObject.GetComponent<Palhaco>()&&Stunning)
+                        {
+                            Hit.transform.gameObject.GetComponent<Palhaco>().Stun();
+                        }
                     }
                 }
             }

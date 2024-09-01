@@ -8,6 +8,7 @@ public class HUD_INVENTARIO : MonoBehaviour
     [SerializeField] Movimentacao SCR_Player;
     [SerializeField] GameObject[] Inventario_Pra_HUD;
     [SerializeField] Image[] Imagens;
+    [SerializeField] Sprite Semitem;
  
     void Start()
     {
@@ -23,6 +24,10 @@ public class HUD_INVENTARIO : MonoBehaviour
             if (SCR_Player.Inventario[i] != null)
             {
              Imagens[i].sprite = Inventario_Pra_HUD[i].GetComponent<SpriteRenderer>().sprite;
+            }
+            else
+            {
+                Imagens[i].sprite = Semitem;
             }
         }
         

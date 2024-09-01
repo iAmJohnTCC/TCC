@@ -30,37 +30,43 @@ public class Puzzle_qt_irma : MonoBehaviour
             Evento_qtirma = Instantiate(Evento_qtirma, new Vector2(38, 0f), Quaternion.identity);
             Evento_qtirma.GetComponent<Evento_qt_irma>().Lanterna = Lanterna;
             Destroy(Gaveta);
-            Desativar();
+            Iniciar();
             Destroy(this.gameObject, 1f);
         }
         else
         {
-            Desativar();
+            Iniciar();
             
+        }
+    }
+    public void Delete ()
+    {
+        if (Caracteres > 0)
+        {
+            Senha.text=Senha.text.Remove(Caracteres-1);
+            Caracteres--;
         }
     }
     public void Iniciar()
     {
         GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1);
         Invoke(nameof(Ui), 1.1f);
-        Senha.text = "";
+       
     }
     void Ui()
     {
         if(UI.activeSelf)
         {
             UI.SetActive(false);
+            GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
         }
         else
         {
             UI.SetActive(true);
+            Senha.text = "";
+            Caracteres = 0;
         }
     }
-    private void Desativar()
-    {
-        GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1);
-        Invoke(nameof(Ui), 1.1f);
-       
-    }
+    
 
 }

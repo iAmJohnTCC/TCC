@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "ca.andydbc.unity-texture-packer": "file:C:/Users/eric/Downloads/unity-texture-packer-0.1.0",
+    "com.unity.2d.psdimporter": "6.0.9",
     "com.unity.cinemachine": "2.8.9",
     "com.unity.collab-proxy": "1.17.7",
     "com.unity.feature.2d": "1.0.0",

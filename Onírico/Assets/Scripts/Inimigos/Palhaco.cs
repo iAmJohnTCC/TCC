@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 
 public class Palhaco : MonoBehaviour
 {
+   
     [SerializeField] GameObject[] Pontos_Finais;
     [SerializeField] GameObject[] Portas;
     [SerializeField] bool Cheguei_No_Fim;
     public bool To_Vendo_Player;
     RaycastHit2D hit;
+    public float speed=0.01f;
     [SerializeField] GameObject Player;
     [SerializeField] LayerMask Player_e_Portas;
     [SerializeField] float PararDeVer;
@@ -16,22 +19,30 @@ public class Palhaco : MonoBehaviour
     [SerializeField] string Localizacao;
     Vector2 Objetivotemporario;
     public int Lembrarporta=0;
+    bool Stunned = false;
     void Start()
     {
         Player = GameObject.Find("Player");
     }
     void Update()
     {
-        hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0), 7.5f, Player_e_Portas);
+
+        hit = Physics2D.Raycast(transform.position, new Vector2(-transform.localScale.x, 0), 7.5f, Player_e_Portas);
 
         if (hit.transform != null)
         {
             if (hit.transform.gameObject.GetComponent<Movimentacao>() != null)
             {
-               
-                PararDeVer = 10;
-                To_Vendo_Player = true;
-
+                if (Player.GetComponent<Movimentacao>().escondido && PararDeVer < 9)
+                {
+                    PararDeVer = 0;
+                }
+                else
+                {
+                    PararDeVer = 10;
+                    To_Vendo_Player = true;
+                    
+                }
             }
             else
             {
@@ -40,8 +51,8 @@ public class Palhaco : MonoBehaviour
         }
         if (To_Vendo_Player || PararDeVer > 0)
         {
-            Objetivo = Pontos_Finais.Length-1;
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(Player.transform.position.x, transform.position.y), 0.01f);
+            Objetivo = Pontos_Finais.Length - 1;
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(Player.transform.position.x, transform.position.y), speed);
             if (Player.transform.position.x > gameObject.transform.position.x && PararDeVer > 0)
             {
                 transform.localScale = new Vector3(-1, transform.localScale.y, 1);
@@ -55,19 +66,19 @@ public class Palhaco : MonoBehaviour
             }
         }
 
-        if (!To_Vendo_Player)
+        if (!To_Vendo_Player&&PararDeVer>0)
         {
-            Invoke(nameof(PfVai), 2f);
+            Invoke(nameof(PerderdeVista), 2f);
         }
-        if (!To_Vendo_Player && PararDeVer == 0 && Objetivo == Pontos_Finais.Length-1 || Cheguei_No_Fim)
+        if (!To_Vendo_Player && PararDeVer <= 0 && Objetivo==15|| Cheguei_No_Fim)
         {
-            Objetivo = Random.Range(0, Pontos_Finais.Length-1);
             
+            Invoke(nameof(NovoObjetivo), 2f);
         }
 
         if (!To_Vendo_Player && PararDeVer <= 0)
         {
-    
+
             if (Objetivotemporario == Vector2.zero)
             {
                 transform.position = Vector2.MoveTowards(transform.position, new Vector2(Pontos_Finais[Objetivo].transform.position.x, transform.position.y), 0.01f);
@@ -89,23 +100,49 @@ public class Palhaco : MonoBehaviour
                     transform.localScale = new Vector3(1, transform.localScale.y, 1);
                 }
             }
+           
             else
             {
                 transform.position = Vector2.MoveTowards(transform.position, Objetivotemporario, 0.02f);
-                
+                if (Objetivotemporario.x > gameObject.transform.position.x)
+                {
+                    transform.localScale = new Vector3(-1, transform.localScale.y, 1);
+                }
+                if (Objetivotemporario.x < gameObject.transform.position.x)
+                {
+                    transform.localScale = new Vector3(1, transform.localScale.y, 1);
+                }
             }
         }
+        if(Player.GetComponent<Movimentacao>().Standby&&!Player.GetComponent<Movimentacao>().escondido||Stunned==true)
+        {
+            speed = 0;
+
+        }
+        else
+        {
+            speed = 0.02f;
+        }
+       
+
  if(Pontos_Finais[Objetivo].transform.position.y>gameObject.transform.position.y+9|| Pontos_Finais[Objetivo].transform.position.y < gameObject.transform.position.y - 9)
         {
-            vaitercoisaaq();
-       
+            Objetivostemporarios();
+            
         }
           
        
 
 
     }
-    void vaitercoisaaq ()
+    void NovoObjetivo()
+    {
+        
+        Objetivo = Random.Range(0, 15);
+        speed = 0.01f;
+        CancelInvoke();
+    }
+    void Objetivostemporarios ()
         {
          
          if(Pontos_Finais[Objetivo].transform.position.y>transform.position.y+9)
@@ -150,8 +187,8 @@ public class Palhaco : MonoBehaviour
                     {
                         if(Localizacao=="Banheiro")
                         {
-                            Objetivotemporario = Portas[7].transform.position;
-                            Lembrarporta = 7;
+                            Objetivotemporario = Portas[6].transform.position;
+                            Lembrarporta = 6;
                         }
                     }
                 }
@@ -177,7 +214,7 @@ public class Palhaco : MonoBehaviour
             Porta porta = Portas[Lembrarporta].gameObject.GetComponent<Porta>();
 
             transform.position = porta.posicao.transform.position;
-            if(Lembrarporta==6)
+            if(Lembrarporta==7)
             {
                Localizacao=porta.Localizacao;
              }
@@ -186,16 +223,33 @@ public class Palhaco : MonoBehaviour
                 Localizacao = porta.Andaratual;
              }
            
-            vaitercoisaaq();
+            Objetivostemporarios();
 
 
         }
     }
-    public void PfVai()
+    public void PerderdeVista()
     {
         PararDeVer --;
         CancelInvoke();
 
     }
+    public void Stun()
+    {
+        Stunned = true;
+        gameObject.GetComponent<Collider2D>().isTrigger=true;
+        gameObject.GetComponent<Rigidbody2D>().isKinematic=true;
+        Invoke(nameof(Unstun), 5f);
+
+    }
+    void Unstun()
+    {
+        gameObject.GetComponent<Collider2D>().isTrigger = false;
+        gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+        PararDeVer = 10;
+        speed = 0.01f;
+        Stunned = false;
+    }
+
 }
    
