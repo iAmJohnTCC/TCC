@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Item_nome: Vela Acesa
   Item_Sprite: {fileID: 21300000, guid: ba5956e199261a14faec89c467915a26, type: 3}
-  Iten: {fileID: 319572429050380641, guid: d05a7185514f83c42951685583c98582, type: 3}
+  Iten: {fileID: 319572429050380641, guid: 7fc76b03faff59c48ba0dc23e2ba7930, type: 3}
   Item_ID: 0
   Descricao_Item: 
   Sprite_No_Cenario: {fileID: 21300000, guid: ba5956e199261a14faec89c467915a26, type: 3}

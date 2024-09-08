@@ -12,6 +12,7 @@ TagManager:
   - 2andar
   - Esconderijo
   - Luz_gerador
+  - Roupas
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Water
   - UI
   - Inimigos
-  - 
+  - Cenario
   - 
   - 
   - 

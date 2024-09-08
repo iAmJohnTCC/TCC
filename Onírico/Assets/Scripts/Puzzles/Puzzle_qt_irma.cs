@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Puzzle_qt_irma : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Puzzle_qt_irma : MonoBehaviour
     [SerializeField]GameObject Gaveta;
     [SerializeField] GameObject UI;
     [SerializeField] GameObject Evento_qtirma;
+    [SerializeField] Image tranca;
+    [SerializeField] Sprite Desbloqueado;
 
     
     public void Adicionarnumero(int valor)
@@ -26,12 +29,13 @@ public class Puzzle_qt_irma : MonoBehaviour
     {
         if (Senha.text == "1984")
         {
+            tranca.sprite = Desbloqueado;
             Lanterna = Instantiate(Lanterna,new Vector2(35,0f),Quaternion.identity);
             Evento_qtirma = Instantiate(Evento_qtirma, new Vector2(38, 0f), Quaternion.identity);
             Evento_qtirma.GetComponent<Evento_qt_irma>().Lanterna = Lanterna;
             Destroy(Gaveta);
             Iniciar();
-            Destroy(this.gameObject, 1f);
+            Destroy(this.gameObject, 2f);
         }
         else
         {

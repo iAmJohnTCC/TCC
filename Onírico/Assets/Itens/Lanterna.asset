@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Lanterna
   m_EditorClassIdentifier: 
   Item_nome: Lanterna
-  Item_Sprite: {fileID: 21300000, guid: 9889e969852746544bac465c800a6cc3, type: 3}
+  Item_Sprite: {fileID: 21300000, guid: 07c16ae7a7d0b9244a73c603ceec1a7f, type: 3}
   Iten: {fileID: 3251473711030454036, guid: 7dc8434a353f9054d811c6348572bc46, type: 3}
   Item_ID: 0
   Descricao_Item: Uma lanterna
-  Sprite_No_Cenario: {fileID: 21300000, guid: 9889e969852746544bac465c800a6cc3, type: 3}
+  Sprite_No_Cenario: {fileID: 21300000, guid: 07c16ae7a7d0b9244a73c603ceec1a7f, type: 3}

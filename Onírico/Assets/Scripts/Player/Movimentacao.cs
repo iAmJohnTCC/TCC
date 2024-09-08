@@ -31,12 +31,13 @@ public class Movimentacao : MonoBehaviour
     [SerializeField] LayerMask interagiveis;
 
 
+
     [Header("Localização")]
      public TMP_Text Localizacao;
      public TMP_Text AndarAtual;
 
     [Header("HUD")]
-    [SerializeField] GameObject RESIDENTEVIL6INVENTARIO;
+    [SerializeField] GameObject Hud_inventario;
     bool InventarioAberto = false;
 
    
@@ -129,7 +130,7 @@ public class Movimentacao : MonoBehaviour
             Inventario[0] = Inventario[3];
             Inventario[3] = ItemAnterior;
         }
-        if (Item_Atual!=null&&Item_Atual.name == "Lanterna_item")
+        if (Item_Atual!=null&&Item_Atual.name == "Lanterna")
         {
             gameObject.GetComponent<Lanterna>().enabled = true;
         }
@@ -144,13 +145,13 @@ public class Movimentacao : MonoBehaviour
 
             if (InventarioAberto)
             {
-                RESIDENTEVIL6INVENTARIO.SetActive(false);
+                Hud_inventario.SetActive(false);
                 InventarioAberto = false;
             }
 
             else
             {
-                RESIDENTEVIL6INVENTARIO.SetActive(true);
+                Hud_inventario.SetActive(true);
                 InventarioAberto = true;
             }
 
@@ -162,69 +163,80 @@ public class Movimentacao : MonoBehaviour
 
         if (Hit.transform != null )
         {
-            if (Hit.transform.gameObject.GetComponent<Item2>() != null)
+            if (Hit.transform.gameObject.GetComponent<Maquinas_de_lavar>() != null  )
             {
-                Hit.transform.gameObject.GetComponent<Item2>().Adicionarinventario(this);
+                if (Item_Atual != null && Item_Atual.GetComponent<scr_roupas>() != null)
+                {
+
+                    Hit.transform.gameObject.GetComponent<Maquinas_de_lavar>().colocar();
+                }
             }
             else
             {
-                if (Hit.transform.gameObject.GetComponent<Porta>() != null && !Hit.transform.gameObject.CompareTag("Sópracozinha"))
+                if (Hit.transform.gameObject.GetComponent<Item2>() != null&& Hit.transform.gameObject.GetComponent<Item2>().enabled)
                 {
-                    porta = Hit.transform.gameObject.GetComponent<Porta>();
-
-                    if (porta.Aberto)
-                    {
-                        GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f);
-                        Invoke(nameof(Teleporte), 1.5f);
-                    }
-                    else
-                    {
-                        if(porta.name== "Escada_bloqueada"&& Item_Atual.name== "Vela_Acesa")
-                        {
-                            Destroy(porta.Bloqueio);
-                            porta.Aberto=true;
-                        }
-                    }
-
-
+                    Hit.transform.gameObject.GetComponent<Item2>().Adicionarinventario(this);
                 }
                 else
                 {
-
-                    porta = null;
-
-                    if (Hit.transform.gameObject.GetComponent<Notas>() != null)
+                    if (Hit.transform.gameObject.GetComponent<Porta>() != null && !Hit.transform.gameObject.CompareTag("Sópracozinha"))
                     {
-                        GameObject.Find("Display_notas").GetComponent<Display_notas>().Pegarnota(Hit.transform.gameObject.GetComponent<Notas>());
-                    }
-                    else
-                    {
-                        if (Hit.transform.gameObject.CompareTag("Esconderijo"))
+                        porta = Hit.transform.gameObject.GetComponent<Porta>();
+
+                        if (porta.Aberto)
                         {
-                            esconderijo = Hit.transform.gameObject;
-                            Standby = true;
-                            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.5f);
-                            Invoke(nameof(Escondido), 0.7f);
-
+                            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f);
+                            Invoke(nameof(Teleporte), 1.5f);
                         }
                         else
                         {
-                            if (Hit.transform.gameObject.CompareTag("Luz_gerador"))
+                            if (porta.name == "Escada_bloqueada" && Item_Atual.name == "Vela_Acesa")
                             {
-                                GameObject.Find("GameController").GetComponent<GameController>().Ligarluz(Hit.transform.gameObject);
+                                Destroy(porta.Bloqueio);
+                                porta.Aberto = true;
+                            }
+                        }
+
+
+                    }
+                    else
+                    {
+
+                        porta = null;
+
+                        if (Hit.transform.gameObject.GetComponent<Notas>() != null)
+                        {
+                            GameObject.Find("Display_notas").GetComponent<Display_notas>().Pegarnota(Hit.transform.gameObject.GetComponent<Notas>());
+                        }
+                        else
+                        {
+                            if (Hit.transform.gameObject.CompareTag("Esconderijo") && Hit.transform.gameObject.GetComponent<Insetos>().TemInsetos == true)
+                            {
+                                esconderijo = Hit.transform.gameObject;
+                                Standby = true;
+                                GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.5f);
+                                Invoke(nameof(Escondido), 0.7f);
 
                             }
                             else
                             {
-                                if (Hit.transform.gameObject.name == "Puzzle_Qt_irma")
+                                if (Hit.transform.gameObject.CompareTag("Luz_gerador"))
                                 {
-                                    Hit.transform.gameObject.GetComponent<Puzzle_qt_irma>().Iniciar();
+                                    GameObject.Find("GameController").GetComponent<GameController>().Ligarluz(Hit.transform.gameObject);
+
+                                }
+                                else
+                                {
+                                    if (Hit.transform.gameObject.name == "Puzzle_Qt_irma")
+                                    {
+                                        Hit.transform.gameObject.GetComponent<Puzzle_qt_irma>().Iniciar();
+                                    }
                                 }
                             }
+
                         }
 
                     }
-
                 }
             }
 

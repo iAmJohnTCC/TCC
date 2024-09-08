@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Chave Mae
   m_EditorClassIdentifier: 
   Item_nome: Chave Mae
-  Item_Sprite: {fileID: 21300000, guid: 71e94e2f071491644b7f665511c62503, type: 3}
+  Item_Sprite: {fileID: 21300000, guid: 60f2df35356f330419189efb4ff0212b, type: 3}
   Iten: {fileID: 1281597982489308404, guid: 7730f87045a46ed45862d77b61184dc1, type: 3}
   Item_ID: 0
   Descricao_Item: 
-  Sprite_No_Cenario: {fileID: 21300000, guid: 71e94e2f071491644b7f665511c62503, type: 3}
+  Sprite_No_Cenario: {fileID: 21300000, guid: 60f2df35356f330419189efb4ff0212b, type: 3}

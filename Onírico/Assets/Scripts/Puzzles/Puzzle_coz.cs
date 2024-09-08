@@ -56,7 +56,7 @@ public class Puzzle_coz : MonoBehaviour
             && Status=="")
         {
             Status = "Gasativo";
-            Ui();
+            Ativar();
             
         }
         if(Input.GetKeyDown(KeyCode.Escape)&&ui.activeSelf)

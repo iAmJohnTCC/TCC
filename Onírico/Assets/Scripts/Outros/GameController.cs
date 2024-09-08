@@ -11,6 +11,13 @@ public class GameController : MonoBehaviour
     void Start()
     {
         image.CrossFadeAlpha(0, 0, false);
+
+      GameObject[]Roupas=GameObject.FindGameObjectsWithTag("Roupas");
+        for(int i = 0; i < Roupas.Length; i++)
+        {
+            Roupas[i].GetComponent<scr_roupas>().Voltaraorigem();
+        }
+
     }
 
     // Update is called once per frame
