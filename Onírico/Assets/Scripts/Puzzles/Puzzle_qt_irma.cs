@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class Puzzle_qt_irma : MonoBehaviour
+public class Puzzle_qt_irma : MonoBehaviour,Interagiveis
 {
    [SerializeField]TMP_Text Senha ;
     int Caracteres;
@@ -29,17 +29,18 @@ public class Puzzle_qt_irma : MonoBehaviour
     {
         if (Senha.text == "1984")
         {
+            GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(0);
             tranca.sprite = Desbloqueado;
-            Lanterna = Instantiate(Lanterna,new Vector2(35,0f),Quaternion.identity);
+            Lanterna = Instantiate(Lanterna,Gaveta.transform.position,Quaternion.identity);
             Evento_qtirma = Instantiate(Evento_qtirma, new Vector2(38, 0f), Quaternion.identity);
             Evento_qtirma.GetComponent<Evento_qt_irma>().Lanterna = Lanterna;
             Destroy(Gaveta);
-            Iniciar();
+            Interacao(GameObject.Find("Player").GetComponent<Movimentacao>());
             Destroy(this.gameObject, 2f);
         }
         else
         {
-            Iniciar();
+            Interacao(GameObject.Find("Player").GetComponent<Movimentacao>());
             
         }
     }
@@ -51,7 +52,7 @@ public class Puzzle_qt_irma : MonoBehaviour
             Caracteres--;
         }
     }
-    public void Iniciar()
+    public void Interacao(Movimentacao player)
     {
         GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1);
         Invoke(nameof(Ui), 1.1f);

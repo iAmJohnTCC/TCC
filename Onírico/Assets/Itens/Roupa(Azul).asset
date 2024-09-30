@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1427c66a7b5d746499bb116ee138fc5c, type: 3}
   m_Name: Roupa(Azul)
   m_EditorClassIdentifier: 
-  Item_nome: Roupa(Azul)
+  Item_nome: Roupa(Cor original:Azul)
   Item_Sprite: {fileID: 21300000, guid: 2093ccb4968f9cf4ab2d926666a1ded5, type: 3}
   Iten: {fileID: 7842035304747696361, guid: 4df65d1f358420b47971e4d756ff4ae4, type: 3}
   Item_ID: 0

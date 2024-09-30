@@ -73,7 +73,7 @@ public class Puzzle_lav : MonoBehaviour
                             if (cores[0].tipocor == "Primária" && cores[1].tipocor == "Secundária" ||
                                 cores[0].tipocor == "Secundária" && cores[1].tipocor == "Primária")
                             {
-                                cores[0].R -= cores[1].B; cores[0].G -= cores[1].R; cores[0].B -= cores[1].G;
+                                cores[0].R -= cores[1].B; cores[0].G += cores[1].R; cores[0].B -= cores[1].G;
                                 cores[0].tipocor = "Primária";
                             }
                             else
@@ -103,7 +103,9 @@ public class Puzzle_lav : MonoBehaviour
                 }
                
             }
-            
+            cores[0].R=Mathf.Clamp(cores[0].R,0,1);
+            cores[0].G=Mathf.Clamp(cores[0].G,0,1);
+             cores[0].B=Mathf.Clamp(cores[0].B,0,1);
             if (roupas[0]!=null)
             {
                 roupas[0].GetComponent<scr_roupas>().tipocor = cores[0].tipocor;
@@ -112,6 +114,7 @@ public class Puzzle_lav : MonoBehaviour
                 if (cores[0].R == 1 && cores[0].G == 0.5 && cores[0].B == 0.5)
                 {
                     Instantiate(Rouparosa, new Vector3(-36, -11.5f, 0), Quaternion.identity);
+                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(0);
                 }
                 else
                 {

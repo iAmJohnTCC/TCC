@@ -7,20 +7,22 @@ public class Lanterna : MonoBehaviour
 {
     public GameObject Luz;
     [SerializeField]int Energia;
-    [SerializeField]int Qtd_Pilha;
     [SerializeField] Animator Stun;
     [SerializeField] TMP_Text Porcentagem;
     public bool Stunning=false;
     RaycastHit2D Hit;
     [SerializeField]LayerMask Inimigos;
+    Movimentacao player;
     // Start is called before the first frame update
     void Start()
     {
+        player = GetComponent<Movimentacao>();
         Luz.SetActive(false);
         Porcentagem = GameObject.Find("Hud_bateria").GetComponent<TMP_Text>();
     }
     private void OnDisable()
     {
+        Porcentagem.text = "";
         Luz.SetActive(false);
         Stunning = false;
     }
@@ -28,11 +30,19 @@ public class Lanterna : MonoBehaviour
     void Update()
     {
         
-        if(Qtd_Pilha>0 && Input.GetKeyDown(KeyCode.R)&&Energia==0)
+        if( Input.GetKeyDown(KeyCode.R)&&Energia==0)
         {
-            Energia = 100;
-            Qtd_Pilha--;
-            Stunning=false;
+            for (int i = 0; i < player.Inventario.Length; i++)
+            {
+                if (player.Inventario[i]!=null&&player.Inventario[i].name == "Pilha")
+                {
+                    Energia = 100;
+                    player.Inventario[i] = null;
+                    Stunning = false;
+
+                    break;
+                }
+            }
             CancelInvoke();
         }
         if(GameObject.Find("Player").GetComponent<Movimentacao>().Standby == true)
@@ -42,7 +52,7 @@ public class Lanterna : MonoBehaviour
         }
         Porcentagem.text = Energia.ToString() + "%";
 
-        if (Input.GetKeyDown(KeyCode.F) && Energia>0)
+        if (Input.GetKeyDown(KeyCode.F) && Energia>0&& GameObject.Find("Player").GetComponent<Movimentacao>().Standby == false)
         {
             if (Luz.activeSelf == true)
             {
@@ -56,6 +66,7 @@ public class Lanterna : MonoBehaviour
                 Luz.SetActive(true);
                 InvokeRepeating(nameof(Perdaenergia), 0f, 4f);
             }
+            GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(5);
         }
        if(Luz.activeSelf)
         {
@@ -108,6 +119,7 @@ public class Lanterna : MonoBehaviour
      else
         {
             Luz.SetActive(false);
+            GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(5);
             CancelInvoke();
         }
     }

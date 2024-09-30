@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Pilhas
   m_EditorClassIdentifier: 
   Item_nome: Pilhas
-  Item_Sprite: {fileID: 0}
-  Iten: {fileID: 0}
+  Item_Sprite: {fileID: 21300000, guid: d000bb7ba05732e4d9d752ff85a3b250, type: 3}
+  Iten: {fileID: 3255973148402049745, guid: 5a0a4e14e8d2c3548ad8f43cc8f830a7, type: 3}
   Item_ID: 0
   Descricao_Item: 
-  Sprite_No_Cenario: {fileID: 0}
+  Sprite_No_Cenario: {fileID: 21300000, guid: d000bb7ba05732e4d9d752ff85a3b250, type: 3}

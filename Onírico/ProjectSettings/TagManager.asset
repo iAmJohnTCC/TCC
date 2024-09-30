@@ -13,6 +13,7 @@ TagManager:
   - Esconderijo
   - Luz_gerador
   - Roupas
+  - Escada
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - UI
   - Inimigos
   - Cenario
-  - 
+  - Esconderijo
   - 
   - 
   - 
@@ -52,4 +53,7 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Bloqueia_luz
+    uniqueID: 2674335009
     locked: 0

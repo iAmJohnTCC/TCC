@@ -6,6 +6,7 @@ public class Anim_player : MonoBehaviour
 {
     Animator anim;
     Movimentacao player;
+    bool naorepetir=false;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +17,18 @@ public class Anim_player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!player.Standby)
-        {
-            if (Input.GetAxisRaw("Horizontal") != 0)
+       
+            if (Input.GetAxisRaw("Horizontal") != 0&&!player.Standby)
             {
+                if(Input.GetKey(KeyCode.LeftShift))
+                {
+                    anim.speed = 1.5f;
+
+                }
+                else
+                {
+                    anim.speed = 1f;
+                }
                 if (gameObject.GetComponent<Lanterna>().enabled == true)
                 {
                     anim.Play("Andando_comlanterna");
@@ -32,6 +41,7 @@ public class Anim_player : MonoBehaviour
             }
             else
             {
+                anim.speed = 1f;
                 if (gameObject.GetComponent<Lanterna>().enabled == true)
                 {
                     anim.Play("idle_comLanterna");
@@ -43,14 +53,18 @@ public class Anim_player : MonoBehaviour
                 }
 
             }
-            if (player.Standby)
-            {
-                anim.speed = 0;
-            }
-            else
-            {
-                anim.speed = 1;
-            }
+            if(player.Textoguia.text!=""&&!naorepetir)
+        {
+            player.Textoguia.GetComponent<Animator>().Play("Guia_textoanim");
+            naorepetir = true;
+            Invoke(nameof(PodeRepetir), 6.1f);
         }
+           
+        
+    }
+    void PodeRepetir()
+    {
+        naorepetir = false;
+        player.Textoguia.text = "";
     }
 }

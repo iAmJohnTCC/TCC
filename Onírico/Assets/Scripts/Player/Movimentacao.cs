@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Rendering.Universal;
-using UnityEditor.Experimental.GraphView;
+
 
 
 public class Movimentacao : MonoBehaviour
@@ -26,18 +25,19 @@ public class Movimentacao : MonoBehaviour
     public RaycastHit2D Hit;
     [SerializeField] Light2D light;
     public bool lanterna = false;
-    Porta porta;
+   public Porta porta;
     GameObject esconderijo;
     [SerializeField] LayerMask interagiveis;
 
 
 
     [Header("Localização")]
-     public TMP_Text Localizacao;
-     public TMP_Text AndarAtual;
+     public string Localizacao;
+     public string AndarAtual;
 
     [Header("HUD")]
     [SerializeField] GameObject Hud_inventario;
+    public TMP_Text Textoguia;
     bool InventarioAberto = false;
 
    
@@ -55,7 +55,7 @@ public class Movimentacao : MonoBehaviour
         if (Standby && escondido && Input.GetKeyDown(KeyCode.E))
         {
             GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.5f);
-            Invoke(nameof(Escondido), 0.51f);
+            Invoke(nameof(Escondido), 0.6f);
         }
 
         if (!Standby)
@@ -95,14 +95,7 @@ public class Movimentacao : MonoBehaviour
             transform.localScale = new Vector3(horizontal, 1, 1);
         }
 
-        for (int i = 0; i < Inventario.Length; i++)
-        {
-            if (Inventario[i] == null)
-            {
-                Espaco_Livre = i;
-                break;
-            }
-        }
+       
         GameObject ItemAnterior;
         Item_Atual = Inventario[0];
         if (Input.GetKeyDown(KeyCode.Alpha1) && Inventario[1] != null)
@@ -111,24 +104,44 @@ public class Movimentacao : MonoBehaviour
             Inventario[0] = Inventario[1];
             Inventario[1] = ItemAnterior;
         }
-
+        else
+      {
         if (Input.GetKeyDown(KeyCode.Alpha2) && Inventario[2] != null)
         {
             ItemAnterior = Item_Atual;
             Inventario[0] = Inventario[2];
             Inventario[2] = ItemAnterior;
         }
+         else
+        {
         if (Input.GetKeyDown(KeyCode.Alpha3) && Inventario[3] != null)
         {
             ItemAnterior = Item_Atual;
             Inventario[0] = Inventario[3];
             Inventario[3] = ItemAnterior;
         }
+        else
+     {
         if (Input.GetKeyDown(KeyCode.Alpha4) && Inventario[4] != null)
         {
             ItemAnterior = Item_Atual;
-            Inventario[0] = Inventario[3];
-            Inventario[3] = ItemAnterior;
+            Inventario[0] = Inventario[4];
+            Inventario[4] = ItemAnterior;
+        }
+     }
+}
+}
+        for (int i = 0; i < Inventario.Length; i++)
+        {
+            if (Inventario[i] == null)
+            {
+                Espaco_Livre = i;
+                break;
+            }
+            else
+            {
+              Espaco_Livre=5;
+            }
         }
         if (Item_Atual!=null&&Item_Atual.name == "Lanterna")
         {
@@ -159,90 +172,45 @@ public class Movimentacao : MonoBehaviour
     }
     void Interagir()
     {
-        Hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0f), 1.5f, interagiveis);
+        Hit = Physics2D.Raycast(new Vector2(transform.position.x,transform.position.y-0.2f), new Vector2(transform.localScale.x, 0f), 1.5f, interagiveis);
 
         if (Hit.transform != null )
         {
-            if (Hit.transform.gameObject.GetComponent<Maquinas_de_lavar>() != null  )
-            {
-                if (Item_Atual != null && Item_Atual.GetComponent<scr_roupas>() != null)
-                {
 
-                    Hit.transform.gameObject.GetComponent<Maquinas_de_lavar>().colocar();
-                }
-            }
-            else
-            {
-                if (Hit.transform.gameObject.GetComponent<Item2>() != null&& Hit.transform.gameObject.GetComponent<Item2>().enabled)
-                {
-                    Hit.transform.gameObject.GetComponent<Item2>().Adicionarinventario(this);
-                }
-                else
-                {
-                    if (Hit.transform.gameObject.GetComponent<Porta>() != null && !Hit.transform.gameObject.CompareTag("Sópracozinha"))
-                    {
-                        porta = Hit.transform.gameObject.GetComponent<Porta>();
-
-                        if (porta.Aberto)
+                        if(Hit.transform.GetComponent<Interagiveis>()!=null)
                         {
-                            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f);
-                            Invoke(nameof(Teleporte), 1.5f);
+                         Hit.transform.GetComponent<Interagiveis>().Interacao(this);
                         }
-                        else
-                        {
-                            if (porta.name == "Escada_bloqueada" && Item_Atual.name == "Vela_Acesa")
-                            {
-                                Destroy(porta.Bloqueio);
-                                porta.Aberto = true;
-                            }
-                        }
-
-
-                    }
-                    else
-                    {
-
-                        porta = null;
-
-                        if (Hit.transform.gameObject.GetComponent<Notas>() != null)
-                        {
-                            GameObject.Find("Display_notas").GetComponent<Display_notas>().Pegarnota(Hit.transform.gameObject.GetComponent<Notas>());
-                        }
-                        else
-                        {
-                            if (Hit.transform.gameObject.CompareTag("Esconderijo") && Hit.transform.gameObject.GetComponent<Insetos>().TemInsetos == true)
-                            {
-                                esconderijo = Hit.transform.gameObject;
-                                Standby = true;
-                                GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.5f);
-                                Invoke(nameof(Escondido), 0.7f);
-
-                            }
+                   
                             else
                             {
-                                if (Hit.transform.gameObject.CompareTag("Luz_gerador"))
+                                if (Hit.transform.gameObject.CompareTag("Esconderijo") //&& Hit.transform.gameObject.GetComponent<Insetos>().TemInsetos == true
+                                                                                           )
                                 {
-                                    GameObject.Find("GameController").GetComponent<GameController>().Ligarluz(Hit.transform.gameObject);
+                                    esconderijo = Hit.transform.gameObject;
+                                   
+                                    GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.5f);
+                                    Invoke(nameof(Escondido), 0.6f);
 
                                 }
                                 else
                                 {
-                                    if (Hit.transform.gameObject.name == "Puzzle_Qt_irma")
+                                    if (Hit.transform.gameObject.CompareTag("Luz_gerador"))
                                     {
-                                        Hit.transform.gameObject.GetComponent<Puzzle_qt_irma>().Iniciar();
+                                        GameObject.Find("GameController").GetComponent<GameController>().Ligarluz(Hit.transform.gameObject);
+
                                     }
+                               
                                 }
+
                             }
-
-                        }
-
-                    }
-                }
-            }
-
         }
-
     }
+            
+
+        
+
+    
     void Escondido()
     {
         if (!escondido)
@@ -251,6 +219,7 @@ public class Movimentacao : MonoBehaviour
             escondido = true;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
             Rb.isKinematic = true;
+            Standby = true;
             gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
 
         }
@@ -264,16 +233,18 @@ public class Movimentacao : MonoBehaviour
             gameObject.GetComponent<CapsuleCollider2D>().isTrigger = false;
         }
     }
-    void Teleporte()
+   public void Teleporte()
     {
+        
         Standby = false;
+       
         transform.position = porta.posicao.transform.position;
 
-        Localizacao.text = porta.Localizacao;
-
+        Localizacao = porta.Localizacao;
+        GameObject.Find("Main Camera").GetComponent<Camera_posicoes>().Trocarcamera(Localizacao);
         if (porta.Andaratual != "")
         {
-            AndarAtual.text = porta.Andaratual;
+            AndarAtual = porta.Andaratual;
         }
         porta = null;
     }
@@ -281,7 +252,8 @@ public class Movimentacao : MonoBehaviour
     {
         if(collision.CompareTag("Sópracozinha"))
         {
-            Localizacao.text=collision.gameObject.GetComponent<Porta>().Localizacao;
+            Localizacao=collision.gameObject.GetComponent<Porta>().Localizacao;
+            GameObject.Find("Main Camera").GetComponent<Camera_posicoes>().Trocarcamera(Localizacao);
         }
     }
 
@@ -292,6 +264,19 @@ public class Movimentacao : MonoBehaviour
             if (Inventario[i] == null)
             {
                 Inventario[Espaco_Livre] = ItemAdicionar;
+                break;
+            }
+        }
+ for (int i = 0; i < Inventario.Length; i++)
+        {
+            if (Inventario[i] == null)
+            {
+                Espaco_Livre = i;
+                break;
+            }
+            else
+            {
+              Espaco_Livre=5;
             }
         }
     }

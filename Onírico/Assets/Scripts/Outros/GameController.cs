@@ -10,9 +10,10 @@ public class GameController : MonoBehaviour
     GameObject luz;
     void Start()
     {
-        image.CrossFadeAlpha(0, 0, false);
+        image.CrossFadeAlpha(1, 0, false);
+        image.CrossFadeAlpha(0, 2f, false);
 
-      GameObject[]Roupas=GameObject.FindGameObjectsWithTag("Roupas");
+        GameObject[]Roupas=GameObject.FindGameObjectsWithTag("Roupas");
         for(int i = 0; i < Roupas.Length; i++)
         {
             Roupas[i].GetComponent<scr_roupas>().Voltaraorigem();
@@ -38,7 +39,10 @@ public class GameController : MonoBehaviour
         
         image.CrossFadeAlpha(1, 0, false);
         image.CrossFadeAlpha(0, 0.5f, false);
-       
+       if(GameObject.Find("Player").GetComponent<Movimentacao>().Standby&&!GameObject.Find("Player").GetComponent<Movimentacao>().escondido)
+         {
+          GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false; 
+         }
     }
     public void Ligarluz(GameObject luzes)
     {

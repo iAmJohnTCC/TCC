@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Puzzle_coz : MonoBehaviour
+public class Puzzle_coz : MonoBehaviour,Interagiveis
 {
     [SerializeField]int[]Gas=new int[3];
     [SerializeField]Image [] Img_gas=new Image[3];
@@ -17,28 +17,7 @@ public class Puzzle_coz : MonoBehaviour
     }
     private void Update()
     {
-        if(player.Hit.transform!=null&&player.Hit.transform.gameObject==this.gameObject&&Input.GetKeyDown(KeyCode.E))
-        {
-            if(Status=="")
-            {
-                Ativar();
-            }
-            else
-            {
-                if(Status=="Gasativo"&&player.Item_Atual.name=="Acendedor")
-                {
-                    Status="Acendeu";
-                }
-                else
-                {
-                    if (Status=="Acendeu"&& player.Item_Atual.name=="Vela")
-                    {
-                        player.Inventario[0] = null;
-                        player.Inventario[0] = VelaAcesa;
-                    }
-                }
-            }
-        }
+        
         if (Gas[0]/12.5 != Img_gas[0].transform.localScale.y)
         {
             Animacao1();
@@ -56,6 +35,7 @@ public class Puzzle_coz : MonoBehaviour
             && Status=="")
         {
             Status = "Gasativo";
+            GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(0);
             Ativar();
             
         }
@@ -199,6 +179,42 @@ public class Puzzle_coz : MonoBehaviour
         Gas[1] = Mathf.Clamp(Gas[1], 0, 100);
         Gas[2] = Mathf.Clamp(Gas[2], 0, 100);
 
+    }
+    public void Interacao(Movimentacao player)
+    {
+        if (Status == "")
+        {
+            Ativar();
+        }
+        else
+        {
+            if (Status == "Gasativo")
+            {
+                if (player.Item_Atual.name == "Acendedor")
+                {
+                    Status = "Acendeu";
+                }
+                else
+                {
+                    player.Textoguia.text = "O gás tá consertado, mas eu ainda preciso de algo pra acende-lo";
+                }
+            }
+            else
+            {
+                if (Status == "Acendeu" )
+                {
+                    if (player.Item_Atual.name == "Vela")
+                    {
+                        player.Inventario[0] = null;
+                        player.Inventario[0] = VelaAcesa;
+                    }
+                    else
+                    {
+                        player.Textoguia.text = "agora que o fogo está acesso eu só preciso de algo pra carregar a chama";
+                    }
+                }
+            }
+        }
     }
 
 }

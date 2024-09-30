@@ -25,6 +25,8 @@ public class Inventario_hud : MonoBehaviour
             if (SCR_Player.Inventario[i] != null)
             {
              Imagens[i].sprite = Inventario_Pra_HUD[i].GetComponent<SpriteRenderer>().sprite;
+
+                Imagens[i].color= Inventario_Pra_HUD[i].GetComponent<SpriteRenderer>().color;
                 nomeitens[i].text = Inventario_Pra_HUD[i].name;
             }
             else
