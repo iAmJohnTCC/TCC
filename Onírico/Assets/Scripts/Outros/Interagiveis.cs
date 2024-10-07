@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface Interagiveis
 {
-   public void Interacao(Movimentacao player);
+    public void Interacao(Movimentacao player);
+
 }

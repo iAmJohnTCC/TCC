@@ -8,9 +8,11 @@ public class Escuro : MonoBehaviour
     [SerializeField] string[] Comportamentos;
     public float health = 0;
     public Vector2 posicaoPlayer;
+    bool Bossfight = false;
     [SerializeField] float velo;
     public string comportamentoatual = "Nas sombras";
     public string Backupcomportamento;
+    [SerializeField]GameObject Morre;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +30,7 @@ public class Escuro : MonoBehaviour
         }
         else
         {
-            velo = 0.03f;
+            velo = 0.02f;
         }
         if (comportamentoatual == "Nas sombras"  )
         {
@@ -50,11 +52,19 @@ public class Escuro : MonoBehaviour
         }
 
 
-        if (GameObject.Find("Player").GetComponent<Movimentacao>().Localizacao == "Sala do gerador"&&comportamentoatual!="Boss")
+        if (GameObject.Find("Player").GetComponent<Movimentacao>().Localizacao == "Sala do gerador"&&!Bossfight)
         {
+            Bossfight=true;
             Trocadecomportamento();
         }
-
+        if( comportamentoatual == "Stalking"|| comportamentoatual == "Boss"|| comportamentoatual == "Ataque")
+        {
+            Morre.GetComponent<BoxCollider2D>().enabled = true;
+        }
+        else
+        {
+            Morre.GetComponent<BoxCollider2D>().enabled = false;
+        }
 
 
     }
@@ -63,74 +73,97 @@ public class Escuro : MonoBehaviour
     {
         CancelInvoke();
         this.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-        if (GameObject.Find("Player").GetComponent<Movimentacao>().Localizacao== "Sala do gerador")
+        if (!GameObject.Find("Player").GetComponent<Movimentacao>().Standby)
         {
-            comportamentoatual = "Boss";
-            transform.position = new Vector2(4.18f, GameObject.Find("Player").transform.position.y);
-        }
-        else
-        {
-
-
-            comportamentoatual = Comportamentos[Random.Range(1, 3)];
-            posicaoPlayer = GameObject.Find("Player").transform.position;
-            transform.position = new Vector2( posicaoPlayer.x-1f, posicaoPlayer.y);
-        }
-        if(comportamentoatual!="Nas sombras")
-        {
-            gameObject.GetComponent<SpriteRenderer>().enabled = true;
-        }
-       
-           if(comportamentoatual == "Nas sombras")
+            if (GameObject.Find("Player").GetComponent<Movimentacao>().Localizacao == "Sala do gerador")
             {
-                Invoke(nameof(Trocadecomportamento), Random.Range(20, 60));
+                comportamentoatual = "Boss";
+                int i = Random.Range(0, 2);
+                if (i == 0)
+                {
+                    transform.position = new Vector2(4.18f, transform.position.y + 1.2f);
+                }
+                else
+                {
+                    transform.position = new Vector2(25.69f, transform.position.y + 1.2f);
+                }
+                health = 10;
+
             }
-           else
+            else
             {
 
-            Animator anim = GetComponent<Animator>();
-            anim.Play("Escuro_summon");
-            if (comportamentoatual != "Boss")
-            {
-                Invoke(nameof(Trocadecomportamento), Random.Range(20, 60));
+
+                comportamentoatual = Comportamentos[Random.Range(1, 3)];
+                posicaoPlayer = GameObject.Find("Player").transform.position;
+                transform.position = new Vector2(posicaoPlayer.x + Random.Range(-8f,8f), posicaoPlayer.y+1.2f);
             }
-        }
-
-
-    }
-    void Summon()
-    {
-       this.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-        health = 5;
-        Backupcomportamento = comportamentoatual;
-        comportamentoatual = "Summon";
-        
-            
-            if(Backupcomportamento=="Ataque")
+            if (comportamentoatual != "Nas sombras")
             {
-               Invoke(nameof(Ataque),2f);
+                gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            }
+
+            if (comportamentoatual == "Nas sombras")
+            {
                 Invoke(nameof(Trocadecomportamento), Random.Range(20, 60));
             }
             else
             {
-                if (Backupcomportamento == "Boss")
+                Backupcomportamento = comportamentoatual;
+                comportamentoatual = "Summon";
+                Invoke(nameof(Ativar), 1.5f);
+                Animator anim = GetComponent<Animator>();
+                anim.Play("Escuro_summon");
+                
+                if (comportamentoatual != "Boss")
                 {
-                    Invoke(nameof(Boss), 2f);
-                }
-                else
-                {
-                    Invoke(nameof(Stalking), 2f);
                     Invoke(nameof(Trocadecomportamento), Random.Range(20, 60));
                 }
+                
             }
-            
+
+        }
+        else
+        {
+            if(GameObject.Find("Player").GetComponent<Movimentacao>().Localizacao == "Sala do gerador")
+            {
+                comportamentoatual = "Boss";
+                Backupcomportamento = comportamentoatual;
+                comportamentoatual = "Summon";
+                Invoke(nameof(Ativar), 1.5f);
+                Animator anim = GetComponent<Animator>();
+                anim.Play("Escuro_summon");
+
+               
+            }
+            else
+            {
+                Invoke(nameof(Trocadecomportamento), Random.Range(10, 20));
+            }
+           
+        }
     }
+    
         
         
-        
+        void Ativar()
+    {
+       
+        comportamentoatual = Backupcomportamento;
+        if(Backupcomportamento == "Boss")
+        {
+            Debug.Log("Work");
+         
+            comportamentoatual = "Boss";
+            Boss();
+        }
+    }
     
     void Boss()
     {
+       
+        Animator anim = GetComponent<Animator>();
+        anim.Play("Escuro_idle");
         comportamentoatual = "Boss";
         posicaoPlayer = GameObject.Find("Player").transform.position;
         GameObject.Find("Porta_D_gerador").GetComponent<Porta>().Aberto = false;
@@ -145,42 +178,28 @@ public class Escuro : MonoBehaviour
         }
         if (health <= 0)
         {
-
-            int i = Random.Range(0, 2);
-            if (i == 0)
-            {
-                transform.position = new Vector2(4.18f, transform.position.y);
-            }
-            else
-            {
-                transform.position = new Vector2(25.69f, transform.position.y);
-            }
-            health = 10;
+            
+            comportamentoatual = "DAMEDANE";
+            anim.Play("Escuro_unsummon");
+            Invoke(nameof(Ativar), 1.5f);
+            Invoke(nameof(Trocadecomportamento), 2f);
         }
 
     }
 
     void Nassombras()
     {
-        if (GameObject.Find("Player").GetComponent<Movimentacao>().Localizacao == "Sala do gerador")
-        {
-            
-            Invoke(nameof(Trocadecomportamento), 0f);
-            return;
-        }
+         Animator anim = GetComponent<Animator>();
+        anim.Play("Escuro_idle");
         gameObject.GetComponent<SpriteRenderer>().enabled = false;
         health = 5;
     }
 
     void Ataque()
     {
-       
-        if (GameObject.Find("Player").GetComponent<Movimentacao>().Localizacao == "Sala do gerador")
-        {
-            
-            Invoke(nameof(Trocadecomportamento), 0f);
-            return;
-        }
+        Animator anim = GetComponent<Animator>();
+        anim.Play("Escuro_idle");
+
         posicaoPlayer = GameObject.Find("Player").transform.position;
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(posicaoPlayer.x, transform.position.y), velo);
         comportamentoatual = "Ataque";
@@ -189,7 +208,10 @@ public class Escuro : MonoBehaviour
         if (health <= 0)
         {
             CancelInvoke();
-            comportamentoatual = "Nas sombras";
+            Backupcomportamento = "Nas sombras";
+            comportamentoatual = "Unsummon";
+            anim.Play("Escuro_unsummon");
+            Invoke(nameof(Ativar),1.5f);
             Invoke(nameof(Trocadecomportamento), Random.Range(20, 60));
         }
         if (GameObject.Find("Player").transform.position.x > gameObject.transform.position.x)
@@ -200,16 +222,15 @@ public class Escuro : MonoBehaviour
         {
             transform.localScale = new Vector3(1, transform.localScale.y, 1);
         }
-        if(GameObject.Find("Player").transform.position.y != transform.position.y||health<=0)
-        {
-            comportamentoatual = "Nas sombras";
-            Nassombras();
-        }
+        
     }
 
     void Stalking()
     {
-        
+        comportamentoatual = "Stalking";
+        Animator anim = GetComponent<Animator>();
+        anim.Play("Escuro_idle");
+
         if (GameObject.Find("Player").transform.position.x > gameObject.transform.position.x)
         {
             transform.localScale = new Vector3(-1, transform.localScale.y, 1);
@@ -218,13 +239,16 @@ public class Escuro : MonoBehaviour
         {
             transform.localScale = new Vector3(1, transform.localScale.y, 1);
         }
-       if(GameObject.Find("Player").transform.position.y != transform.position.y||health<=0)
+       if(health<=0)
         {
- this.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-            comportamentoatual = "Nas sombras";
-            Nassombras();
+            CancelInvoke();
+            Backupcomportamento = "Nas sombras";
+            comportamentoatual = "Unsummon";
+            anim.Play("Escuro_unsummon");
+            Invoke(nameof(Trocadecomportamento), Random.Range(20, 60));
+            Invoke(nameof(Ativar), 1.5f);
         }
-        comportamentoatual = "Stalking";
+       
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -7,6 +7,7 @@ public class Anim_player : MonoBehaviour
     Animator anim;
     Movimentacao player;
     bool naorepetir=false;
+    string mudouotexto="";
     // Start is called before the first frame update
     void Start()
     {
@@ -17,27 +18,33 @@ public class Anim_player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-            if (Input.GetAxisRaw("Horizontal") != 0&&!player.Standby)
+
+        if (Input.GetAxisRaw("Horizontal") != 0 && !player.Standby)
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
             {
-                if(Input.GetKey(KeyCode.LeftShift))
-                {
-                    anim.speed = 1.5f;
+                anim.speed = 1.5f;
 
-                }
-                else
-                {
-                    anim.speed = 1f;
-                }
-                if (gameObject.GetComponent<Lanterna>().enabled == true)
-                {
-                    anim.Play("Andando_comlanterna");
+            }
+            else
+            {
+                anim.speed = 1f;
+            }
+            if (gameObject.GetComponent<Lanterna>().enabled == true)
+            {
+                anim.Play("Andando_comlanterna");
 
-                }
-                else
-                {
-                    anim.Play("Andando_semlanterna");
-                }
+            }
+            else
+            {
+                anim.Play("Andando_semlanterna");
+            }
+        }
+        else
+        {
+            if (player.Morte)
+            {
+                anim.Play("Player_Morte");
             }
             else
             {
@@ -53,18 +60,20 @@ public class Anim_player : MonoBehaviour
                 }
 
             }
-            if(player.Textoguia.text!=""&&!naorepetir)
-        {
-            player.Textoguia.GetComponent<Animator>().Play("Guia_textoanim");
-            naorepetir = true;
-            Invoke(nameof(PodeRepetir), 6.1f);
+            if (player.Textoguia.text != mudouotexto)
+            {
+                CancelInvoke(nameof(PodeRepetir));
+                player.Textoguia.GetComponent<Animator>().Play("Guia_textoanim", -1, 0);
+                mudouotexto = player.Textoguia.text;
+                naorepetir = true;
+                Invoke(nameof(PodeRepetir), 6.1f);
+            }
         }
-           
         
     }
     void PodeRepetir()
     {
-        naorepetir = false;
         player.Textoguia.text = "";
+        mudouotexto = "";
     }
 }

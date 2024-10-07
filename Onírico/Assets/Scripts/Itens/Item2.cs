@@ -36,7 +36,7 @@ public class Item2 : MonoBehaviour,Interagiveis
         }
        else
         {
-            Player.Textoguia.text = "Não consigo carregar mais nada, tenho que descartar algo";
+            Player.Textoguia.text = "Não consigo carregar mais nada, tenho que descartar algo(Você pode descartar itens Apertando X)";
         }
         
     }

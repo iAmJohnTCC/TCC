@@ -7,7 +7,7 @@ public class Evento_qt_mae : MonoBehaviour
 {
     [SerializeField] GameObject Pilha_felicidade;
     [SerializeField] GameObject Fim_cutscene;
-    bool Semrepeticoes=false;
+    public bool Semrepeticoes=false;
     // Start is called before the first frame update
   
 
@@ -20,8 +20,13 @@ public class Evento_qt_mae : MonoBehaviour
             GameObject.Find("Player").GetComponent<SpriteRenderer>().enabled = false;
             Instantiate(Fim_cutscene);
             Semrepeticoes=true;
-           
+            GameObject.Find("GameController").GetComponent<GameController>().Fim();
+            Invoke(nameof(Theendisnigh), 15f);
         }
+    }
+    void Theendisnigh()
+    {
+        GameObject.Find("GameController").GetComponent<GameController>().Fadeout(5f);
     }
   
 }

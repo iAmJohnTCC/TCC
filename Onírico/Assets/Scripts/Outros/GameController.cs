@@ -4,15 +4,20 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.U2D;
+using UnityEngine.SceneManagement;
 public class GameController : MonoBehaviour
 {
    [SerializeField] Image image;
     GameObject luz;
+    int M, S;
     void Start()
     {
         image.CrossFadeAlpha(1, 0, false);
         image.CrossFadeAlpha(0, 2f, false);
-
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+        {
+            InvokeRepeating(nameof(Tempo), 1, 1);
+        }
         GameObject[]Roupas=GameObject.FindGameObjectsWithTag("Roupas");
         for(int i = 0; i < Roupas.Length; i++)
         {
@@ -39,21 +44,57 @@ public class GameController : MonoBehaviour
         
         image.CrossFadeAlpha(1, 0, false);
         image.CrossFadeAlpha(0, 0.5f, false);
-       if(GameObject.Find("Player").GetComponent<Movimentacao>().Standby&&!GameObject.Find("Player").GetComponent<Movimentacao>().escondido)
-         {
-          GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false; 
-         }
+      
     }
     public void Ligarluz(GameObject luzes)
     {
-        luzes.GetComponent<Light2DBase>().enabled = true;
-        luzes.GetComponent<PolygonCollider2D>().enabled = true;
         luz = luzes;
-        Invoke(nameof(Desligarluz),0.6f);
+        if (!luz.GetComponent<Light2DBase>().enabled)
+        {
+            luz.GetComponent<Light2DBase>().enabled = true;
+            luz.GetComponent<PolygonCollider2D>().enabled = true;
+
+            Invoke(nameof(Desligarluz), 0.6f);
+        }
     }
     void Desligarluz()
     {
         luz.GetComponent<Light2DBase>().enabled = false;
         luz.GetComponent<PolygonCollider2D>().enabled = false;
+    }
+    public void Mudarcena (int i)
+    {
+        SceneManager.LoadScene(i);
+    }
+    
+    public void Morte()
+    {
+        Animator anim= GetComponent<Animator>();
+        anim.Play("GameController_Death");
+    }
+    void Tempo()
+    {
+        S++;
+        if(S==60)
+        {
+            M++;
+            S = 0;
+           
+
+        }
+    }
+    public void Fim()
+    {
+        CancelInvoke(nameof(Morte));
+       
+      
+            PlayerPrefs.SetInt("Minutos", M);
+            PlayerPrefs.SetInt("Segundos", S);
+            PlayerPrefs.Save();
+        Invoke(nameof(Theend), 20f);
+    }
+    void Theend()
+    {
+        Mudarcena(3);
     }
 }

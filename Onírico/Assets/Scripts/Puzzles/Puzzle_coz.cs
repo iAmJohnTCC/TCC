@@ -57,6 +57,7 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
     {
         if(ui.activeSelf==false)
         {
+          
             ui.SetActive(true);
         }
         else
@@ -185,6 +186,7 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
         if (Status == "")
         {
             Ativar();
+            player.Standby = true;
         }
         else
         {

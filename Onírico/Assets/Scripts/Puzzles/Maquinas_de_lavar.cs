@@ -51,8 +51,14 @@ public class Maquinas_de_lavar : MonoBehaviour,Interagiveis
         {
             Roupas_adquiridas[i] = Instantiate(GameObject.Find("Player").GetComponent<Movimentacao>().Inventario[0], transform.position, Quaternion.identity);
             player.Inventario[0] = null;
-            Roupas_adquiridas[i].GetComponent<Item2>().enabled = false;
+            Roupas_adquiridas[i].GetComponent<BoxCollider2D>().enabled = false;
             i++;
+        }
+        else
+        {
+
+            player.Textoguia.text = "Eu posso colocar as roupas na máquina de lavar se eu interagir enquanto uma delas é meu item atual, depois para lavar é só apertar o botão cinza";
+            
         }
     }
     

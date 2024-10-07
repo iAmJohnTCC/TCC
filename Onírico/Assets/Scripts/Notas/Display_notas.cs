@@ -11,6 +11,7 @@ public class Display_notas : MonoBehaviour
     [SerializeField] GameObject Escuro;
     [SerializeField]public Notas nota;
     [SerializeField] Image imagem;
+    [SerializeField] Image Notaimg;
      int Num_pagina;
     // Start is called before the first frame update
     void Start()
@@ -71,6 +72,8 @@ public class Display_notas : MonoBehaviour
                 Paginas.CrossFadeAlpha(0, 1, false);
                 Escuro.GetComponent<Image>().CrossFadeAlpha(0, 1, false);
                 imagem.CrossFadeAlpha(0, 1, false);
+                Notaimg.CrossFadeAlpha(1, 0, false);
+                Notaimg.CrossFadeAlpha(0F, 1, false);
                 Invoke("Desativar", 1f);
                 GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
                 nota = null;
@@ -81,7 +84,7 @@ public class Display_notas : MonoBehaviour
     public void Pegarnota (Notas note)
     {    
         nota = note;
-       
+       Notaimg.gameObject.SetActive(true);
         Notatexto.gameObject.SetActive(true);
         Escuro.SetActive(true);
         Paginas.gameObject.SetActive(true);
@@ -89,8 +92,10 @@ public class Display_notas : MonoBehaviour
         Notatexto.CrossFadeAlpha(0, 0, false);
         Paginas.CrossFadeAlpha(0, 0, false);
         Escuro.GetComponent<Image>().CrossFadeAlpha(0, 0, false);
+        Notaimg.CrossFadeAlpha(0, 0, false);
         Notatexto.CrossFadeAlpha(1, 1, false);
         Paginas.CrossFadeAlpha(1, 1, false);
+        Notaimg.CrossFadeAlpha(1f, 1, false);
         Escuro.GetComponent<Image>().CrossFadeAlpha(0.69f, 1, false);
 
 
@@ -102,6 +107,7 @@ public class Display_notas : MonoBehaviour
     {
         Notatexto.gameObject.SetActive(false);
         Escuro.SetActive(false);
+        Notaimg.gameObject.SetActive(false);
         Paginas.gameObject.SetActive(false);
         imagem.gameObject.SetActive(false);
     }

@@ -12,6 +12,7 @@ public class Movimentacao : MonoBehaviour
      float Velocidade=6;
      float horizontal;
     public bool Standby=false;
+    public bool Morte = false;
     Rigidbody2D Rb;
     public bool escondido = false;
 
@@ -28,6 +29,7 @@ public class Movimentacao : MonoBehaviour
    public Porta porta;
     GameObject esconderijo;
     [SerializeField] LayerMask interagiveis;
+
 
 
 
@@ -189,8 +191,8 @@ public class Movimentacao : MonoBehaviour
                                 {
                                     esconderijo = Hit.transform.gameObject;
                                    
-                                    GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.5f);
-                                    Invoke(nameof(Escondido), 0.6f);
+                                    GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.8f);
+                                    Invoke(nameof(Escondido), 0.9f);
 
                                 }
                                 else
@@ -255,6 +257,12 @@ public class Movimentacao : MonoBehaviour
             Localizacao=collision.gameObject.GetComponent<Porta>().Localizacao;
             GameObject.Find("Main Camera").GetComponent<Camera_posicoes>().Trocarcamera(Localizacao);
         }
+        if(collision.CompareTag("Morte"))
+        {
+            Morte = true;
+            Invoke(nameof(morrer), 5f);
+            Standby = true;
+        }
     }
 
     public void AdicionarItem(GameObject ItemAdicionar)
@@ -281,5 +289,9 @@ public class Movimentacao : MonoBehaviour
         }
     }
 
+    private void morrer()
+    {
+        GameObject.Find("GameController").GetComponent<GameController>().Morte();
+    }
 
 }

@@ -94,6 +94,7 @@ public class Puzzle_lav : MonoBehaviour
                                     {
                                         cores[0].R = 0; cores[0].G = 0; cores[0].B = 0;
                                         cores[0].tipocor = "Preto";
+                                        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Acho que não era para a roupa ficar preta, é melhor eu fazer a roupa voltar a cor original";
                                     }
                                 }
                             }
@@ -110,11 +111,12 @@ public class Puzzle_lav : MonoBehaviour
             {
                 roupas[0].GetComponent<scr_roupas>().tipocor = cores[0].tipocor;
                 roupas[0].GetComponent<scr_roupas>().Mudarcor(cores[0].R, cores[0].G, cores[0].B);
-                roupas[0].GetComponent<Item2>().enabled = true;
+                roupas[0].GetComponent<BoxCollider2D>().enabled = true;
                 if (cores[0].R == 1 && cores[0].G == 0.5 && cores[0].B == 0.5)
                 {
                     Instantiate(Rouparosa, new Vector3(-36, -11.5f, 0), Quaternion.identity);
-                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(0);
+                    GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Uma roupa rosa ? Acho que eu vi algo com uma roupa da mesma cor no porão";
+                   GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(0);
                 }
                 else
                 {
@@ -124,13 +126,13 @@ public class Puzzle_lav : MonoBehaviour
             }
             if (roupas[1] != null)
             {
-                roupas[1].GetComponent<Item2>().enabled = true;
+                roupas[1].GetComponent<BoxCollider2D>().enabled = true;
                 Instantiate(roupas[1], new Vector3(-38, -11.5f, 0), Quaternion.identity);
                 Destroy(roupas[1]);
             }
             if (roupas[2] != null)
             {
-                roupas[2].GetComponent<Item2>().enabled = true;
+                roupas[2].GetComponent<BoxCollider2D>().enabled = true;
                 Instantiate(roupas[2], new Vector3(-42, -11.5f, 0), Quaternion.identity);
                 Destroy(roupas[2]);
             }
@@ -152,19 +154,19 @@ public class Puzzle_lav : MonoBehaviour
         }
         if (roupassujas[0] != null)
         {
-            roupassujas[0].GetComponent<Item2>().enabled = true;
+            roupassujas[0].GetComponent<BoxCollider2D>().enabled = true;
             Instantiate(roupassujas[0], new Vector3(-36, -11.5f, 0), Quaternion.identity);
             Destroy(roupassujas[0]);
         }
         if (roupassujas[1] != null)
         {
-            roupassujas[1].GetComponent<Item2>().enabled = true;
+            roupassujas[1].GetComponent<BoxCollider2D>().enabled = true;
             Instantiate(roupassujas[1], new Vector3(-38, -11.5f, 0), Quaternion.identity);
             Destroy(roupassujas[1]);
         }
         if (roupassujas[2] != null)
         {
-            roupassujas[2].GetComponent<Item2>().enabled = true;
+            roupassujas[2].GetComponent<BoxCollider2D>().enabled = true;
             Instantiate(roupassujas[2], new Vector3(-42, -11.5f, 0), Quaternion.identity);
             Destroy(roupassujas[2]);
         }

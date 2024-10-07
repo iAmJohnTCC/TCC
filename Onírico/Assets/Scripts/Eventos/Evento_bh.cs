@@ -22,10 +22,11 @@ public class Evento_bh : MonoBehaviour
             seescondeu = true;
             
         }
-        if(!Movi.escondido&&seescondeu)
+        if(!Movi.escondido&&seescondeu&&GameObject.Find("Palhaco").GetComponent<Palhaco>().PararDeVer<=0)
         {
             GameObject.Find("Insetos").GetComponent<Insetos>().enabled = true;
-            GameObject.Find("Insetos").transform.position = GameObject.Find("Insetos").GetComponent<Insetos>().Esconderijos[0].transform.position;
+            GameObject.Find("Insetos").GetComponent<BoxCollider2D>().enabled = true;
+
             Destroy(Ev.Escuro);
             Instantiate(Escuro);
             Destroy(Ev);

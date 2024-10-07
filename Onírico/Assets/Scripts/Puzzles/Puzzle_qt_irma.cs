@@ -35,11 +35,14 @@ public class Puzzle_qt_irma : MonoBehaviour,Interagiveis
             Evento_qtirma = Instantiate(Evento_qtirma, new Vector2(38, 0f), Quaternion.identity);
             Evento_qtirma.GetComponent<Evento_qt_irma>().Lanterna = Lanterna;
             Destroy(Gaveta);
+            GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Agora é só pegar a lanterna";
             Interacao(GameObject.Find("Player").GetComponent<Movimentacao>());
+            gameObject.GetComponent<BoxCollider2D>();
             Destroy(this.gameObject, 2f);
         }
         else
         {
+            GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Talvez tenha algo no quarto que possa me ajudar a resolver isso";
             Interacao(GameObject.Find("Player").GetComponent<Movimentacao>());
             
         }

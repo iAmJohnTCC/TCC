@@ -19,7 +19,7 @@ public class Player_sons : MonoBehaviour
 
         
             
-            if(Input.GetAxisRaw("Horizontal")!=0&&Input.GetKey(KeyCode.LeftShift) && Fonte_som.clip != sons_player[1])
+            if(Input.GetAxisRaw("Horizontal")!=0&&Input.GetKey(KeyCode.LeftShift) && Fonte_som.clip != sons_player[1]&&!player.Standby)
             {
                 Fonte_som.clip= sons_player[1];
                 Fonte_som.loop = true;
@@ -27,7 +27,7 @@ public class Player_sons : MonoBehaviour
             }
             else
             {
-                if (Input.GetAxisRaw("Horizontal") != 0 && Fonte_som.clip != sons_player[0]&&!Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetAxisRaw("Horizontal") != 0 && Fonte_som.clip != sons_player[0]&&!Input.GetKey(KeyCode.LeftShift) && !player.Standby)
                 {
                     
                     Fonte_som.clip = sons_player[0];
@@ -36,7 +36,7 @@ public class Player_sons : MonoBehaviour
                 }
                 else
             {
-                if(Input.GetAxisRaw("Horizontal") == 0)
+                if(Input.GetAxisRaw("Horizontal") == 0 || player.Standby)
                 {
                     Fonte_som.clip = null;
                 }

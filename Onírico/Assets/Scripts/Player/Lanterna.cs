@@ -6,7 +6,7 @@ using TMPro;
 public class Lanterna : MonoBehaviour
 {
     public GameObject Luz;
-    [SerializeField]int Energia;
+    [SerializeField]public int Energia;
     [SerializeField] Animator Stun;
     [SerializeField] TMP_Text Porcentagem;
     public bool Stunning=false;
@@ -45,7 +45,7 @@ public class Lanterna : MonoBehaviour
             }
             CancelInvoke();
         }
-        if(GameObject.Find("Player").GetComponent<Movimentacao>().Standby == true)
+        if(GameObject.Find("Player").GetComponent<Movimentacao>().Standby == true&& GameObject.Find("Player").GetComponent<Movimentacao>().escondido)
         {
             Luz.SetActive(false);
             CancelInvoke();
@@ -70,7 +70,7 @@ public class Lanterna : MonoBehaviour
         }
        if(Luz.activeSelf)
         {
-            Hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0f), 5f, Inimigos);
+            Hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0f), 15f, Inimigos);
             {
                 if (Hit )
                 {
@@ -87,9 +87,12 @@ public class Lanterna : MonoBehaviour
                     }
                     else
                     {
-                        if(Hit.transform.gameObject.GetComponent<Palhaco>()&&Stunning)
+                        if(Hit.transform.gameObject.GetComponent<Palhaco>())
                         {
-                            Hit.transform.gameObject.GetComponent<Palhaco>().Stun();
+                            if (Stunning)
+                            {
+                                Hit.transform.gameObject.GetComponent<Palhaco>().Stun();
+                            }
                         }
                     }
                 }
