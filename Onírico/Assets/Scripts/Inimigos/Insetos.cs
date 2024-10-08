@@ -19,7 +19,7 @@ public class Insetos : MonoBehaviour,Interagiveis
             meusinsetos[i].gameObject.GetComponent<SpriteRenderer>().enabled = true;
         }
         Player = GameObject.Find("Player").GetComponent<Movimentacao>();
-        Invoke(nameof(Trocaresconderijo),Random.Range(30f,60f));
+        Invoke(nameof(Trocaresconderijo),Random.Range(10f,30f));
     }
 
     
@@ -42,7 +42,7 @@ public class Insetos : MonoBehaviour,Interagiveis
                     meusinsetos[i].transform.position = transform.position;
                 }
 
-                Invoke(nameof(Trocaresconderijo), Random.Range(30f, 60f));
+                Invoke(nameof(Trocaresconderijo), Random.Range(10f, 30f));
             }
             else
             {

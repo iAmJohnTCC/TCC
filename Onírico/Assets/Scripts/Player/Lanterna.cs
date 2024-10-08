@@ -45,7 +45,7 @@ public class Lanterna : MonoBehaviour
             }
             CancelInvoke();
         }
-        if(GameObject.Find("Player").GetComponent<Movimentacao>().Standby == true&& GameObject.Find("Player").GetComponent<Movimentacao>().escondido)
+        if(GameObject.Find("Player").GetComponent<Movimentacao>().Standby == true&& GameObject.Find("Player").GetComponent<Movimentacao>().escondido||player.Morte)
         {
             Luz.SetActive(false);
             CancelInvoke();

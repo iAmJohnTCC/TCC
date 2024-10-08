@@ -36,12 +36,12 @@ public class Porta : MonoBehaviour,Interagiveis
             {
                 if (player.porta.Bloqueio != null)
                 {
-                    Destroy(player.porta.Bloqueio.gameObject);
+                    player.porta.Bloqueio.gameObject.SetActive(false);
                     
                 }
                 player.porta.Aberto = true;
                 player.Textoguia.text = "Agora posso entrar aqui";
-                Destroy(player.Inventario[0]);
+                
             }
             else
             {

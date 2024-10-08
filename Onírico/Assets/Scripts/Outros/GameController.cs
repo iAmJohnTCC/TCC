@@ -26,18 +26,14 @@ public class GameController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-      
-    }
+   
     
     public void Fadeout(float time)
     {
         GameObject.Find("Player").GetComponent<Movimentacao>().Standby = true;
         image.CrossFadeAlpha(0, 0, false);
         image.CrossFadeAlpha(time, 1, false);
-        Invoke(nameof(Fadein), time+0.2f);
+        Invoke(nameof(Fadein), time+0.5f);
     }
     void Fadein()
     {

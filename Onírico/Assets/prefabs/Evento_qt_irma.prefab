@@ -47,5 +47,5 @@ MonoBehaviour:
   Palhaco_intro: {fileID: 8500416523645740804, guid: 736b74e18679544419f4eec6d3d53083, type: 3}
   Palhaco: {fileID: 2204832114619573899, guid: 21fd8093c69ca01498d6f03730ac1fc9, type: 3}
   Lanterna: {fileID: 3251473711030454036, guid: 7dc8434a353f9054d811c6348572bc46, type: 3}
-  Escuro: {fileID: 26476237879927508, guid: 68aa41402bdc31743b76af6efb8378b1, type: 3}
+  Escuro: {fileID: 5270166844926747261, guid: b485569dfa9a3ad40bb9c513e3ad2092, type: 3}
   Banheiro: {fileID: 8621111541562555619, guid: 159c38de60a77b94c8ee788f32e068bb, type: 3}

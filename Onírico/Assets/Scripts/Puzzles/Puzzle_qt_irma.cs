@@ -15,7 +15,13 @@ public class Puzzle_qt_irma : MonoBehaviour,Interagiveis
     [SerializeField] Image tranca;
     [SerializeField] Sprite Desbloqueado;
 
-    
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape) && UI.activeSelf)
+        {
+            Interacao(GameObject.Find("Player").GetComponent<Movimentacao>());
+        }
+    }
     public void Adicionarnumero(int valor)
     {
         if (Caracteres < 4)
@@ -37,7 +43,7 @@ public class Puzzle_qt_irma : MonoBehaviour,Interagiveis
             Destroy(Gaveta);
             GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Agora é só pegar a lanterna";
             Interacao(GameObject.Find("Player").GetComponent<Movimentacao>());
-            gameObject.GetComponent<BoxCollider2D>();
+            gameObject.GetComponent<BoxCollider2D>().enabled=false;
             Destroy(this.gameObject, 2f);
         }
         else

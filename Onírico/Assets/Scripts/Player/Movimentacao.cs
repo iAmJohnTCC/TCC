@@ -36,7 +36,8 @@ public class Movimentacao : MonoBehaviour
     [Header("Localização")]
      public string Localizacao;
      public string AndarAtual;
-
+    [SerializeField]TMP_Text hudlocalizacao,hudandaratual;
+    
     [Header("HUD")]
     [SerializeField] GameObject Hud_inventario;
     public TMP_Text Textoguia;
@@ -52,12 +53,12 @@ public class Movimentacao : MonoBehaviour
     void Update()
     {
 
-       
-
+        hudandaratual.text = AndarAtual;
+        hudlocalizacao.text = Localizacao;
         if (Standby && escondido && Input.GetKeyDown(KeyCode.E))
         {
-            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.5f);
-            Invoke(nameof(Escondido), 0.6f);
+            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.8f);
+            Invoke(nameof(Escondido), 0.9f);
         }
 
         if (!Standby)

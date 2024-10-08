@@ -23,7 +23,7 @@ public class Palhaco : MonoBehaviour
     public string localizacao2;
     Vector2 Objetivotemporario;
     public int Lembrarporta=0;
-    bool Stunned = false;
+    public bool Stunned = false;
     public bool parar = false;
    [SerializeField] GameObject Die;
     void Start()
@@ -115,11 +115,11 @@ public class Palhaco : MonoBehaviour
                 {
                     Cheguei_No_Fim = false;
                 }
-                if (Pontos_Finais[Objetivo].transform.position.x > gameObject.transform.position.x)
+                if (Pontos_Finais[Objetivo].transform.position.x > gameObject.transform.position.x&&!Stunned)
                 {
                     transform.localScale = new Vector3(1, transform.localScale.y, 1);
                 }
-                if (Pontos_Finais[Objetivo].transform.position.x < gameObject.transform.position.x)
+                if (Pontos_Finais[Objetivo].transform.position.x < gameObject.transform.position.x&&!Stunned)
                 {
                     transform.localScale = new Vector3(-1, transform.localScale.y, 1);
                 }
@@ -243,9 +243,12 @@ public class Palhaco : MonoBehaviour
                 localizacao2 = collision.gameObject.GetComponent<Porta>().Localizacao;
                 GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f);
                 Invoke("Teleporte", 1.5f);
-                GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(1);
+                GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(7);
+                if(PararDeVer>0)
+              {
                 Cooldown = true;
-                Invoke(nameof(Comecearezar), 2f);
+                Invoke(nameof(Comecearezar), 4f);
+              }
 
             }
             else
@@ -282,9 +285,19 @@ public class Palhaco : MonoBehaviour
                     localizacao2 = collision.gameObject.GetComponent<Porta>().Localizacao;
                     GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f);
                     Invoke("Teleporte", 1.5f);
-                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(1);
-                    Cooldown = true;
-                    Invoke(nameof(Comecearezar), 2f);
+                if (!porta.CompareTag("Escada"))
+                {
+                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(7);
+                }
+                else
+                {
+                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(6);
+                }
+                if (PararDeVer>0)
+              {
+                Cooldown = true;
+                Invoke(nameof(Comecearezar), 4f);
+              }
                 }
                 else
                 {
@@ -321,17 +334,29 @@ public class Palhaco : MonoBehaviour
             {
                 Semrepetir = true;
                     porta = collision.gameObject.GetComponent<Porta>();
+
                     GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f);
                     Invoke("Teleporte", 1.5f);
-                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(1);
-                    Cooldown = true;
-                    Invoke(nameof(Comecearezar), 2f);
+                if (!porta.CompareTag("Escada"))
+                {
+                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(7);
+                }
+                else
+                {
+                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(6);
+                }
+                localizacao2 = porta.Localizacao;
+                       if(PararDeVer>0)
+              {
+                Cooldown = true;
+                Invoke(nameof(Comecearezar), 4f);
+              }
                 }
                 else
                 {
                     transform.position = porta.posicao.transform.position;
-
-                    Objetivostemporarios();
+                localizacao2 = porta.Localizacao;
+                Objetivostemporarios();
                 }
 
             

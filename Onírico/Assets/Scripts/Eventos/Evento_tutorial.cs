@@ -29,7 +29,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if (Ensinamento == "Andar")
         {
-            Tutorialtexto.text = "Filho tá quase na hora de dormir,mas antes de ir deitar deixa eu te relembrar de algumas coisas, você se move pra esquerda ou pra direita apertando respectivamente A e D(< e > fazem a mesma coisa), segurando o Shift esquerdo e apertando A ou D você corre. Agora corra para esquerda e para direita para me mostrar que entendeu";
+            Tutorialtexto.text = "Filho tá quase na hora de dormir,mas antes de ir deitar, deixa eu te relembrar de algumas coisas, você se move pra esquerda ou pra direita apertando respectivamente A e D(< e > fazem a mesma coisa), segurando o Shift esquerdo e apertando A ou D você corre. Agora corra para esquerda e para direita para me mostrar que entendeu";
             if(Input.GetAxisRaw("Horizontal")>0&&Input.GetKey(KeyCode.LeftShift))
             {
                 correupradireita = true;
@@ -46,7 +46,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if (Ensinamento=="Pegar itens")
         {
-            Tutorialtexto.text = "Muito bom, agora, está vendo aquela bateria no chão? ande até ela e aperte E enquanto estiver brilhando";
+            Tutorialtexto.text = "Muito bom, agora, está vendo aquela Pilha ? ande até ela e aperte E enquanto estiver brilhando";
             if(Bateria==null)
             {
                 Player.AdicionarItem(Lanterna);
@@ -75,7 +75,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if(Ensinamento=="Stun")
         {
-            Tutorialtexto.text = "Você também pode apertar F enquanto a lanterna está acessa para desliga-la, agora quero que você aperte espaço enquanto a lanterna está acessa";
+            Tutorialtexto.text = "Você também pode apertar F enquanto a lanterna está acesa para desliga-la, agora quero que você aperte espaço enquanto a lanterna está acesa";
             Player.gameObject.GetComponent<Lanterna>().Energia = 100;
             if(Player.gameObject.GetComponent<Lanterna>().Stunning)
             {
@@ -94,7 +94,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if(Ensinamento=="Dropar itens")
         {
-            Tutorialtexto.text = "Se você abrir o inventário agora vai perceber que a pilha sumiu, esse é o pequeno sacrificio que deve ser feito toda vez que você trocar de pilha, mas uma coisa você só pode recarregar quando a energia chegar a 0%. Agora eu quero que você largue a lanterna, aperte X pra largar o item atual ";
+            Tutorialtexto.text = "Se você abrir o inventário agora vai perceber que a pilha sumiu, esse é o pequeno sacrifício que deve ser feito toda vez que você troca de pilha, mais uma coisa você só pode recarregar quando a energia chegar a 0%. Agora eu quero que você largue a lanterna, aperte X pra largar o item atual ";
             if (Player.Inventario[0] == null)
             {
                 Ensinamento = "Abrir porta";

@@ -24,7 +24,7 @@ public class Evento_Manequim : MonoBehaviour, Interagiveis
         }
         else
         {
-            prayer.Textoguia.text = "Parece ter algo na boca do manequin, uma chave talvez?";
+            prayer.Textoguia.text = "Parece ter algo na boca do manequin, uma chave talvez?, huh eu não consigo tirar,talvez aquela nota me dê alguma solução";
         }
     }
 

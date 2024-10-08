@@ -31,12 +31,13 @@ public class Item2 : MonoBehaviour,Interagiveis
 
 
             }
+            Player.Textoguia.text = "Eu peguei " + Meu_Item.Item_nome + " (Aperte Tab para abrir o inventário, aperte o número que aparece em cima do item para seleciona-lo)";
             Player.AdicionarItem(Meu_Item.Iten);
             Destroy(gameObject);
         }
        else
         {
-            Player.Textoguia.text = "Não consigo carregar mais nada, tenho que descartar algo(Você pode descartar itens Apertando X)";
+            Player.Textoguia.text = "Não consigo carregar mais nada, tenho que descartar algo (Você pode descartar itens Apertando X)";
         }
         
     }
