@@ -14,6 +14,7 @@ public class Puzzle_qt_irma : MonoBehaviour,Interagiveis
     [SerializeField] GameObject Evento_qtirma;
     [SerializeField] Image tranca;
     [SerializeField] Sprite Desbloqueado;
+    [SerializeField] GameObject Minhaluz;
 
     private void Update()
     {
@@ -41,9 +42,11 @@ public class Puzzle_qt_irma : MonoBehaviour,Interagiveis
             Evento_qtirma = Instantiate(Evento_qtirma, new Vector2(38, 0f), Quaternion.identity);
             Evento_qtirma.GetComponent<Evento_qt_irma>().Lanterna = Lanterna;
             Destroy(Gaveta);
-            GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Agora é só pegar a lanterna";
             Interacao(GameObject.Find("Player").GetComponent<Movimentacao>());
+            GameObject.Find("Player").GetComponent<Movimentacao>().transform.position = new Vector2(44f, GameObject.Find("Player").GetComponent<Movimentacao>().transform.position.y);
             gameObject.GetComponent<BoxCollider2D>().enabled=false;
+
+            Minhaluz.SetActive(false);
             Destroy(this.gameObject, 2f);
         }
         else

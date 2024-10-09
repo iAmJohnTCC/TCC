@@ -19,7 +19,8 @@ public class Anim_player : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetAxisRaw("Horizontal") != 0 && !player.Standby)
+
+        if (Input.GetAxisRaw("Horizontal") != 0 && !player.Standby&&player.Velocidade>0)
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -42,23 +43,30 @@ public class Anim_player : MonoBehaviour
         }
         else
         {
-            if (player.Morte)
+            if (player.porta != null && (player.porta.gameObject.CompareTag("Porta_naolaterais")|| player.porta.gameObject.CompareTag("Escada")))
             {
-                anim.Play("Player_Morte");
+                anim.Play("Player_costas");
             }
             else
             {
-                anim.speed = 1f;
-                if (gameObject.GetComponent<Lanterna>().enabled == true)
+                if (player.Morte)
                 {
-                    anim.Play("idle_comLanterna");
-
+                    anim.Play("Player_Morte");
                 }
                 else
                 {
-                    anim.Play("idle_semLanterna");
-                }
+                    anim.speed = 1f;
+                    if (gameObject.GetComponent<Lanterna>().enabled == true)
+                    {
+                        anim.Play("idle_comLanterna");
 
+                    }
+                    else
+                    {
+                        anim.Play("idle_semLanterna");
+                    }
+
+                }
             }
             if (player.Textoguia.text != mudouotexto)
             {

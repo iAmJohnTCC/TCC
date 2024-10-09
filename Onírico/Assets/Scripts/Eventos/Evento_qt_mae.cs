@@ -17,6 +17,7 @@ public class Evento_qt_mae : MonoBehaviour
         if(Pilha_felicidade == null&&!Semrepeticoes)
         {
             GameObject.Find("Player").GetComponent<Movimentacao>().Standby=true;
+            GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text ="";
             GameObject.Find("Player").GetComponent<SpriteRenderer>().enabled = false;
             Instantiate(Fim_cutscene);
             Semrepeticoes=true;

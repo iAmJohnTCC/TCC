@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1427c66a7b5d746499bb116ee138fc5c, type: 3}
   m_Name: Chave Mae
   m_EditorClassIdentifier: 
-  Item_nome: Chave Mae
+  Item_nome: "Chave Quarto da M\xE3e"
   Item_Sprite: {fileID: 21300000, guid: 60f2df35356f330419189efb4ff0212b, type: 3}
   Iten: {fileID: 6859838348285700216, guid: 0fad6f18233454f4691df3008b4c283b, type: 3}
   Item_ID: 0

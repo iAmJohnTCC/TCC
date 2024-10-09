@@ -16,13 +16,20 @@ public class Palhaco_anim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!movimento.parar)
+        if (movimento.Stunned)
         {
-            animator.speed = 1;
+            animator.Play("Palhaco_atordoado");
         }
         else
         {
-            animator.speed = 0;
+            if (movimento.parar || movimento.Normalspeed == 0)
+            {
+                animator.Play("Palhaco_idle");
+            }
+            else
+            {
+                animator.Play("Palhaco_andando");
+            }
         }
     }
 }

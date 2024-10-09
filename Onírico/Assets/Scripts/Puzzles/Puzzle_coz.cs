@@ -10,6 +10,7 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
     [SerializeField] GameObject ui;
     string Status="";
     [SerializeField] GameObject VelaAcesa;
+    [SerializeField] GameObject Minhaluz;
     Movimentacao player;
     private void Start()
     {
@@ -42,6 +43,7 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
         if(Input.GetKeyDown(KeyCode.Escape)&&ui.activeSelf)
         {
             Ativar();
+            player.Textoguia.text = "Será que aquela nota pode me ajudar? ";
         }
     }
     public void Ativar()
@@ -187,7 +189,7 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
         {
             Ativar();
             player.Standby = true;
-            player.Textoguia.text="O gás tá consertado, mas eu ainda preciso de algo pra acende-lo";
+            
         }
         else
         {
@@ -197,10 +199,13 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
                 {
                     Status = "Acendeu";
                     player.Textoguia.text = "agora que o fogo está aceso eu só preciso de algo pra carregar a chama, será que eu não vi algo assim no quarto da minha irmã?";
+                     GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(8);
+                    gameObject.GetComponent<AudioSource>().Play();
                 }
                 else
                 {
                     player.Textoguia.text = "O gás tá consertado, mas eu ainda preciso de algo pra acende-lo (Tente interagir com esse objeto usando outro item)";
+                   
                 }
             }
             else
@@ -212,6 +217,8 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
                         player.Inventario[0] = null;
                         player.Inventario[0] = VelaAcesa;
                         player.Textoguia.text = "Agora que a vela está acesa acho que posso usa-la para espantar aquelas aranhas";
+                        Minhaluz.SetActive(false);
+                        Destroy(this);
                     }
                     else
                     {

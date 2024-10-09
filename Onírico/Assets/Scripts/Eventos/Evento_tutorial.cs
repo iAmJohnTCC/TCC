@@ -98,7 +98,7 @@ public class Evento_tutorial : MonoBehaviour
             if (Player.Inventario[0] == null)
             {
                 Ensinamento = "Abrir porta";
-                
+              
             }
         }
         if(Ensinamento=="Abrir porta")
@@ -111,7 +111,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if(Ensinamento=="Se esconder")
         {
-            Tutorialtexto.text = "Agora, está vendo o armário?, isso é um esconderijo, quando você entra nele você é praticamente invisivel para qualquer um a não ser que, você foi visto logo antes de entrar, agora aperte E para entrar no armário";
+            Tutorialtexto.text = "Agora, está vendo o armário?, isso é um esconderijo, quando você entra nele você é praticamente invisível para qualquer um , a não ser que, você foi visto logo antes de entrar, agora aperte E para entrar no armário";
             if(Player.escondido)
             {
                 Ensinamento = "Lernota";

@@ -8,7 +8,7 @@ public class Maquinas_de_lavar : MonoBehaviour,Interagiveis
     public GameObject[] Roupas_adquiridas=new GameObject[3]; 
     Movimentacao player;
     public int i = 0;
-
+    [SerializeField] GameObject Minhaluz,luzbotao;
     private void Start()
     {
         player=GameObject.Find("Player").GetComponent<Movimentacao>();
@@ -16,38 +16,16 @@ public class Maquinas_de_lavar : MonoBehaviour,Interagiveis
     // Update is called once per frame
     void Update()
     {
-        if (player.Hit.transform != null && Input.GetKeyDown(KeyCode.E))
-        {
-
-
-
-            if (player.Hit.transform.gameObject == ativador && Roupas_adquiridas[0]!=null )
-                {
-                   
-                    if (gameObject.name=="Mqndelavar_limpar")
-                    {
-                        GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().roupassujas = Roupas_adquiridas;
-                        GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().Limpar();
-                        Roupas_adquiridas = null;
-                        i = 0;
-                    Roupas_adquiridas = new GameObject[3];
-                }
-                    else
-                    {
-                        GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().roupas = Roupas_adquiridas;
-                        GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().Combinar();
-                        Roupas_adquiridas = null;
-                        i = 0;
-                    Roupas_adquiridas = new GameObject[3];
-                    }
-                    
-                }
-            
-        }
+        if (GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().puzzleresolvido)
+            {
+            Minhaluz.SetActive(false);
+           
+            }
+        
     }
     public void Interacao(Movimentacao player)
     {
-        if (player.Inventario[0] != null && player.Inventario[0].GetComponent<scr_roupas>() != null)
+        if (player.Inventario[0] != null && player.Inventario[0].GetComponent<scr_roupas>() != null && !GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().puzzleresolvido)
         {
             Roupas_adquiridas[i] = Instantiate(GameObject.Find("Player").GetComponent<Movimentacao>().Inventario[0], transform.position, Quaternion.identity);
             player.Inventario[0] = null;
@@ -57,7 +35,41 @@ public class Maquinas_de_lavar : MonoBehaviour,Interagiveis
         else
         {
 
-            player.Textoguia.text = "Eu posso colocar as roupas na máquina de lavar se eu interagir enquanto uma delas é meu item atual, depois para lavar é só apertar o botão cinza";
+            if (Roupas_adquiridas[0] == null)
+            {
+                player.Textoguia.text = "Eu posso colocar as roupas aqui se eu interagir enquanto seguro elas, se já houver uma roupa é só eu interagir novamente para combinar ou limpar ";
+            }
+            if ( Roupas_adquiridas[0] != null && !GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().puzzleresolvido)
+            {
+
+                if (gameObject.name == "Mqndelavar_limpar")
+                {
+                    GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().roupassujas = Roupas_adquiridas;
+                    GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().Limpar();
+                    Roupas_adquiridas = null;
+                    i = 0;
+                    Roupas_adquiridas = new GameObject[3];
+                }
+                else
+                {
+                    GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().roupas = Roupas_adquiridas;
+                    GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().Combinar();
+                    Roupas_adquiridas = null;
+                    i = 0;
+                    Roupas_adquiridas = new GameObject[3];
+                }
+
+            }
+            else
+            {
+                if (GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().puzzleresolvido)
+                {
+                    player.Textoguia.text = "Agora que eu tenho a roupa rosa não preciso mais usar isso";
+                }
+            }
+            
+
+           
             
         }
     }

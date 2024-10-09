@@ -9,7 +9,7 @@ using UnityEngine.Rendering.Universal;
 public class Movimentacao : MonoBehaviour
 {
     [Header("Movimentação")]
-     float Velocidade=6;
+     public float Velocidade=6;
      float horizontal;
     public bool Standby=false;
     public bool Morte = false;
@@ -58,7 +58,7 @@ public class Movimentacao : MonoBehaviour
         if (Standby && escondido && Input.GetKeyDown(KeyCode.E))
         {
             GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.8f);
-            Invoke(nameof(Escondido), 0.9f);
+            Invoke(nameof(Escondido), 0.81f);
         }
 
         if (!Standby)
@@ -193,7 +193,7 @@ public class Movimentacao : MonoBehaviour
                                     esconderijo = Hit.transform.gameObject;
                                    
                                     GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.8f);
-                                    Invoke(nameof(Escondido), 0.9f);
+                                    Invoke(nameof(Escondido), 0.81f);
 
                                 }
                                 else

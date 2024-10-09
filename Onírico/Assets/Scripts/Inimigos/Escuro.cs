@@ -167,11 +167,7 @@ public class Escuro : MonoBehaviour
     {
        
         comportamentoatual = Backupcomportamento;
-        if(Backupcomportamento == "Boss")
-        {        
-            comportamentoatual = "Boss";
-            Boss();
-        }
+       
     }
     
     void Boss()
@@ -196,8 +192,8 @@ public class Escuro : MonoBehaviour
             
             comportamentoatual = "Unsummon";
             anim.Play("Escuro_unsummon");
-            Invoke(nameof(Ativar), 1.3f);
-            Invoke(nameof(Trocadecomportamento), 2f);
+            Invoke(nameof(Ativar), 1.6f);
+            Invoke(nameof(Trocadecomportamento), 1.61f);
         }
 
     }

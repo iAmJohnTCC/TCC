@@ -6,6 +6,8 @@ public class Puzzle_lav : MonoBehaviour
 {
     public GameObject[] roupas=new GameObject[3];
     [SerializeField]GameObject Rouparosa;
+    public bool puzzleresolvido;
+    [SerializeField]Vector2[] posicoes=new Vector2[3]; 
     public GameObject[] roupassujas = new GameObject[3];
      public void Combinar()
     {
@@ -114,28 +116,71 @@ public class Puzzle_lav : MonoBehaviour
                 roupas[0].GetComponent<BoxCollider2D>().enabled = true;
                 if (cores[0].R == 1 && cores[0].G == 0.5 && cores[0].B == 0.5)
                 {
-                    Instantiate(Rouparosa, new Vector3(-36, -11.5f, 0), Quaternion.identity);
+                   
+                    puzzleresolvido = true;
                     GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Uma roupa rosa ? Acho que eu vi algo com uma roupa da mesma cor no porão";
                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(0);
+                    Instantiate(Rouparosa, new Vector3(-36, -15.5f, 0), Quaternion.identity);
+                    Destroy(roupas[0]);
+                    roupas[0] = null;
                 }
-                else
-                {
-                    Instantiate(roupas[0], new Vector3(-36, -11.5f, 0), Quaternion.identity);
-                }
-                Destroy(roupas[0]);
+              
+                
             }
             if (roupas[1] != null)
             {
                 roupas[1].GetComponent<BoxCollider2D>().enabled = true;
-                Instantiate(roupas[1], new Vector3(-38, -11.5f, 0), Quaternion.identity);
-                Destroy(roupas[1]);
+               
+                
             }
             if (roupas[2] != null)
             {
                 roupas[2].GetComponent<BoxCollider2D>().enabled = true;
-                Instantiate(roupas[2], new Vector3(-42, -11.5f, 0), Quaternion.identity);
-                Destroy(roupas[2]);
+               
+                
             }
+            GameObject[]Roupasposicoes=GameObject.FindGameObjectsWithTag("Roupas"); 
+            bool[] Estaposicaoeminha=new bool[3];
+            Estaposicaoeminha[0] = false;
+            Estaposicaoeminha[1] = false;
+            Estaposicaoeminha[2] = false;
+            for(int i = 0; i < roupas.Length;i++)
+            {
+               
+                if(roupas[i]!=null)
+                {
+                   
+                for (int h = 0; h < posicoes.Length;h++)
+                {
+                    bool Mesmaposicao = false;
+                        if (!Estaposicaoeminha[h])
+                        {
+
+
+                            for (int j = 0; j < Roupasposicoes.Length; j++)
+                            {
+
+                                if (posicoes[h] == (Vector2)Roupasposicoes[j].transform.position)
+                                {
+                                    Mesmaposicao = true;
+                                    break;
+                                }
+
+                            }
+                            if (!Mesmaposicao)
+                            {
+                                Instantiate(roupas[i], posicoes[h], Quaternion.identity);
+                                Estaposicaoeminha[h] = true;
+                                break;
+                            }
+                        }
+                }
+                }
+                
+            }
+            Destroy(roupas[0]);
+            Destroy(roupas[1]);
+            Destroy(roupas[2]);
             roupas = new GameObject[3];
 
         }
@@ -155,21 +200,64 @@ public class Puzzle_lav : MonoBehaviour
         if (roupassujas[0] != null)
         {
             roupassujas[0].GetComponent<BoxCollider2D>().enabled = true;
-            Instantiate(roupassujas[0], new Vector3(-36, -11.5f, 0), Quaternion.identity);
-            Destroy(roupassujas[0]);
+            
+           
         }
         if (roupassujas[1] != null)
         {
             roupassujas[1].GetComponent<BoxCollider2D>().enabled = true;
-            Instantiate(roupassujas[1], new Vector3(-38, -11.5f, 0), Quaternion.identity);
-            Destroy(roupassujas[1]);
+            
+           
         }
         if (roupassujas[2] != null)
         {
             roupassujas[2].GetComponent<BoxCollider2D>().enabled = true;
-            Instantiate(roupassujas[2], new Vector3(-42, -11.5f, 0), Quaternion.identity);
-            Destroy(roupassujas[2]);
+           
+           
         }
+       
+        GameObject[]Roupasposicoes=GameObject.FindGameObjectsWithTag("Roupas");
+        bool[] Estaposicaoeminha = new bool[3];
+        Estaposicaoeminha[0] = false;
+        Estaposicaoeminha[1] = false;
+        Estaposicaoeminha[2] = false;
+        for (int i = 0; i < roupassujas.Length; i++)
+        {
+
+            if (roupassujas[i] != null)
+            {
+
+                for (int h = 0; h < posicoes.Length; h++)
+                {
+                    bool Mesmaposicao = false;
+                    if (!Estaposicaoeminha[h])
+                    {
+
+
+                        for (int j = 0; j < Roupasposicoes.Length; j++)
+                        {
+
+                            if (posicoes[h] == (Vector2)Roupasposicoes[j].transform.position)
+                            {
+                                Mesmaposicao = true;
+                                break;
+                            }
+
+                        }
+                        if (!Mesmaposicao)
+                        {
+                            Instantiate(roupassujas[i], posicoes[h], Quaternion.identity);
+                            Estaposicaoeminha[h] = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+        }
+        Destroy(roupassujas[0]);
+        Destroy(roupassujas[1]);
+        Destroy(roupassujas[2]);
         roupassujas = new GameObject[3];
 
     }

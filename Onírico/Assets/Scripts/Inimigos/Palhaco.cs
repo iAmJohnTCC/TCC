@@ -172,8 +172,15 @@ public class Palhaco : MonoBehaviour
     void Comecearezar()
     {
         CancelInvoke(nameof(Comecearezar));
+        if(!Player.GetComponent<Movimentacao>().Standby||Player.GetComponent<Movimentacao>().Standby&&Player.GetComponent<Movimentacao>().escondido)
+       {
         parar = false;
         Cooldown = false;
+       }
+       else
+        {
+         Invoke(nameof(Comecearezar), 2f);
+        }
     }
     void Objetivostemporarios ()
         {
@@ -253,8 +260,10 @@ public class Palhaco : MonoBehaviour
             }
             else
             {
+                
                 transform.position = collision.gameObject.GetComponent<Porta>().posicao.transform.position;
                 localizacao2 = collision.gameObject.GetComponent<Porta>().Localizacao;
+                
             }
         }
     }
@@ -280,6 +289,7 @@ public class Palhaco : MonoBehaviour
                 if ((Player.GetComponent<Movimentacao>().Localizacao == collision.gameObject.GetComponent<Porta>().Localizacao || 
                 Player.GetComponent<Movimentacao>().Localizacao == localizacao2)&&!Semrepetir)
                 {
+                  
                 Semrepetir = true;
                     porta = collision.gameObject.GetComponent<Porta>();
                     localizacao2 = collision.gameObject.GetComponent<Porta>().Localizacao;
@@ -301,9 +311,13 @@ public class Palhaco : MonoBehaviour
                 }
                 else
                 {
+                        if(!Semrepetir)
+                     {
+                       
                     transform.position = porta.posicao.transform.position;
-                    localizacao2 = collision.gameObject.GetComponent<Porta>().Localizacao;
+                    localizacao2 = porta.Localizacao;
                     Objetivostemporarios();
+                    }
                 }
 
             }
@@ -332,6 +346,7 @@ public class Palhaco : MonoBehaviour
             if ((Player.GetComponent<Movimentacao>().Localizacao == collision.gameObject.GetComponent<Porta>().Localizacao ||
            Player.GetComponent<Movimentacao>().Localizacao == localizacao2) && !Semrepetir)
             {
+                 
                 Semrepetir = true;
                     porta = collision.gameObject.GetComponent<Porta>();
 
@@ -354,9 +369,13 @@ public class Palhaco : MonoBehaviour
                 }
                 else
                 {
+                     if(!Semrepetir)
+                     {
                     transform.position = porta.posicao.transform.position;
-                localizacao2 = porta.Localizacao;
-                Objetivostemporarios();
+                    localizacao2 = porta.Localizacao;
+                    Objetivostemporarios();
+                 
+                     }
                 }
 
             
@@ -381,16 +400,15 @@ public class Palhaco : MonoBehaviour
     }
     public void Stun()
     {
+        CancelInvoke(nameof(Unstun));
         Stunned = true;
-        gameObject.GetComponent<Collider2D>().isTrigger=true;
-        gameObject.GetComponent<Rigidbody2D>().isKinematic=true;
+       
         Invoke(nameof(Unstun), 5f);
 
     }
     void Unstun()
     {
-        gameObject.GetComponent<Collider2D>().isTrigger = false;
-        gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
+       
         PararDeVer = 10;
         speed = Normalspeed;
         Stunned = false;

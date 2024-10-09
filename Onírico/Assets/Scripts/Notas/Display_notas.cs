@@ -75,6 +75,17 @@ public class Display_notas : MonoBehaviour
                 Notaimg.CrossFadeAlpha(1, 0, false);
                 Notaimg.CrossFadeAlpha(0F, 1, false);
                 Invoke("Desativar", 1f);
+                if (nota.gameObject.name == "Nota_Lavanderia")
+                {
+                    GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = " Roupa rosa? onde que eu vi isso antes?";
+                }
+                else
+                {
+                    if(nota.gameObject.name == "Nota_Despensa")
+                    {
+                        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Um Manequim de Roupa rosa?";
+                    }
+                }
                 GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
                 nota = null;
             }
@@ -105,6 +116,7 @@ public class Display_notas : MonoBehaviour
     }   
     void Desativar()
     {
+       
         Notatexto.gameObject.SetActive(false);
         Escuro.SetActive(false);
         Notaimg.gameObject.SetActive(false);

@@ -41,11 +41,12 @@ public class Porta : MonoBehaviour,Interagiveis
                 }
                 player.porta.Aberto = true;
                 player.Textoguia.text = "Agora posso entrar aqui";
-                
+                player.porta = null;
             }
             else
             {
                 player.Textoguia.text = Motivopranaoentrar;
+                player.porta = null;
             }
         }
     }

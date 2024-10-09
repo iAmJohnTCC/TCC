@@ -7,6 +7,7 @@ public class Evento_Manequim : MonoBehaviour, Interagiveis
     [SerializeField] GameObject Chave;
     [SerializeField] Sprite SpriteManequim;
     SpriteRenderer Sprite;
+    [SerializeField] GameObject Minhaluz;
     
     private void Start()
     {
@@ -33,9 +34,9 @@ public class Evento_Manequim : MonoBehaviour, Interagiveis
     {
        
             Sprite.sprite = SpriteManequim;
-            Instantiate(Chave, new Vector2(-27f, -22), Quaternion.identity);
+            Instantiate(Chave, new Vector2(-34.88f, -32), Quaternion.identity);
         GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "O manequin derrubou uma chave, talvez tenha alguma porta trancada onde eu posso usa-la?";
-       
+        Minhaluz.SetActive(false);
     }
 }

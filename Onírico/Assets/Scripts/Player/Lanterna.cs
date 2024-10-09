@@ -48,7 +48,7 @@ public class Lanterna : MonoBehaviour
         if(GameObject.Find("Player").GetComponent<Movimentacao>().Standby == true&& GameObject.Find("Player").GetComponent<Movimentacao>().escondido||player.Morte)
         {
             Luz.SetActive(false);
-            CancelInvoke();
+            CancelInvoke(nameof(Perdaenergia));
         }
         Porcentagem.text = Energia.ToString() + "%";
 
@@ -57,7 +57,7 @@ public class Lanterna : MonoBehaviour
             if (Luz.activeSelf == true)
             {
                 Luz.SetActive(false);
-                CancelInvoke();
+                CancelInvoke(nameof(Perdaenergia));
                 
             }
 
@@ -102,7 +102,11 @@ public class Lanterna : MonoBehaviour
         {
             Invoke(nameof(Perdaenergia), 0f);
         }
-        if (Input.GetKeyDown(KeyCode.Space)&& Energia>0&&Luz.activeSelf==true&&!Stunning)
+        if(Stunning&&GameObject.Find("Player").GetComponent<Movimentacao>().Standby)
+         {
+            Stunning=false;
+         }
+        if (Input.GetKeyDown(KeyCode.Space)&& Energia>0&&Luz.activeSelf==true&&!Stunning&& !GameObject.Find("Player").GetComponent<Movimentacao>().Standby)
         {
             Stun.Play("Laterna_Stun");
             Invoke(nameof(Lettherebelight), 0.1f);
