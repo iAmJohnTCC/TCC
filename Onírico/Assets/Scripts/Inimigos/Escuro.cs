@@ -112,7 +112,7 @@ public class Escuro : MonoBehaviour
             if (comportamentoatual == "Nas sombras")
             {
            
-                Invoke(nameof(Trocadecomportamento), Random.Range(10, 30));
+                Invoke(nameof(Trocadecomportamento), Random.Range(30, 60));
             }
             else
             {
@@ -124,7 +124,7 @@ public class Escuro : MonoBehaviour
                 
                 if (comportamentoatual != "Boss")
                 {
-                    Invoke(nameof(Trocadecomportamento), Random.Range(10, 30));
+                    Invoke(nameof(Trocadecomportamento), Random.Range(30, 60));
                 }
                 
             }
@@ -155,7 +155,7 @@ public class Escuro : MonoBehaviour
             }
             else
             {
-                Invoke(nameof(Trocadecomportamento), Random.Range(10, 30));
+                Invoke(nameof(Trocadecomportamento), Random.Range(30, 60));
             }
            
         
@@ -214,16 +214,16 @@ public class Escuro : MonoBehaviour
         posicaoPlayer = GameObject.Find("Player").transform.position;
         transform.position = Vector2.MoveTowards(transform.position, new Vector2(posicaoPlayer.x, transform.position.y), velo);
         comportamentoatual = "Ataque";
-      
-        
-        if (health <= 0)
+
+
+        if (health <= 0 || GameObject.Find("Palhaco").GetComponent<Palhaco>().PararDeVer > 0)
         {
             CancelInvoke();
             Backupcomportamento = "Nas sombras";
             comportamentoatual = "Unsummon";
             anim.Play("Escuro_unsummon");
             Invoke(nameof(Ativar),1.3f);
-            Invoke(nameof(Trocadecomportamento), Random.Range(10, 30));
+            Invoke(nameof(Trocadecomportamento), Random.Range(30, 60));
         }
         if (GameObject.Find("Player").transform.position.x > gameObject.transform.position.x)
         {
@@ -250,13 +250,13 @@ public class Escuro : MonoBehaviour
         {
             transform.localScale = new Vector3(1, transform.localScale.y, 1);
         }
-       if(health<=0)
+        if (health <= 0 || GameObject.Find("Palhaco").GetComponent<Palhaco>().PararDeVer>0)
         {
             CancelInvoke();
             Backupcomportamento = "Nas sombras";
             comportamentoatual = "Unsummon";
             anim.Play("Escuro_unsummon");
-            Invoke(nameof(Trocadecomportamento), Random.Range(10, 30));
+            Invoke(nameof(Trocadecomportamento), Random.Range(30, 60));
             Invoke(nameof(Ativar), 1.3f);
         }
        

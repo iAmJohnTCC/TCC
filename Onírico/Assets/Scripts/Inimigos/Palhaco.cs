@@ -9,7 +9,8 @@ public class Palhaco : MonoBehaviour
     [SerializeField] GameObject[] Portas;
     [SerializeField] bool Cheguei_No_Fim;
     public bool To_Vendo_Player;
-    RaycastHit2D hit;
+   RaycastHit2D hit;
+    [SerializeField] GameObject why;
     float speed=0.02f;
     public float Normalspeed=0.02f;
     bool Cooldown=true;
@@ -30,10 +31,12 @@ public class Palhaco : MonoBehaviour
     {
         Player = GameObject.Find("Player");
     }
+    
     void Update()
     {
 
-        hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x*2.5f, 0), 25f, Player_e_Portas);
+        hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0), 8f, Player_e_Portas);
+      
         if (Pontos_Finais[Objetivo].transform.position.y > gameObject.transform.position.y + 9 || Pontos_Finais[Objetivo].transform.position.y < gameObject.transform.position.y - 9)
         {
             Objetivostemporarios();
@@ -44,8 +47,9 @@ public class Palhaco : MonoBehaviour
             Objetivotemporario = Vector2.zero;
             Lembrarporta = 0;
         }
-        if (hit.transform != null)
+        if (hit.transform != null&&hit.transform.gameObject.CompareTag("Player"))
         {
+            why = hit.transform.gameObject;
             if (hit.transform.gameObject.GetComponent<Movimentacao>() != null)
             {
                 if (Player.GetComponent<Movimentacao>().escondido && PararDeVer <= 9)
@@ -63,15 +67,20 @@ public class Palhaco : MonoBehaviour
                         Invoke(nameof(Comecearezar), 4f);
 
                     }
-                    PararDeVer = 10;
+                  if(To_Vendo_Player)
+                    {
+                        PararDeVer = 10;
+                    }
                    
                     
                 }
             }
-            else
-            {
-                To_Vendo_Player = false;
-            }
+            
+        }
+        else
+        {
+            To_Vendo_Player = false;
+
         }
         if (To_Vendo_Player || PararDeVer > 0)
         {
