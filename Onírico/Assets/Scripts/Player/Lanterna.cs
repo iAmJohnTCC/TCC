@@ -39,7 +39,7 @@ public class Lanterna : MonoBehaviour
                     Energia = 100;
                     player.Inventario[i] = null;
                     Stunning = false;
-
+                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(11);
                     break;
                 }
             }
@@ -126,8 +126,8 @@ public class Lanterna : MonoBehaviour
      else
         {
             Luz.SetActive(false);
-            GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(5);
-            CancelInvoke();
+            
+            CancelInvoke(nameof(Perdaenergia));
         }
     }
     void Lettherebelight()

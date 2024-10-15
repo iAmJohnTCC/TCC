@@ -9,6 +9,7 @@ public class Inventario_hud : MonoBehaviour
     [SerializeField] Movimentacao SCR_Player;
     [SerializeField] GameObject[] Inventario_Pra_HUD;
     [SerializeField] Image[] Imagens;
+    [SerializeField] Image Itematual;
     [SerializeField] Sprite Semitem;
     [SerializeField] TMP_Text[] nomeitens; 
     void Start()
@@ -35,11 +36,14 @@ public class Inventario_hud : MonoBehaviour
                 nomeitens[i].text = "Vazio";
             }
         }
+        Itematual.transform.position = Imagens[SCR_Player.Numeroitem].transform.position;
         
-        //for (int i = 0; i < Imagens.Length; i++)
-        //{
-        //    Imagens[i].sprite = 
-        //}
+       
 
+
+    }
+    public void Trocaritem(int Valor)
+    {
+        SCR_Player.Numeroitem = Valor;
     }
 }

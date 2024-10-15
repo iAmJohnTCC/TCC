@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5334287993407977113}
   - component: {fileID: 5234300822959742472}
-  m_Layer: 0
+  m_Layer: 1
   m_Name: Bloqueio_tutorial
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,6 +12,7 @@ public class Display_notas : MonoBehaviour
     [SerializeField]public Notas nota;
     [SerializeField] Image imagem;
     [SerializeField] Image Notaimg;
+    bool Trava;
      int Num_pagina;
     // Start is called before the first frame update
     void Start()
@@ -65,7 +66,7 @@ public class Display_notas : MonoBehaviour
                     
                 }
             }
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if(Input.GetKeyDown(KeyCode.E) && !Trava)
             {
               
                 Notatexto.CrossFadeAlpha(0, 1, false);
@@ -108,12 +109,16 @@ public class Display_notas : MonoBehaviour
         Paginas.CrossFadeAlpha(1, 1, false);
         Notaimg.CrossFadeAlpha(1f, 1, false);
         Escuro.GetComponent<Image>().CrossFadeAlpha(0.69f, 1, false);
-
-
+        Trava = true;
+        Invoke(nameof(Destravar), 2f);
 
         Num_pagina = 0;
       
     }   
+    void Destravar()
+    {
+        Trava = false;
+    }
     void Desativar()
     {
        

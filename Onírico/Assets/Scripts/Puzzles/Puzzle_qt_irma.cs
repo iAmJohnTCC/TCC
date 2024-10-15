@@ -18,7 +18,7 @@ public class Puzzle_qt_irma : MonoBehaviour,Interagiveis
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && UI.activeSelf)
+        if (Input.GetKeyDown(KeyCode.E) && UI.activeSelf)
         {
             Interacao(GameObject.Find("Player").GetComponent<Movimentacao>());
         }

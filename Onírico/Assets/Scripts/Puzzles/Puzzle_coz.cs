@@ -40,7 +40,7 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
             Ativar();
             
         }
-        if(Input.GetKeyDown(KeyCode.Escape)&&ui.activeSelf)
+        if(Input.GetKeyDown(KeyCode.E)&&ui.activeSelf)
         {
             Ativar();
             player.Textoguia.text = "Será que aquela nota pode me ajudar? ";

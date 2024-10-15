@@ -18,6 +18,7 @@ public class Movimentacao : MonoBehaviour
 
     [Header("Itens")]
     [SerializeField] public GameObject Item_Atual;
+    public int Numeroitem=0;
     [SerializeField] public GameObject[] Inventario;
     public int Espaco_Livre;
 
@@ -48,19 +49,79 @@ public class Movimentacao : MonoBehaviour
     void Start()
     {
         Rb = GetComponent<Rigidbody2D>();
-        Item_Atual = null;
+        
     }
     void Update()
     {
 
-        hudandaratual.text = AndarAtual;
-        hudlocalizacao.text = Localizacao;
+        //hudandaratual.text = AndarAtual;
+        //hudlocalizacao.text = Localizacao;
         if (Standby && escondido && Input.GetKeyDown(KeyCode.E))
         {
             GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.8f);
             Invoke(nameof(Escondido), 0.81f);
         }
+        Item_Atual = Inventario[Numeroitem];
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
 
+
+            Numeroitem = 0;
+
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+
+
+                Numeroitem = 1;
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.Alpha3))
+                {
+
+
+                    Numeroitem = 2;
+                }
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.Alpha4))
+                    {
+                        Numeroitem = 3;
+                    }
+                    else
+                    {
+                        if (Input.GetKeyDown(KeyCode.Alpha5))
+                        {
+                            Numeroitem = 4;
+                        }
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < Inventario.Length; i++)
+        {
+            if (Inventario[i] == null)
+            {
+                Espaco_Livre = i;
+                break;
+            }
+            else
+            {
+                Espaco_Livre = 5;
+            }
+        }
+        if (Item_Atual != null && Item_Atual.name == "Lanterna")
+        {
+            gameObject.GetComponent<Lanterna>().enabled = true;
+        }
+        else
+        {
+
+            gameObject.GetComponent<Lanterna>().enabled = false;
+        }
         if (!Standby)
         {
             if(Input.anyKey)
@@ -78,10 +139,10 @@ public class Movimentacao : MonoBehaviour
         {
             Interagir();
         }
-        if (Input.GetKeyDown(KeyCode.X)&& Inventario[0]!=null)
+        if (Input.GetKeyDown(KeyCode.X)&& Inventario[Numeroitem]!=null)
         {
-            Instantiate(Inventario[0],(Vector2)transform.position,Quaternion.identity);
-            Inventario[0] = null;
+            Instantiate(Inventario[Numeroitem],(Vector2)transform.position,Quaternion.identity);
+            Inventario[Numeroitem] = null;
         }
         if (Input.GetKey(KeyCode.LeftShift))
         {
@@ -98,80 +159,10 @@ public class Movimentacao : MonoBehaviour
             transform.localScale = new Vector3(horizontal, 1, 1);
         }
 
-       
-        GameObject ItemAnterior;
-        Item_Atual = Inventario[0];
-        if (Input.GetKeyDown(KeyCode.Alpha1) && Inventario[1] != null)
-        {
-            ItemAnterior = Item_Atual;
-            Inventario[0] = Inventario[1];
-            Inventario[1] = ItemAnterior;
-        }
-        else
-      {
-        if (Input.GetKeyDown(KeyCode.Alpha2) && Inventario[2] != null)
-        {
-            ItemAnterior = Item_Atual;
-            Inventario[0] = Inventario[2];
-            Inventario[2] = ItemAnterior;
-        }
-         else
-        {
-        if (Input.GetKeyDown(KeyCode.Alpha3) && Inventario[3] != null)
-        {
-            ItemAnterior = Item_Atual;
-            Inventario[0] = Inventario[3];
-            Inventario[3] = ItemAnterior;
-        }
-        else
-     {
-        if (Input.GetKeyDown(KeyCode.Alpha4) && Inventario[4] != null)
-        {
-            ItemAnterior = Item_Atual;
-            Inventario[0] = Inventario[4];
-            Inventario[4] = ItemAnterior;
-        }
-     }
-}
-}
-        for (int i = 0; i < Inventario.Length; i++)
-        {
-            if (Inventario[i] == null)
-            {
-                Espaco_Livre = i;
-                break;
-            }
-            else
-            {
-              Espaco_Livre=5;
-            }
-        }
-        if (Item_Atual!=null&&Item_Atual.name == "Lanterna")
-        {
-            gameObject.GetComponent<Lanterna>().enabled = true;
-        }
-        else
-        { 
-           
-            gameObject.GetComponent<Lanterna>().enabled = false;
-        }
 
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
+      
 
-            if (InventarioAberto)
-            {
-                Hud_inventario.SetActive(false);
-                InventarioAberto = false;
-            }
-
-            else
-            {
-                Hud_inventario.SetActive(true);
-                InventarioAberto = true;
-            }
-
-        }
+        
     }
     void Interagir()
     {
@@ -218,12 +209,13 @@ public class Movimentacao : MonoBehaviour
     {
         if (!escondido)
         {
+            GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(10);
             transform.position = esconderijo.transform.position;
             escondido = true;
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            Rb.isKinematic = true;
+            Velocidade = 0;
             Standby = true;
-            gameObject.GetComponent<CapsuleCollider2D>().isTrigger = true;
+            
 
         }
         else
@@ -232,8 +224,8 @@ public class Movimentacao : MonoBehaviour
             escondido = false;
             Standby = false;
             gameObject.GetComponent<SpriteRenderer>().enabled = true;
-            Rb.isKinematic = false;
-            gameObject.GetComponent<CapsuleCollider2D>().isTrigger = false;
+            Velocidade = 6;
+           
         }
     }
    public void Teleporte()

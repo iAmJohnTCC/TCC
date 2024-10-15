@@ -216,7 +216,7 @@ public class Escuro : MonoBehaviour
         comportamentoatual = "Ataque";
 
 
-        if (health <= 0 || GameObject.Find("Palhaco").GetComponent<Palhaco>().PararDeVer > 0)
+        if (health <= 0 || GameObject.Find("Palhaco").GetComponent<Palhaco>().PararDeVer > 0|| GameObject.Find("Player").GetComponent<Movimentacao>().escondido)
         {
             CancelInvoke();
             Backupcomportamento = "Nas sombras";
@@ -250,7 +250,7 @@ public class Escuro : MonoBehaviour
         {
             transform.localScale = new Vector3(1, transform.localScale.y, 1);
         }
-        if (health <= 0 || GameObject.Find("Palhaco").GetComponent<Palhaco>().PararDeVer>0)
+        if (health <= 0 || GameObject.Find("Palhaco").GetComponent<Palhaco>().PararDeVer>0 || GameObject.Find("Player").GetComponent<Movimentacao>().escondido)
         {
             CancelInvoke();
             Backupcomportamento = "Nas sombras";

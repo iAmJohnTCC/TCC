@@ -56,7 +56,7 @@ public class Evento_tutorial : MonoBehaviour
         if(Ensinamento=="Trocar itens")
         {
             Tutorialtexto.text = "Continue assim! Agora abra o seu inventário apertando TAB, eu quero que você tenha a lanterna como item principal, para trocar de item aperte o número do teclado correspondente ao número do item";
-            if (Player.Inventario[0].name=="Lanterna")
+            if (Player.Inventario[Player.Numeroitem].name=="Lanterna")
             {
                
                     Ensinamento = "Ligar a lanterna";
@@ -80,16 +80,17 @@ public class Evento_tutorial : MonoBehaviour
             if(Player.gameObject.GetComponent<Lanterna>().Stunning)
             {
                 Ensinamento = "Recarregar Lanterna";
+                Player.gameObject.GetComponent<Lanterna>().Energia = 0;
             }
         }
         if(Ensinamento=="Recarregar Lanterna")
         {
             Tutorialtexto.text = "Você acabou de amplificar a luz da lanterna, como pode perceber isso gasta muito energia, mas qualquer coisa que for pega por isso ficará no mínimo cega por alguns segundos,exceto talvez insetos, agora quero que você troque de pilha, aperte R para trocar de pilha";
-            Player.gameObject.GetComponent<Lanterna>().Energia = 0;
-            if(Player.Inventario[1]==null)
+            
+            if (Player.gameObject.GetComponent<Lanterna>().Energia == 100)
             {
                 Ensinamento = "Dropar itens";
-                Player.gameObject.GetComponent<Lanterna>().Energia = 100;
+               
             }
         }
         if(Ensinamento=="Dropar itens")

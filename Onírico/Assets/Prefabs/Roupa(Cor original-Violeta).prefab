@@ -227,7 +227,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 8
   m_Sprite: {fileID: 7482667652216324306, guid: d23f647ed67ff0c43ae1554b37e5a925, type: 3}
-  m_Color: {r: 0.5, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.5, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -251,12 +251,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   R: 0.5
   G: 0
-  B: 1
+  B: 0
   OGr: 0.5
   OGg: 0
   OGb: 1
   OGtipo: "Secund\xE1ria"
-  tipocor: "Secund\xE1ria"
+  tipocor: "Prim\xE1ria"
 --- !u!61 &5153609173127853185
 BoxCollider2D:
   m_ObjectHideFlags: 0

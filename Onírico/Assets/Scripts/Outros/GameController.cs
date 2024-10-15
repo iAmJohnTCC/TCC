@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     
     public void Fadeout(float time)
     {
+        CancelInvoke(nameof(Fadein));
         GameObject.Find("Player").GetComponent<Movimentacao>().Standby = true;
         image.CrossFadeAlpha(0, 0, false);
         image.CrossFadeAlpha(time, 1, false);

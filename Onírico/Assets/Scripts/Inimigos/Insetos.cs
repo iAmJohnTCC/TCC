@@ -14,10 +14,21 @@ public class Insetos : MonoBehaviour,Interagiveis
     Movimentacao Player;
     void Start()
     {
+        gameObject.GetComponent<AudioSource>().enabled = true;
         for (int i = 0; i < meusinsetos.Length; i++) 
         {
             meusinsetos[i].gameObject.GetComponent<SpriteRenderer>().enabled = true;
         }
+        B = 0;
+          Esconderijos[B].GetComponent<BoxCollider2D>().enabled = false;
+                transform.position = Esconderijos[B].transform.position;
+                for (int i = 0; i < meusinsetos.Length; i++)
+                {
+                    meusinsetos[i].Play(Qualinseto[Random.Range(0, Qualinseto.Length)]);
+                    meusinsetos[i].GetComponent<Anim_Insetos>().Limites(Horizontalmaxima[B], Horizontalminima[B], Verticalminima[B],Verticalmaxima[B]);
+                    meusinsetos[i].GetComponent<Anim_Insetos>().Novoobjetivo();
+                    meusinsetos[i].transform.position = transform.position;
+                }
         Player = GameObject.Find("Player").GetComponent<Movimentacao>();
         Invoke(nameof(Trocaresconderijo),Random.Range(10f,30f));
     }

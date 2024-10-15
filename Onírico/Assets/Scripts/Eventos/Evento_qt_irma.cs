@@ -15,18 +15,20 @@ public class Evento_qt_irma : MonoBehaviour
     [SerializeField] public GameObject Escuro;
     Escuro scrEscuro;
     [SerializeField] Sprite Abriu;
-    [SerializeField] GameObject Bloqueiotutorial;
+    [SerializeField] public GameObject Bloqueiotutorial;
     [SerializeField] GameObject Banheiro;
  
     //[SerializeField] Vector2
     private void Start()
     {
+      
         GameObject.Find("QuartoIrma_cofre").GetComponent<SpriteRenderer>().sprite=Abriu;
         Bloqueiotutorial = Instantiate(Bloqueiotutorial);
+        Escuro = Instantiate(Escuro, new Vector2(37,0.45f), Quaternion.identity);
         GameObject.Find("Porta_qt_irma_D").GetComponent<Porta>().Aberto = false;
         Palhaco = GameObject.Find("Palhaco");
         Palhaco_intro = GameObject.Find("Teste (2)");
-        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Estou sentindo algo estranho naquela caixa,não vou sair daqui até eu ligar a lanterna e apontar pra caixa(Aperte F para ligar a lanterna)";
+        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Estou sentindo uma presença estranha,não vou sair daqui até eu ligar a lanterna e apontar pra essa presença(Aperte F para ligar a lanterna)";
     }
     void Update()
     {
@@ -73,8 +75,8 @@ public class Evento_qt_irma : MonoBehaviour
     }
     void Intro()
     {
-        Bloqueiotutorial.SetActive(false);
-       
+        Bloqueiotutorial.transform.position = new Vector2(11.5f, -2.89f);
+
         GameObject.Find("Player").GetComponent<Movimentacao>().Standby = true;
         Palhaco_intro.GetComponent<Animator>().Play("Palhaco_intro");
         Invoke(nameof(Funbegins), 3f);
@@ -91,7 +93,7 @@ public class Evento_qt_irma : MonoBehaviour
         GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Um Pa-Pa-palhaço? Eu tenho que ligar a lanterna e apertar espaço para cega-lo e conseguir fugir!";
         Palhaco.GetComponent<Palhaco>().To_Vendo_Player = true;
         GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
-        Escuro = Instantiate(Escuro, new Vector2 (7.3f, 1.13f), Quaternion.identity);
+        
         Banheiro = Instantiate(Banheiro );
         Banheiro.GetComponent<Evento_bh>().Ev=this;
          

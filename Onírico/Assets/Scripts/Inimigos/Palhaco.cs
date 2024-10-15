@@ -9,12 +9,10 @@ public class Palhaco : MonoBehaviour
     [SerializeField] GameObject[] Portas;
     [SerializeField] bool Cheguei_No_Fim;
     public bool To_Vendo_Player;
-   RaycastHit2D hit;
-    [SerializeField] GameObject why;
+   RaycastHit2D hit; 
     float speed=0.02f;
     public float Normalspeed=0.02f;
     bool Cooldown=true;
-    bool Semrepetir=false;
      Porta porta;
     [SerializeField] GameObject Player;
     [SerializeField] LayerMask Player_e_Portas;
@@ -49,7 +47,7 @@ public class Palhaco : MonoBehaviour
         }
         if (hit.transform != null&&hit.transform.gameObject.CompareTag("Player"))
         {
-            why = hit.transform.gameObject;
+           
             if (hit.transform.gameObject.GetComponent<Movimentacao>() != null)
             {
                 if (Player.GetComponent<Movimentacao>().escondido && PararDeVer <= 9)
@@ -256,9 +254,7 @@ public class Palhaco : MonoBehaviour
                 || Player.GetComponent<Movimentacao>().Localizacao == localizacao2)
             {
                 porta = collision.gameObject.GetComponent<Porta>();
-                localizacao2 = collision.gameObject.GetComponent<Porta>().Localizacao;
-                GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f);
-                Invoke("Teleporte", 1.5f);
+                localizacao2 = collision.gameObject.GetComponent<Porta>().Localizacao;            
                 GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(7);
                 if(PararDeVer>0)
               {
@@ -267,13 +263,12 @@ public class Palhaco : MonoBehaviour
               }
 
             }
-            else
-            {
+           
                 
                 transform.position = collision.gameObject.GetComponent<Porta>().posicao.transform.position;
                 localizacao2 = collision.gameObject.GetComponent<Porta>().Localizacao;
                 
-            }
+            
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -296,14 +291,13 @@ public class Palhaco : MonoBehaviour
                    
                 }
                 if ((Player.GetComponent<Movimentacao>().Localizacao == collision.gameObject.GetComponent<Porta>().Localizacao || 
-                Player.GetComponent<Movimentacao>().Localizacao == localizacao2)&&!Semrepetir)
+                Player.GetComponent<Movimentacao>().Localizacao == localizacao2))
                 {
                   
-                Semrepetir = true;
+               
                     porta = collision.gameObject.GetComponent<Porta>();
                     localizacao2 = collision.gameObject.GetComponent<Porta>().Localizacao;
-                    GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f);
-                    Invoke("Teleporte", 1.5f);
+                   
                 if (!porta.CompareTag("Escada"))
                 {
                     GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(7);
@@ -318,16 +312,14 @@ public class Palhaco : MonoBehaviour
                 Invoke(nameof(Comecearezar), 4f);
               }
                 }
-                else
-                {
-                        if(!Semrepetir)
-                     {
+              
+                      
                        
                     transform.position = porta.posicao.transform.position;
                     localizacao2 = porta.Localizacao;
                     Objetivostemporarios();
-                    }
-                }
+                    
+               
 
             }
         
@@ -353,14 +345,12 @@ public class Palhaco : MonoBehaviour
                    
                 }
             if ((Player.GetComponent<Movimentacao>().Localizacao == collision.gameObject.GetComponent<Porta>().Localizacao ||
-           Player.GetComponent<Movimentacao>().Localizacao == localizacao2) && !Semrepetir)
+           Player.GetComponent<Movimentacao>().Localizacao == localizacao2) )
             {
-                 
-                Semrepetir = true;
+               
                     porta = collision.gameObject.GetComponent<Porta>();
 
-                    GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f);
-                    Invoke("Teleporte", 1.5f);
+                   
                 if (!porta.CompareTag("Escada"))
                 {
                     GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(7);
@@ -376,31 +366,19 @@ public class Palhaco : MonoBehaviour
                 Invoke(nameof(Comecearezar), 4f);
               }
                 }
-                else
-                {
-                     if(!Semrepetir)
-                     {
+               
+                    
                     transform.position = porta.posicao.transform.position;
                     localizacao2 = porta.Localizacao;
                     Objetivostemporarios();
                  
-                     }
-                }
+                     
+                
 
             
         }
     }
-    void Teleporte()
-    {
-       CancelInvoke(nameof(Teleporte));
-        transform.position = porta.posicao.transform.position;
-        if (!Player.GetComponent<Movimentacao>().escondido)
-        {
-            Player.GetComponent<Movimentacao>().Standby = false;
-        }
-        Semrepetir = false;
-        porta=null;
-    }
+  
     public void PerderdeVista()
     {
         PararDeVer --;

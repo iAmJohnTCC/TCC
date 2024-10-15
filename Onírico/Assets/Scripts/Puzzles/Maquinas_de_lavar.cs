@@ -25,10 +25,10 @@ public class Maquinas_de_lavar : MonoBehaviour,Interagiveis
     }
     public void Interacao(Movimentacao player)
     {
-        if (player.Inventario[0] != null && player.Inventario[0].GetComponent<scr_roupas>() != null && !GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().puzzleresolvido)
+        if (player.Inventario[player.Numeroitem] != null && player.Inventario[player.Numeroitem].GetComponent<scr_roupas>() != null && !GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().puzzleresolvido)
         {
-            Roupas_adquiridas[i] = Instantiate(GameObject.Find("Player").GetComponent<Movimentacao>().Inventario[0], transform.position, Quaternion.identity);
-            player.Inventario[0] = null;
+            Roupas_adquiridas[i] = Instantiate(GameObject.Find("Player").GetComponent<Movimentacao>().Inventario[player.Numeroitem], transform.position, Quaternion.identity);
+            player.Inventario[player.Numeroitem] = null;
             Roupas_adquiridas[i].GetComponent<BoxCollider2D>().enabled = false;
             i++;
         }
@@ -41,7 +41,7 @@ public class Maquinas_de_lavar : MonoBehaviour,Interagiveis
             }
             if ( Roupas_adquiridas[0] != null && !GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().puzzleresolvido)
             {
-
+                GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(12);
                 if (gameObject.name == "Mqndelavar_limpar")
                 {
                     GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().roupassujas = Roupas_adquiridas;

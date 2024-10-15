@@ -21,7 +21,7 @@ public class Evento_Manequim : MonoBehaviour, Interagiveis
             
             GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f);
             Invoke(nameof(Droparitem),1.5f);
-            prayer.Inventario[0] = null;
+            prayer.Inventario[prayer.Numeroitem] = null;
         }
         else
         {
