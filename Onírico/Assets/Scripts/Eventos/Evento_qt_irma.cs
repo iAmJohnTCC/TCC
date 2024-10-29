@@ -28,7 +28,7 @@ public class Evento_qt_irma : MonoBehaviour
         GameObject.Find("Porta_qt_irma_D").GetComponent<Porta>().Aberto = false;
         Palhaco = GameObject.Find("Palhaco");
         Palhaco_intro = GameObject.Find("Teste (2)");
-        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Estou sentindo uma presença estranha,não vou sair daqui até eu ligar a lanterna e apontar pra essa presença(Aperte F para ligar a lanterna)";
+        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Aperte F";
     }
     void Update()
     {
@@ -40,7 +40,7 @@ public class Evento_qt_irma : MonoBehaviour
             }
             if (!Theclownisintown)
             {
-                GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Estou sentindo algo estranho naquela caixa,não vou sair daqui até eu ligar a lanterna e apontar pra caixa(Aperte F para ligar a lanterna)";
+                GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Aperte F";
             }
             if (Lanterna == null && !Theclownisintown && GameObject.Find("Player").GetComponent<Lanterna>().Luz.activeSelf && GameObject.Find("Player").transform.localScale.x == -1)
             {
@@ -54,7 +54,7 @@ public class Evento_qt_irma : MonoBehaviour
             }
             if (Palhaco.GetComponent<Palhaco>().PararDeVer > 0)
             {
-                GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Um Pa-Pa-palhaço? Eu tenho que ligar a lanterna e apertar espaço para cega-lo e conseguir fugir!";
+                GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Para atordoar o palhaço, aperte espaço enquanto a lanterna está ligada.";
             }
             if (Palhaco.GetComponent<Palhaco>().Stunned|| GameObject.Find("Player").GetComponent<Movimentacao>().Localizacao!="Quarto da Irmã")
             {
@@ -68,7 +68,7 @@ public class Evento_qt_irma : MonoBehaviour
         {
             if (Palhaco.GetComponent<Palhaco>().Normalspeed != 0.02f)
             {
-                GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Eu tenho que me esconder! Talvez no banheiro tenha algum lugar que eu posso usar";
+                GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Eu tenho que me esconder! 'Corra!'";
                 Palhaco.GetComponent<Palhaco>().Normalspeed = 0.02f;
             }
         }
@@ -76,7 +76,7 @@ public class Evento_qt_irma : MonoBehaviour
     void Intro()
     {
         Bloqueiotutorial.transform.position = new Vector2(11.5f, -2.89f);
-
+        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "O que é isso!?";
         GameObject.Find("Player").GetComponent<Movimentacao>().Standby = true;
         Palhaco_intro.GetComponent<Animator>().Play("Palhaco_intro");
         Invoke(nameof(Funbegins), 3f);
@@ -90,7 +90,7 @@ public class Evento_qt_irma : MonoBehaviour
         GameObject.Find("Porta_qt_irma_D").GetComponent<Porta>().Aberto = true;
         Palhaco.transform.position = Palhaco_intro.transform.position;
         Destroy(Palhaco_intro);
-        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Um Pa-Pa-palhaço? Eu tenho que ligar a lanterna e apertar espaço para cega-lo e conseguir fugir!";
+        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Para atordoar o palhaço, aperte espaço enquanto a lanterna está ligada.";
         Palhaco.GetComponent<Palhaco>().To_Vendo_Player = true;
         GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
         

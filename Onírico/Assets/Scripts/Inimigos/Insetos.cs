@@ -67,6 +67,6 @@ public class Insetos : MonoBehaviour,Interagiveis
     }
     public void Interacao (Movimentacao player)
     {
-        player.Textoguia.text = "Eu não vou me esconder aqui";
+        player.Textoguia.text = "Credo, eu não vou me esconder aqui.";
     }
 }

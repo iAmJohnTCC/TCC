@@ -7,6 +7,7 @@ public class Destaque_interagiveis : MonoBehaviour
     Animator anim;
     [SerializeField] float altura=-1.5f;
     [SerializeField] LayerMask player;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -20,10 +21,26 @@ public class Destaque_interagiveis : MonoBehaviour
         if(ray.transform!=null)
         {
             anim.Play("Handholding_Destaque");
+            if(GameObject.Find("Sinal_interagir").GetComponent<Sinal_interagir>().Objeto_me_utilizando==null)
+            {
+                GameObject.Find("Sinal_interagir").GetComponent<Sinal_interagir>().Objeto_me_utilizando =this.gameObject;
+                GameObject.Find("Sinal_interagir").transform.position = new Vector2(transform.position.x, transform.position.y -1.5f);
+            }
         }
         else
         {
-            anim.Play("Handholding_Desdestacar");
+            if (GameObject.Find("Sinal_interagir").GetComponent<Sinal_interagir>().Objeto_me_utilizando == this.gameObject)
+            {
+                GameObject.Find("Sinal_interagir").GetComponent<Sinal_interagir>().Objeto_me_utilizando = null;
+            }
+                anim.Play("Handholding_Desdestacar");
+        }
+    }
+    private void OnDisable()
+    {
+        if (GameObject.Find("Sinal_interagir").GetComponent<Sinal_interagir>().Objeto_me_utilizando == this.gameObject)
+        {
+            GameObject.Find("Sinal_interagir").GetComponent<Sinal_interagir>().Objeto_me_utilizando = null;
         }
     }
 }

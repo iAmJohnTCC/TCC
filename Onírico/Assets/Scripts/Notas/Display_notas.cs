@@ -26,7 +26,7 @@ public class Display_notas : MonoBehaviour
     {
         if(nota!=null)
         {
-            Notatexto.text = nota.Paginas[Num_pagina];
+            Notatexto.text= nota.Paginas[Num_pagina].text;
             
             if(Notatexto.text=="Imagem")
             {
@@ -76,17 +76,14 @@ public class Display_notas : MonoBehaviour
                 Notaimg.CrossFadeAlpha(1, 0, false);
                 Notaimg.CrossFadeAlpha(0F, 1, false);
                 Invoke("Desativar", 1f);
-                if (nota.gameObject.name == "Nota_Lavanderia")
-                {
-                    GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = " Roupa rosa? onde que eu vi isso antes?";
-                }
-                else
-                {
+              
+                
+                
                     if(nota.gameObject.name == "Nota_Despensa")
                     {
-                        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Um Manequim de Roupa rosa?";
+                        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Hm, um manequim de roupa rosa?";
                     }
-                }
+                
                 GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
                 nota = null;
             }
@@ -98,6 +95,8 @@ public class Display_notas : MonoBehaviour
         nota = note;
        Notaimg.gameObject.SetActive(true);
         Notatexto.gameObject.SetActive(true);
+        Notatexto.fontSize = nota.Paginas[0].fontSize;
+        Notatexto.fontStyle = nota.Paginas[0].fontStyle;
         Escuro.SetActive(true);
         Paginas.gameObject.SetActive(true);
         GameObject.Find("Player").GetComponent<Movimentacao>().Standby=true;

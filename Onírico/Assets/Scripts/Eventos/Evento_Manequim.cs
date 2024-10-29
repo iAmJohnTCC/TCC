@@ -25,7 +25,7 @@ public class Evento_Manequim : MonoBehaviour, Interagiveis
         }
         else
         {
-            prayer.Textoguia.text = "Parece ter algo na boca do manequin, uma chave talvez?, huh eu não consigo tirar,talvez aquela nota me dê alguma solução";
+            prayer.Textoguia.text = "Só um manequim";
         }
     }
 
@@ -36,7 +36,7 @@ public class Evento_Manequim : MonoBehaviour, Interagiveis
             Sprite.sprite = SpriteManequim;
             Instantiate(Chave, new Vector2(-34.88f, -32), Quaternion.identity);
         GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
-       GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "O manequin derrubou uma chave, talvez tenha alguma porta trancada onde eu posso usa-la?";
+       GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Esse manequim estava escondendo uma chave! Não lembro para que ela serve.";
         Minhaluz.SetActive(false);
     }
 }

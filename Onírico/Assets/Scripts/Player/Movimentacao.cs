@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Rendering.Universal;
-
+using UnityEngine.UI;
 
 
 public class Movimentacao : MonoBehaviour
@@ -41,6 +41,8 @@ public class Movimentacao : MonoBehaviour
     
     [Header("HUD")]
     [SerializeField] GameObject Hud_inventario;
+    [SerializeField] Image Itematual;
+     [SerializeField] Sprite Semitem;
     public TMP_Text Textoguia;
     bool InventarioAberto = false;
 
@@ -62,6 +64,30 @@ public class Movimentacao : MonoBehaviour
             Invoke(nameof(Escondido), 0.81f);
         }
         Item_Atual = Inventario[Numeroitem];
+        if(Input.GetKeyDown(KeyCode.Tab))
+          {
+            if(Hud_inventario.activeSelf)
+              {
+                Hud_inventario.SetActive(false);
+                Itematual.gameObject.transform.parent.gameObject.SetActive(true);
+                if (Inventario[Numeroitem] != null)
+                {
+                    Itematual.sprite = Inventario[Numeroitem].GetComponent<SpriteRenderer>().sprite;
+                    Itematual.color = Inventario[Numeroitem].GetComponent<SpriteRenderer>().color;
+                }
+                else
+                {
+                    Itematual.sprite = null;
+                    Itematual.color = new Color(1, 1, 1,0);
+                }
+            }
+             else
+              {
+                Itematual.gameObject.transform.parent.gameObject.SetActive(false);
+               Hud_inventario.SetActive(true);
+              }
+
+          }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
 
@@ -113,6 +139,17 @@ public class Movimentacao : MonoBehaviour
                 Espaco_Livre = 5;
             }
         }
+           if(Inventario[Numeroitem]!=null)
+           {
+             Itematual.sprite=Inventario[Numeroitem].GetComponent<SpriteRenderer>().sprite;
+             Itematual.color= Inventario[Numeroitem].GetComponent<SpriteRenderer>().color;
+        }
+           else
+           {
+             Itematual.sprite=null;
+            Itematual.color = new Color(1,1,1,0);
+           }
+         
         if (Item_Atual != null && Item_Atual.name == "Lanterna")
         {
             gameObject.GetComponent<Lanterna>().enabled = true;
@@ -141,7 +178,7 @@ public class Movimentacao : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.X)&& Inventario[Numeroitem]!=null)
         {
-            Instantiate(Inventario[Numeroitem],(Vector2)transform.position,Quaternion.identity);
+            Instantiate(Inventario[Numeroitem],new Vector2(transform.position.x,transform.position.y-1.2f),Quaternion.identity);
             Inventario[Numeroitem] = null;
         }
         if (Input.GetKey(KeyCode.LeftShift))

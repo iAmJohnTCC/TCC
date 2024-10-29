@@ -40,7 +40,6 @@ public class Porta : MonoBehaviour,Interagiveis
                 }
                 player.porta.Aberto = true;
                 player.Inventario[player.Numeroitem] = null;
-                player.Textoguia.text = "Agora posso entrar aqui";
                 GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(9);
                 player.porta = null;
             }

@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
-
+using TMPro;
 public class Notas : MonoBehaviour,Interagiveis
 {
-    [SerializeField] public string [] Paginas;
+    [SerializeField] public TMP_Text [] Paginas;
     [SerializeField] public Sprite imagem;
 
   public void Interacao(Movimentacao player)

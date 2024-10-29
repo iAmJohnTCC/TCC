@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour
    [SerializeField] Image image;
     GameObject luz;
     int M, S;
+    public bool Bosstime = false;
+   [SerializeField] Evento_Gerador_Parte2 Bool;
     void Start()
     {
         image.CrossFadeAlpha(1, 0, false);
@@ -45,9 +47,11 @@ public class GameController : MonoBehaviour
     }
     public void Ligarluz(GameObject luzes)
     {
+        
         luz = luzes;
-        if (!luz.GetComponent<Light2DBase>().enabled)
+        if (!luz.GetComponent<Light2DBase>().enabled && Bool.PodeLigar)
         {
+            Bosstime = true;
             luz.GetComponent<Light2DBase>().enabled = true;
             luz.GetComponent<PolygonCollider2D>().enabled = true;
 

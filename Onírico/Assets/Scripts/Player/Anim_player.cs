@@ -6,7 +6,6 @@ public class Anim_player : MonoBehaviour
 {
     Animator anim;
     Movimentacao player;
-    bool naorepetir=false;
     string mudouotexto="";
     // Start is called before the first frame update
     void Start()
@@ -73,7 +72,7 @@ public class Anim_player : MonoBehaviour
                 CancelInvoke(nameof(PodeRepetir));
                 player.Textoguia.GetComponent<Animator>().Play("Guia_textoanim", -1, 0);
                 mudouotexto = player.Textoguia.text;
-                naorepetir = true;
+               
                 Invoke(nameof(PodeRepetir), 6.1f);
             }
         }

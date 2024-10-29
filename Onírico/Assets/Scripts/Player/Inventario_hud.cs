@@ -9,9 +9,9 @@ public class Inventario_hud : MonoBehaviour
     [SerializeField] Movimentacao SCR_Player;
     [SerializeField] GameObject[] Inventario_Pra_HUD;
     [SerializeField] Image[] Imagens;
-    [SerializeField] Image Itematual;
+    [SerializeField] Image Itemselecionado;
     [SerializeField] Sprite Semitem;
-    [SerializeField] TMP_Text[] nomeitens; 
+    
     void Start()
     {
         SCR_Player = GameObject.Find("Player").GetComponent<Movimentacao>();
@@ -20,7 +20,7 @@ public class Inventario_hud : MonoBehaviour
     void Update()
     {
         Inventario_Pra_HUD = SCR_Player.Inventario;
-
+        
         for (int i = 0; i < Inventario_Pra_HUD.Length; i++)
         {
             if (SCR_Player.Inventario[i] != null)
@@ -28,17 +28,17 @@ public class Inventario_hud : MonoBehaviour
              Imagens[i].sprite = Inventario_Pra_HUD[i].GetComponent<SpriteRenderer>().sprite;
 
                 Imagens[i].color= Inventario_Pra_HUD[i].GetComponent<SpriteRenderer>().color;
-                nomeitens[i].text = Inventario_Pra_HUD[i].name;
+                
             }
             else
             {
-                Imagens[i].sprite = Semitem;
-                nomeitens[i].text = "Vazio";
+                Imagens[i].sprite = null;
+                Imagens[i].color =new Color(1,1,1,0);
             }
         }
-        Itematual.transform.position = Imagens[SCR_Player.Numeroitem].transform.position;
+        Itemselecionado.transform.position = Imagens[SCR_Player.Numeroitem].transform.position;
         
-       
+      
 
 
     }

@@ -14,9 +14,11 @@ public class Evento_tutorial : MonoBehaviour
     [SerializeField] GameObject Lanterna;
     [SerializeField] GameObject displaynotas;
     bool correupraesquerda, correupradireita;
+    bool andoupraesquerda, andoupradireita;
     void Start()
     {
-        
+        Tutorialtexto.text = "Filho está na hora de dormir.";
+        Invoke(nameof(troca1),8f);
     }
 
     // Update is called once per frame
@@ -29,8 +31,25 @@ public class Evento_tutorial : MonoBehaviour
         }
         if (Ensinamento == "Andar")
         {
-            Tutorialtexto.text = "Filho tá quase na hora de dormir,mas antes de ir deitar, deixa eu te relembrar de algumas coisas, você se move pra esquerda ou pra direita apertando respectivamente A e D(< e > fazem a mesma coisa), segurando o Shift esquerdo e apertando A ou D você corre. Agora corra para esquerda e para direita para me mostrar que entendeu";
-            if(Input.GetAxisRaw("Horizontal")>0&&Input.GetKey(KeyCode.LeftShift))
+            Tutorialtexto.text = "Aperte A/D ou <-/->";
+            if (Input.GetAxisRaw("Horizontal")>0)
+            {
+                andoupradireita = true;
+            }
+            if (Input.GetAxisRaw("Horizontal") < 0 )
+            {
+                andoupraesquerda = true;
+            }
+            if(andoupradireita&&andoupraesquerda)
+            {
+                Ensinamento = "Correr";
+            }
+
+        }
+        if(Ensinamento=="Correr")
+        {
+            Tutorialtexto.text = "Segure o shift para correr";
+            if (Input.GetAxisRaw("Horizontal") > 0&&Input.GetKey(KeyCode.LeftShift))
             {
                 correupradireita = true;
             }
@@ -38,15 +57,14 @@ public class Evento_tutorial : MonoBehaviour
             {
                 correupraesquerda = true;
             }
-            if(correupradireita&&correupraesquerda)
+            if (correupradireita && correupraesquerda)
             {
                 Ensinamento = "Pegar itens";
             }
-
         }
         if (Ensinamento=="Pegar itens")
         {
-            Tutorialtexto.text = "Muito bom, agora, está vendo aquela Pilha ? ande até ela e aperte E enquanto estiver brilhando";
+            Tutorialtexto.text = "Mas antes, pegue aquela pilha que está no chão.";
             if(Bateria==null)
             {
                 Player.AdicionarItem(Lanterna);
@@ -55,7 +73,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if(Ensinamento=="Trocar itens")
         {
-            Tutorialtexto.text = "Continue assim! Agora abra o seu inventário apertando TAB, eu quero que você tenha a lanterna como item principal, para trocar de item aperte o número do teclado correspondente ao número do item";
+            Tutorialtexto.text = "Aperte TAB para mostrar o inventário. Para trocar de item clique no número em cima dele.";
             if (Player.Inventario[Player.Numeroitem].name=="Lanterna")
             {
                
@@ -65,15 +83,25 @@ public class Evento_tutorial : MonoBehaviour
         }
         if(Ensinamento=="Ligar a lanterna")
         {
-            Tutorialtexto.text = "Melhor se acostumar a trocar de itens, acredite você vai precisar, agora quero que você ligue a lanterna( Aperte F para ligar a lanterna)";
+            Tutorialtexto.text = "Aperte F para ligar a lanterna.";
             if (Player.gameObject.GetComponent<Lanterna>().Luz.activeSelf)
             {
-                Ensinamento = "Stun";
+                Ensinamento = "Desligar a lanterna";
             }
             
            
         }
-        if(Ensinamento=="Stun")
+        if (Ensinamento == "Desligar a lanterna")
+        {
+            Tutorialtexto.text = "Aperte F para desligar a lanterna.";
+            if (!Player.gameObject.GetComponent<Lanterna>().Luz.activeSelf)
+            {
+                Ensinamento = "Recarregar Lanterna";
+            }
+
+
+        }
+        if (Ensinamento=="Stun")
         {
             Tutorialtexto.text = "Você também pode apertar F enquanto a lanterna está acesa para desliga-la, agora quero que você aperte espaço enquanto a lanterna está acesa";
             Player.gameObject.GetComponent<Lanterna>().Energia = 100;
@@ -85,7 +113,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if(Ensinamento=="Recarregar Lanterna")
         {
-            Tutorialtexto.text = "Você acabou de amplificar a luz da lanterna, como pode perceber isso gasta muito energia, mas qualquer coisa que for pega por isso ficará no mínimo cega por alguns segundos,exceto talvez insetos, agora quero que você troque de pilha, aperte R para trocar de pilha";
+            Tutorialtexto.text = "Aperte R para recarregar a lanterna.";
             
             if (Player.gameObject.GetComponent<Lanterna>().Energia == 100)
             {
@@ -95,7 +123,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if(Ensinamento=="Dropar itens")
         {
-            Tutorialtexto.text = "Se você abrir o inventário agora vai perceber que a pilha sumiu, esse é o pequeno sacrifício que deve ser feito toda vez que você troca de pilha, mais uma coisa você só pode recarregar quando a energia chegar a 0%. Agora eu quero que você largue a lanterna, aperte X pra largar o item atual ";
+            Tutorialtexto.text ="Aperte X pra largar o item atual ";
             if (Player.Inventario[0] == null)
             {
                 Ensinamento = "Abrir porta";
@@ -104,7 +132,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if(Ensinamento=="Abrir porta")
         {
-            Tutorialtexto.text = "Agora vá para a esquerda o máximo que puder, está vendo essa porta?, entre nela. Lembre-se qualquer objeto que começa a brilhar quando você chega perto pode ser interagido com E";
+            Tutorialtexto.text = "Muito bem, vamos para o quarto, docinho.";
             if (Player.Localizacao == "Quarto da criança")
             {
                 Ensinamento = "Se esconder";
@@ -135,6 +163,10 @@ public class Evento_tutorial : MonoBehaviour
             Tutorialtexto.gameObject.GetComponent<Animator>().Play("Texto_tutorial", 0, 0);
             Textoantigo = Ensinamento;
         }
+    }
+    void troca1()
+    {
+        Ensinamento = "Andar";
     }
     void Impaciente()
     {

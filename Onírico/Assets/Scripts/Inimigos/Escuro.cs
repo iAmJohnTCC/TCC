@@ -56,7 +56,7 @@ public class Escuro : MonoBehaviour
         }
 
 
-        if (GameObject.Find("Player").GetComponent<Movimentacao>().Localizacao == "Sala do gerador"&&!Bossfight)
+        if (GameObject.Find("GameController").GetComponent<GameController>().Bosstime&&!Bossfight)
         {
             Bossfight=true;
             comportamentoatual = "Boss";
@@ -78,10 +78,10 @@ public class Escuro : MonoBehaviour
     {
         CancelInvoke();
  posicaoPlayer = GameObject.Find("Player").transform.position;
-        if (GameObject.Find("Player").GetComponent<Movimentacao>().Localizacao == "Sala do gerador")
+        if (GameObject.Find("GameController").GetComponent<GameController>().Bosstime)
             {
                 comportamentoatual = "Boss";
-                GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text="Parece que agora a lanterna não vai ser o suficiente para ele me deixar em paz, mas será que aquele botão naquele canto seja a resposta?";
+                GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text= "O QUE?! A minha lanterna parou de funcionar contra esse monstro aqui!";
                 int i = Random.Range(0, 2);
                 if (i == 0)
                 {
@@ -129,9 +129,9 @@ public class Escuro : MonoBehaviour
                 
             }
 
-        
-      
-            if(GameObject.Find("Player").GetComponent<Movimentacao>().Localizacao == "Sala do gerador")
+
+
+        if (GameObject.Find("GameController").GetComponent<GameController>().Bosstime)
             {
                 comportamentoatual = "Boss";
                 int i = Random.Range(0, 2);
@@ -266,9 +266,9 @@ public class Escuro : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Luz_gerador") && collision.GetComponent<PolygonCollider2D>().isActiveAndEnabled)
         {
-            GameObject.Find("Chave_lavanderia").transform.position=transform.position;
+            GameObject.Find("Chave Lavanderia").transform.position=transform.position;
             GameObject.Find("Porta_D_gerador").GetComponent<Porta>().Aberto = true;
-            GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text="Parece que ele não vai mais me pertubar. Espera,ele derrubou uma chave? ";
+            GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text= "Nossa, foi por pouco... Parece que ele derrubou algo";
             Destroy(this.gameObject);
         }
     }

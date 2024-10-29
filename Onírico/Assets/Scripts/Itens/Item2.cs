@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class Item2 : MonoBehaviour,Interagiveis
 {
-    [SerializeField] Item Meu_Item;
+    [SerializeField] public Item Meu_Item;
     [SerializeField] SpriteRenderer Renderer;
+    [SerializeField] public float Item_Positiondrop;
     void Start()
     {
       
@@ -31,10 +32,43 @@ public class Item2 : MonoBehaviour,Interagiveis
 
 
             }
-            if(gameObject.name!="Roupa Rosa"||gameObject.name!= "Pilha feliz")
-                    {
-                Player.Textoguia.text = "Eu peguei " + Meu_Item.Item_nome + " (Aperte Tab para abrir o inventário, aperte o número que aparece em cima do item para seleciona-lo)";
+            if(Meu_Item.name=="Pilhas")
+            {
+                Player.Textoguia.text = "Pilhas... elas serão úteis.";
             }
+            if (Meu_Item.name == "Vela Apagada")
+            {
+                Player.Textoguia.text = "Olha, achei a vela!";
+            }
+            if (Meu_Item.name == "Acendedor")
+            {
+                Player.Textoguia.text = "Achei o acendedor do fogão!";
+            }
+            if (Meu_Item.name == "Chave Lavanderia")
+            {
+                Player.Textoguia.text = "A chave da lavanderia!";
+            }
+            if (Meu_Item.name == "Roupa Rosa")
+            {
+                Player.Textoguia.text = "Consegui a roupa rosa! Eu lembro de ter visto ela antes.";
+            }
+            if (Meu_Item.name == "Roupa(Cor original:Amarelo)")
+            {
+                Player.Textoguia.text = "Essa é a roupa amarela.";
+            }
+            if (Meu_Item.name == "Roupa(Cor original:Azul)")
+            {
+                Player.Textoguia.text = "Essa é a roupa azul.";
+            }
+            if (Meu_Item.name == "Roupa(Cor original:Violeta)")
+            {
+                Player.Textoguia.text = "Essa é a roupa violeta.";
+            }
+            if (Meu_Item.name == "Chave Quarto da Mãe")
+            {
+                Player.Textoguia.text = "Peguei a chave!";
+            }
+
             Player.AdicionarItem(Meu_Item.Iten);
             Destroy(gameObject);
         }

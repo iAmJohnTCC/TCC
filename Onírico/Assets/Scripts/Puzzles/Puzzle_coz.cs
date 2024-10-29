@@ -48,6 +48,10 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
     }
     public void Ativar()
     {
+        if(Gas[0]==50&&Gas[1]==50&&Gas[2]==50)
+        {
+            player.Textoguia.text = "Eu consegui! Agora eu preciso acende-lo. Onde será que minha mãe deixou o acendedor?";
+        }
         Gas[0] = 0;
         Gas[1] = 0;
         Gas[2] = 0;
@@ -61,6 +65,7 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
         {
           
             ui.SetActive(true);
+            player.Textoguia.text = "Nossa, os tubos do gás não estão mais alinhados! Talvez se eu tentar regula-los, dê certo.";
         }
         else
         {
@@ -214,8 +219,8 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
                 {
                     if (player.Item_Atual.name == "Vela")
                     {
-                        player.Inventario[0] = null;
-                        player.Inventario[0] = VelaAcesa;
+                        player.Inventario[player.Numeroitem] = null;
+                        player.Inventario[player.Numeroitem] = VelaAcesa;
                         player.Textoguia.text = "Agora que a vela está acesa acho que posso usa-la para espantar aquelas aranhas";
                         Minhaluz.SetActive(false);
                         Destroy(this);
