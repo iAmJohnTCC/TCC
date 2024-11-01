@@ -92,10 +92,7 @@ public class GameController : MonoBehaviour
             PlayerPrefs.SetInt("Minutos", M);
             PlayerPrefs.SetInt("Segundos", S);
             PlayerPrefs.Save();
-        Invoke(nameof(Theend), 20f);
+              Mudarcena(4);
     }
-    void Theend()
-    {
-        Mudarcena(3);
-    }
+    
 }

@@ -52,19 +52,19 @@ public class Item2 : MonoBehaviour,Interagiveis
             {
                 Player.Textoguia.text = "Consegui a roupa rosa! Eu lembro de ter visto ela antes.";
             }
-            if (Meu_Item.name == "Roupa(Cor original:Amarelo)")
+            if (Meu_Item.name == "Roupa(Amarelo)")
             {
                 Player.Textoguia.text = "Essa é a roupa amarela.";
             }
-            if (Meu_Item.name == "Roupa(Cor original:Azul)")
+            if (Meu_Item.name == "Roupa(Azul)")
             {
                 Player.Textoguia.text = "Essa é a roupa azul.";
             }
-            if (Meu_Item.name == "Roupa(Cor original:Violeta)")
+            if (Meu_Item.name == "Roupa(Violeta)")
             {
                 Player.Textoguia.text = "Essa é a roupa violeta.";
             }
-            if (Meu_Item.name == "Chave Quarto da Mãe")
+            if (Meu_Item.name == "Chave Mae")
             {
                 Player.Textoguia.text = "Peguei a chave!";
             }
@@ -74,7 +74,7 @@ public class Item2 : MonoBehaviour,Interagiveis
         }
        else
         {
-            Player.Textoguia.text = "Não consigo carregar mais nada, tenho que descartar algo (Você pode descartar itens Apertando X)";
+            Player.Textoguia.text = "É muito pesado, preciso soltar algo.";
         }
         
     }

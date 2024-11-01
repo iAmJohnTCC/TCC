@@ -203,7 +203,7 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
                 if (player.Item_Atual.name == "Acendedor")
                 {
                     Status = "Acendeu";
-                    player.Textoguia.text = "agora que o fogo está aceso eu só preciso de algo pra carregar a chama, será que eu não vi algo assim no quarto da minha irmã?";
+                    player.Textoguia.text = "";
                      GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(8);
                     gameObject.GetComponent<AudioSource>().Play();
                 }
@@ -221,13 +221,13 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
                     {
                         player.Inventario[player.Numeroitem] = null;
                         player.Inventario[player.Numeroitem] = VelaAcesa;
-                        player.Textoguia.text = "Agora que a vela está acesa acho que posso usa-la para espantar aquelas aranhas";
+                        player.Textoguia.text = "Eu posso usar essa chama para espantar insetos.";
                         Minhaluz.SetActive(false);
                         Destroy(this);
                     }
                     else
                     {
-                        player.Textoguia.text = "agora que o fogo está aceso eu só preciso de algo pra carregar a chama, será que eu não vi algo assim no quarto da minha irmã?(Tente interagir com esse objeto usando outro item)";
+                        player.Textoguia.text = "Ok, liguei o fogo. Só preciso arrumar um jeito para carregar a chama, lembro de ter visto uma vela em algum lugar...";
                     }
                 }
             }

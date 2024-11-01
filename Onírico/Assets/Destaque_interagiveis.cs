@@ -36,9 +36,9 @@ public class Destaque_interagiveis : MonoBehaviour
                 anim.Play("Handholding_Desdestacar");
         }
     }
-    private void OnDisable()
+    private void OnDestroy()
     {
-        if (GameObject.Find("Sinal_interagir").GetComponent<Sinal_interagir>().Objeto_me_utilizando == this.gameObject)
+        if (GameObject.Find("Sinal_interagir").GetComponent<Sinal_interagir>()!= null&&GameObject.Find("Sinal_interagir").GetComponent<Sinal_interagir>().Objeto_me_utilizando == this.gameObject)
         {
             GameObject.Find("Sinal_interagir").GetComponent<Sinal_interagir>().Objeto_me_utilizando = null;
         }

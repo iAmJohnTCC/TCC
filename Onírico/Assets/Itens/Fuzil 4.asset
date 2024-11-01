@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Fuzil 4
   m_EditorClassIdentifier: 
   Item_nome: Fuzil 4
-  Item_Sprite: {fileID: 21300000, guid: a1644668fa9dd5944a3a66649e86b809, type: 3}
-  Iten: {fileID: 1494289447551048834, guid: 1873650a4a0a0d04eb9bb7e895f5f245, type: 3}
+  Item_Sprite: {fileID: 21300000, guid: f1439a3c8a0f9644fa63f60563f6b13b, type: 3}
+  Iten: {fileID: 1494289447551048834, guid: eeaa0552f0f879149a45dfc187a0f014, type: 3}
   Item_ID: 0
   Descricao_Item: 
-  Sprite_No_Cenario: {fileID: 21300000, guid: a1644668fa9dd5944a3a66649e86b809, type: 3}
+  Sprite_No_Cenario: {fileID: 21300000, guid: f1439a3c8a0f9644fa63f60563f6b13b, type: 3}
   Valor: 20
