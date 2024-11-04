@@ -30,7 +30,7 @@ public class Lanterna : MonoBehaviour
     void Update()
     {
         
-        if( Input.GetKeyDown(KeyCode.R)&&Energia==0)
+        if( Input.GetKeyDown(KeyCode.R)&&Energia!=100)
         {
             for (int i = 0; i < player.Inventario.Length; i++)
             {

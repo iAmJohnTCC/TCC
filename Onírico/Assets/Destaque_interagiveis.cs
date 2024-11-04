@@ -16,9 +16,10 @@ public class Destaque_interagiveis : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RaycastHit2D ray= Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y +altura), new Vector2(-GameObject.Find("Player").transform.localScale.x, 0f), 1.5f,player);
-       
-        if(ray.transform!=null)
+        RaycastHit2D ray= Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y +1.5f), new Vector2(-GameObject.Find("Player").transform.localScale.x, 0f), 1.5f,player);
+        RaycastHit2D ray2= Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y), new Vector2(-GameObject.Find("Player").transform.localScale.x, 0f), 1.5f,player);
+        RaycastHit2D ray3= Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y -1.5f), new Vector2(-GameObject.Find("Player").transform.localScale.x, 0f), 1.5f,player);
+        if(ray.transform!=null||ray2.transform!=null||ray3.transform!=null)
         {
             anim.Play("Handholding_Destaque");
             if(GameObject.Find("Sinal_interagir").GetComponent<Sinal_interagir>().Objeto_me_utilizando==null)

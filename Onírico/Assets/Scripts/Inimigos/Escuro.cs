@@ -29,7 +29,7 @@ public class Escuro : MonoBehaviour
 
         else
         {
-            velo = 0.02f;
+            velo = 1f;
         }
        if(!GameObject.Find("Player").GetComponent<Movimentacao>().Standby  && !Possoatacar&& 
             (comportamentoatual == "Stalking" || comportamentoatual == "Boss" || comportamentoatual == "Ataque"))
@@ -178,7 +178,7 @@ public class Escuro : MonoBehaviour
         comportamentoatual = "Boss";
         posicaoPlayer = GameObject.Find("Player").transform.position;
         GameObject.Find("Porta_D_gerador").GetComponent<Porta>().Aberto = false;
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(posicaoPlayer.x, transform.position.y), velo);
+        transform.position = Vector2.MoveTowards(transform.position, new Vector2(posicaoPlayer.x, transform.position.y), velo*Time.deltaTime);
         if (GameObject.Find("Player").transform.position.x > gameObject.transform.position.x)
         {
             transform.localScale = new Vector3(-1, transform.localScale.y, 1);
@@ -212,7 +212,7 @@ public class Escuro : MonoBehaviour
         anim.Play("Escuro_idle");
         
         posicaoPlayer = GameObject.Find("Player").transform.position;
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(posicaoPlayer.x, transform.position.y), velo);
+        transform.position = Vector2.MoveTowards(transform.position, new Vector2(posicaoPlayer.x, transform.position.y), velo*Time.deltaTime);
         comportamentoatual = "Ataque";
 
 

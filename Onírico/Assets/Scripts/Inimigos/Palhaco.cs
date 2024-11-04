@@ -10,9 +10,9 @@ public class Palhaco : MonoBehaviour
     [SerializeField] bool Cheguei_No_Fim;
     public bool To_Vendo_Player;
    RaycastHit2D hit; 
-    float speed=0.02f;
-    public float Normalspeed=0.02f;
-    bool Cooldown=true;
+    float speed=1f;
+    public float Normalspeed=1f;
+    public bool Cooldown=true;
      Porta porta;
     [SerializeField] GameObject Player;
     [SerializeField] LayerMask Player_e_Portas;
@@ -112,7 +112,7 @@ public class Palhaco : MonoBehaviour
 
             if (Objetivotemporario == Vector2.zero)
             {
-                transform.position = Vector2.MoveTowards(transform.position, new Vector2(Pontos_Finais[Objetivo].transform.position.x, transform.position.y), speed);
+                transform.position = Vector2.MoveTowards(transform.position, new Vector2(Pontos_Finais[Objetivo].transform.position.x, transform.position.y), speed*Time.deltaTime);
                 if (transform.position.x == Pontos_Finais[Objetivo].transform.position.x&&Objetivo!=15)
                 {
                     Cheguei_No_Fim = true;
@@ -134,7 +134,7 @@ public class Palhaco : MonoBehaviour
            
             else
             {
-                transform.position = Vector2.MoveTowards(transform.position, Objetivotemporario, speed);
+                transform.position = Vector2.MoveTowards(transform.position, Objetivotemporario, speed*Time.deltaTime);
                 if (Objetivotemporario.x > gameObject.transform.position.x&&!Stunned)
                 {
                     transform.localScale = new Vector3(1, transform.localScale.y, 1);

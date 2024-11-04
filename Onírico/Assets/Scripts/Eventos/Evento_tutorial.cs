@@ -127,37 +127,28 @@ public class Evento_tutorial : MonoBehaviour
             if (Player.Inventario[0] == null)
             {
                 Ensinamento = "Abrir porta";
-              
+                gameObject.GetComponent<BoxCollider2D>().isTrigger=true;
             }
         }
         if(Ensinamento=="Abrir porta")
         {
             Tutorialtexto.text = "Muito bem, vamos para o quarto, docinho.";
+             if((Vector2)transform.position!= new Vector2(-14.37f, transform.position.y))
+            {
+            gameObject.GetComponent<Animator>().Play("Mae_andando");
+            transform.position=Vector2.MoveTowards(transform.position, new Vector2(-13.37f, transform.position.y), 2f*Time.deltaTime);
+            
+            }
+            else
+            {
+               gameObject.GetComponent<Animator>().Play("Mae_idle");
+            }
             if (Player.Localizacao == "Quarto da criança")
             {
-                Ensinamento = "Se esconder";
+                Impaciente();
             }
         }
-        if(Ensinamento=="Se esconder")
-        {
-            Tutorialtexto.text = "Agora, está vendo o armário?, isso é um esconderijo, quando você entra nele você é praticamente invisível para qualquer um , a não ser que, você foi visto logo antes de entrar, agora aperte E para entrar no armário";
-            if(Player.escondido)
-            {
-                Ensinamento = "Lernota";
-            }
-        }
-        if(Ensinamento=="Lernota")
-        {
-            Tutorialtexto.text = "Você realmente é o orgulho da mãe. para sair do armário é só apertar E novamente, antes de ir dormir, leia a nota que eu fiz caso você esquecer de algo, ela está na sua cama, aperte E para interagir enquanto a nota brilha";
-            if(displaynotas.activeSelf == true)
-            {
-                Ensinamento = "já segurei sua mão demais";
-            }
-        }
-        if(Ensinamento=="já segurei sua mão demais")
-        {
-            Tutorialtexto.text = "Ok filho pode ir dormir, é só apertar ESC";
-        }
+
         if(Textoantigo!=Ensinamento)
         {
             Tutorialtexto.gameObject.GetComponent<Animator>().Play("Texto_tutorial", 0, 0);

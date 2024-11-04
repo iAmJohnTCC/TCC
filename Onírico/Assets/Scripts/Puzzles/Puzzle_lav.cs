@@ -120,7 +120,7 @@ public class Puzzle_lav : MonoBehaviour
                     puzzleresolvido = true;
                     GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Roupa rosa? Onde eu vi isso antes?";
                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(0);
-                    Instantiate(Rouparosa, new Vector3(-36, -15.5f, 0), Quaternion.identity);
+                    Instantiate(Rouparosa, new Vector3(-36, -17f, 0), Quaternion.identity);
                     Destroy(roupas[0]);
                     roupas[0] = null;
                 }

@@ -34,6 +34,7 @@ public class Evento_qt_irma : MonoBehaviour
     {
         if (!Stoptalking)
         {
+            Palhaco.GetComponent<Palhaco>().Cooldown = true;
             if (consumir)
             {
                 GameObject.Find("Player").GetComponent<Lanterna>().Energia = energia;
@@ -66,10 +67,10 @@ public class Evento_qt_irma : MonoBehaviour
         }
         else
         {
-            if (Palhaco.GetComponent<Palhaco>().Normalspeed != 0.02f)
+            if (Palhaco.GetComponent<Palhaco>().Normalspeed != 1f)
             {
                 GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Eu tenho que me esconder! 'Corra!'";
-                Palhaco.GetComponent<Palhaco>().Normalspeed = 0.02f;
+                Palhaco.GetComponent<Palhaco>().Normalspeed = 1f;
             }
         }
     }
