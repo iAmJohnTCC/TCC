@@ -43,7 +43,7 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
         if(Input.GetKeyDown(KeyCode.E)&&ui.activeSelf)
         {
             Ativar();
-            player.Textoguia.text = "Será que aquela nota pode me ajudar? ";
+            
         }
     }
     public void Ativar()
@@ -55,7 +55,7 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
         Gas[0] = 0;
         Gas[1] = 0;
         Gas[2] = 0;
-        GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1);
+        GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1,true);
         Invoke(nameof(Ui), 1.1f);
       
     }
@@ -203,13 +203,13 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
                 if (player.Item_Atual.name == "Acendedor")
                 {
                     Status = "Acendeu";
-                    player.Textoguia.text = "";
+                    player.Textoguia.text = "Ok, liguei o fogo. Só preciso arrumar um jeito para carregar a chama, lembro de ter visto uma vela em algum lugar...";
                      GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(8);
                     gameObject.GetComponent<AudioSource>().Play();
                 }
                 else
                 {
-                    player.Textoguia.text = "O gás tá consertado, mas eu ainda preciso de algo pra acende-lo (Tente interagir com esse objeto usando outro item)";
+                    player.Textoguia.text = "Eu consegui! Agora eu preciso acende-lo. Onde será que minha mãe deixou o acendedor?";
                    
                 }
             }
@@ -222,8 +222,7 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
                         player.Inventario[player.Numeroitem] = null;
                         player.Inventario[player.Numeroitem] = VelaAcesa;
                         player.Textoguia.text = "Eu posso usar essa chama para espantar insetos.";
-                        Minhaluz.SetActive(false);
-                        Destroy(this);
+                        
                     }
                     else
                     {

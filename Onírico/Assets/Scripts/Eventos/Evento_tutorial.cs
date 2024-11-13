@@ -10,9 +10,11 @@ public class Evento_tutorial : MonoBehaviour
     [SerializeField] TMP_Text Tutorialtexto;
     [SerializeField] Movimentacao Player;
     string Textoantigo;
+    bool justonce=true;
     [SerializeField] GameObject Bateria;
     [SerializeField] GameObject Lanterna;
     [SerializeField] GameObject displaynotas;
+    [SerializeField]Porta door;
     bool correupraesquerda, correupradireita;
     bool andoupraesquerda, andoupradireita;
     void Start()
@@ -24,9 +26,10 @@ public class Evento_tutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape)&&displaynotas.activeSelf==false)
+        if(Input.GetKeyDown(KeyCode.Escape)&&justonce)
         {
-            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(2f);
+            justonce=false;
+            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(2f,false);
             Invoke(nameof(Impaciente), 2.1f);
         }
         if (Ensinamento == "Andar")
@@ -124,7 +127,7 @@ public class Evento_tutorial : MonoBehaviour
         if(Ensinamento=="Dropar itens")
         {
             Tutorialtexto.text ="Aperte X pra largar o item atual ";
-            if (Player.Inventario[0] == null)
+            if (Player.Inventario[1] == null)
             {
                 Ensinamento = "Abrir porta";
                 gameObject.GetComponent<BoxCollider2D>().isTrigger=true;
@@ -133,10 +136,10 @@ public class Evento_tutorial : MonoBehaviour
         if(Ensinamento=="Abrir porta")
         {
             Tutorialtexto.text = "Muito bem, vamos para o quarto, docinho.";
-             if((Vector2)transform.position!= new Vector2(-14.37f, transform.position.y))
+             if(transform.position.x>-14.37f)
             {
             gameObject.GetComponent<Animator>().Play("Mae_andando");
-            transform.position=Vector2.MoveTowards(transform.position, new Vector2(-13.37f, transform.position.y), 2f*Time.deltaTime);
+            transform.position=Vector2.MoveTowards(transform.position, new Vector2(-14.37f, transform.position.y), 2f*Time.deltaTime);
             
             }
             else

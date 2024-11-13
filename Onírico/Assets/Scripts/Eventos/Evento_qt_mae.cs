@@ -16,9 +16,8 @@ public class Evento_qt_mae : MonoBehaviour
     {
         if(Pilha_felicidade == null)
         {
-            GameObject.Find("Player").GetComponent<Movimentacao>().Standby=true;
-            GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text ="";
-            GameObject.Find("Player").GetComponent<SpriteRenderer>().enabled = false;
+           
+            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.2f,false);
             GameObject.Find("GameController").GetComponent<GameController>().Fim();
             
         }

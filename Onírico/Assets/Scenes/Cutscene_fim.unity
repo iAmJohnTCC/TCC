@@ -862,7 +862,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1663321734823328044, guid: 8631a8b1a56733f4f8e5d431d5443e04, type: 3}
       propertyPath: m_fontColor32.rgba
-      value: 4294967295
+      value: 16777215
       objectReference: {fileID: 0}
     - target: {fileID: 5541797150764677800, guid: 8631a8b1a56733f4f8e5d431d5443e04, type: 3}
       propertyPath: m_LocalScale.x
@@ -1057,7 +1057,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1106831849}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.750719, y: 19.189999, z: -2}
+  m_LocalPosition: {x: -12.749645, y: 19.189999, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1807,7 +1807,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2040006517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.37, y: 1.4900007, z: -2}
+  m_LocalPosition: {x: -13.59, y: 1.4399996, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

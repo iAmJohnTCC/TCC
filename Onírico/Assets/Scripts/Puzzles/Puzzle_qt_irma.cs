@@ -66,7 +66,7 @@ public class Puzzle_qt_irma : MonoBehaviour,Interagiveis
     }
     public void Interacao(Movimentacao player)
     {
-        GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1);
+        GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1,true);
         Invoke(nameof(Ui), 1.1f);
        
     }

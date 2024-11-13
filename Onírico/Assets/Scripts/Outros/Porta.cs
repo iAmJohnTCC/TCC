@@ -19,7 +19,7 @@ public class Porta : MonoBehaviour,Interagiveis
 
         if (player.porta.Aberto)
         {
-            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f);
+            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f,true);
             if (player.porta.gameObject.CompareTag("Escada"))
             {
                 GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(4);
@@ -36,10 +36,15 @@ public class Porta : MonoBehaviour,Interagiveis
             {
                 if (player.porta.Bloqueio != null)
                 {
-                    Destroy(player.porta.Bloqueio.gameObject);
+                    GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1f,false);
+                    Invoke(nameof(desbloquear),1.01f);
+                    
                 }
                 player.porta.Aberto = true;
-                player.Inventario[player.Numeroitem] = null;
+                if (this.gameObject.name != "Escada_bloqueada")
+                {
+                    player.Inventario[player.Numeroitem] = null;
+                }
                 GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(9);
                 player.porta = null;
             }
@@ -49,6 +54,11 @@ public class Porta : MonoBehaviour,Interagiveis
                 player.porta = null;
             }
         }
+    }
+    void desbloquear()
+    {
+        Destroy(Bloqueio.gameObject);
+        GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
     }
     public void Teleporteplayer()
     {

@@ -38,6 +38,7 @@ public class Evento_bh : MonoBehaviour
     }
     void Creepycrawlers()
     {
+        GameObject.Find("Palhaco").GetComponent<Palhaco>().Normalspeed = 2;
         GameObject.Find("Insetos").GetComponent<Insetos>().enabled = true;
         GameObject.Find("Insetos").GetComponent<BoxCollider2D>().enabled = true;
         Movi.Textoguia.text = "Eu não vou me esconder aqui, enquanto tiver esses insetos";

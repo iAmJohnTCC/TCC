@@ -19,7 +19,7 @@ public class Evento_Manequim : MonoBehaviour, Interagiveis
         if (prayer.Item_Atual!=null&&prayer.Item_Atual.name == "Roupa Rosa")
         {
             
-            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f);
+            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1.4f,true);
             Invoke(nameof(Droparitem),1.5f);
             prayer.Inventario[prayer.Numeroitem] = null;
         }
@@ -34,7 +34,7 @@ public class Evento_Manequim : MonoBehaviour, Interagiveis
     {
        
             Sprite.sprite = SpriteManequim;
-            Instantiate(Chave, new Vector2(-34.88f, -32), Quaternion.identity);
+            Instantiate(Chave, new Vector2(-34.88f, -33.4f), Quaternion.identity);
         GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Esse manequim estava escondendo uma chave! Não lembro para que ela serve.";
         Minhaluz.SetActive(false);

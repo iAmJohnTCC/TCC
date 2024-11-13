@@ -15,6 +15,7 @@ public class Movimentacao : MonoBehaviour
     public bool Morte = false;
     Rigidbody2D Rb;
     public bool escondido = false;
+    bool podeseesconder=true;
 
     [Header("Itens")]
     [SerializeField] public GameObject Item_Atual;
@@ -56,12 +57,12 @@ public class Movimentacao : MonoBehaviour
     void Update()
     {
 
-        //hudandaratual.text = AndarAtual;
-        //hudlocalizacao.text = Localizacao;
-        if (Standby && escondido && Input.GetKeyDown(KeyCode.E))
+       
+        if (Standby && escondido && Input.GetKeyDown(KeyCode.E)&&podeseesconder)
         {
-            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.8f);
-            Invoke(nameof(Escondido), 0.81f);
+            podeseesconder = false;
+            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1f,true);
+            Invoke(nameof(Escondido), 1.1f);
         }
         Item_Atual = Inventario[Numeroitem];
         if(Input.GetKeyDown(KeyCode.Tab))
@@ -215,13 +216,12 @@ public class Movimentacao : MonoBehaviour
                    
                             else
                             {
-                                if (Hit.transform.gameObject.CompareTag("Esconderijo") //&& Hit.transform.gameObject.GetComponent<Insetos>().TemInsetos == true
-                                                                                           )
+                                if (Hit.transform.gameObject.CompareTag("Esconderijo") && podeseesconder)
                                 {
                                     esconderijo = Hit.transform.gameObject;
                                    
-                                    GameObject.Find("GameController").GetComponent<GameController>().Fadeout(0.8f);
-                                    Invoke(nameof(Escondido), 0.81f);
+                                    GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1f,true);
+                                    Invoke(nameof(Escondido), 1.1f);
 
                                 }
                                 else
@@ -260,9 +260,10 @@ public class Movimentacao : MonoBehaviour
 
             escondido = false;
             Standby = false;
+            podeseesconder = false;
             gameObject.GetComponent<SpriteRenderer>().enabled = true;
             Velocidade = 6;
-           
+            Invoke(nameof(Cooldown), 2f);
         }
     }
    public void Teleporte()
@@ -318,7 +319,10 @@ public class Movimentacao : MonoBehaviour
             }
         }
     }
-
+    void Cooldown()
+    {
+        podeseesconder = true;
+    }
     private void morrer()
     {
         GameObject.Find("GameController").GetComponent<GameController>().Morte();

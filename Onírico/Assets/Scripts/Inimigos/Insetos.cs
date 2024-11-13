@@ -9,6 +9,8 @@ public class Insetos : MonoBehaviour,Interagiveis
     [SerializeField] Animator[] meusinsetos;
     [SerializeField] string[] Qualinseto;
     [SerializeField] string[] Localizacao;
+    [SerializeField] GameObject vela;
+    bool espantado = false;
     public float[] Horizontalmaxima, Horizontalminima, Verticalminima, Verticalmaxima;
     int B;
     Movimentacao Player;
@@ -37,7 +39,7 @@ public class Insetos : MonoBehaviour,Interagiveis
 
     void Trocaresconderijo()
     {
-        if (Localizacao[B] != Player.Localizacao)
+        if (Localizacao[B] != Player.Localizacao||espantado)
         {
             Esconderijos[B].GetComponent<BoxCollider2D>().enabled=true;
             B = Random.Range(0, Esconderijos.Length);
@@ -52,7 +54,12 @@ public class Insetos : MonoBehaviour,Interagiveis
                     meusinsetos[i].GetComponent<Anim_Insetos>().Novoobjetivo();
                     meusinsetos[i].transform.position = transform.position;
                 }
-
+                if(espantado)
+                {
+                    espantado = false;
+                    Player.Standby = false;
+                    
+                }
                 Invoke(nameof(Trocaresconderijo), Random.Range(10f, 30f));
             }
             else
@@ -67,6 +74,17 @@ public class Insetos : MonoBehaviour,Interagiveis
     }
     public void Interacao (Movimentacao player)
     {
-        player.Textoguia.text = "Credo, eu não vou me esconder aqui.";
+        if (player.Inventario[player.Numeroitem].name == "Vela Acesa")
+        {
+            espantado = true;
+            Player.Inventario[Player.Numeroitem] = vela;
+            CancelInvoke(nameof(Trocaresconderijo));
+            Invoke(nameof(Trocaresconderijo), 1.1f);
+            GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1f,false);
+        }
+        else
+        {
+            player.Textoguia.text = "Credo, eu não vou me esconder aqui.";
+        }
     }
 }

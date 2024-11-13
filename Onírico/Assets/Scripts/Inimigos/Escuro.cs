@@ -85,11 +85,11 @@ public class Escuro : MonoBehaviour
                 int i = Random.Range(0, 2);
                 if (i == 0)
                 {
-                    transform.position = new Vector2(4.18f, posicaoPlayer.y + 1.2f);
+                    transform.position = new Vector2(50f, posicaoPlayer.y + 1.2f);
                 }
                 else
                 {
-                    transform.position = new Vector2(25.69f, posicaoPlayer.y + 1.2f);
+                    transform.position = new Vector2(9f, posicaoPlayer.y + 1.2f);
                 }
                 health = 10;
 
@@ -137,11 +137,11 @@ public class Escuro : MonoBehaviour
                 int i = Random.Range(0, 2);
                 if (i == 0)
                 {
-                    transform.position = new Vector2(4.18f, posicaoPlayer.y + 1.2f);
+                    transform.position = new Vector2(50f, posicaoPlayer.y + 1.2f);
                 }
                 else
                 {
-                    transform.position = new Vector2(25.69f, posicaoPlayer.y + 1.2f);
+                    transform.position = new Vector2(9f, posicaoPlayer.y + 1.2f);
                 }
                 health = 10;
                 Backupcomportamento = comportamentoatual;
@@ -266,7 +266,7 @@ public class Escuro : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Luz_gerador") && collision.GetComponent<PolygonCollider2D>().isActiveAndEnabled)
         {
-            GameObject.Find("Chave Lavanderia").transform.position=transform.position;
+            GameObject.Find("Chave Lavanderia").transform.position=new Vector2(transform.position.x,transform.position.y-3f);
             GameObject.Find("Porta_D_gerador").GetComponent<Porta>().Aberto = true;
             GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text= "Nossa, foi por pouco... Parece que ele derrubou algo";
             Destroy(this.gameObject);

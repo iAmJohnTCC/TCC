@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     {
         image.CrossFadeAlpha(1, 0, false);
         image.CrossFadeAlpha(0, 2f, false);
-        if (SceneManager.GetActiveScene().buildIndex == 2)
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
             InvokeRepeating(nameof(Tempo), 1, 1);
         }
@@ -30,10 +30,13 @@ public class GameController : MonoBehaviour
 
    
     
-    public void Fadeout(float time)
+    public void Fadeout(float time,bool pare)
     {
         CancelInvoke(nameof(Fadein));
-        GameObject.Find("Player").GetComponent<Movimentacao>().Standby = true;
+        if (pare)
+        {
+            GameObject.Find("Player").GetComponent<Movimentacao>().Standby = true;
+        }
         image.CrossFadeAlpha(0, 0, false);
         image.CrossFadeAlpha(time, 1, false);
         Invoke(nameof(Fadein), time+0.5f);
