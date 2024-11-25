@@ -32,6 +32,13 @@ public class Puzzle_Gerador : MonoBehaviour, Interagiveis
                 Fuzivel = null;
                 
             }
+            else
+            {
+             if ( player.Espaco_Livre==5)
+               {
+                  player.Textoguia.text = "É muito pesado, preciso soltar algo.";
+               }
+           }
         }
     }
     void Start()

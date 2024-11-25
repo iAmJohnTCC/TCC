@@ -25,7 +25,7 @@ public class Evento_Manequim : MonoBehaviour, Interagiveis
         }
         else
         {
-            prayer.Textoguia.text = "Só um manequim";
+            prayer.Textoguia.text = "Parece ter algo na boca do manequim,mas eu não consigo tirar";
         }
     }
 

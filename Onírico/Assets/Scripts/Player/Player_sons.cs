@@ -16,9 +16,28 @@ public class Player_sons : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        
-            
+        if(player.Morte)
+        {
+            if(Fonte_som.clip != sons_player[3])
+            {
+           Fonte_som.clip= sons_player[3];
+                Fonte_som.loop = false;
+                Fonte_som.Play();
+            }
+         }
+        else
+         {
+        if(player.escondido )
+            {
+           if(Fonte_som.clip != sons_player[2])
+            {
+             Fonte_som.clip= sons_player[2];
+                Fonte_som.loop = true;
+                Fonte_som.Play();
+             }
+           }
+           else
+            {
             if(Input.GetAxisRaw("Horizontal")!=0&&Input.GetKey(KeyCode.LeftShift) && Fonte_som.clip != sons_player[1]&&!player.Standby)
             {
                 Fonte_som.clip= sons_player[1];
@@ -43,6 +62,8 @@ public class Player_sons : MonoBehaviour
             }
                
             }
+         }
+       }
         
     }
 }

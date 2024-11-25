@@ -118,7 +118,7 @@ public class Evento_tutorial : MonoBehaviour
         {
             Tutorialtexto.text = "Aperte R para recarregar a lanterna.";
             
-            if (Player.gameObject.GetComponent<Lanterna>().Energia == 100)
+            if (Player.Inventario[0]==null||Player.Inventario[1]==null)
             {
                 Ensinamento = "Dropar itens";
                

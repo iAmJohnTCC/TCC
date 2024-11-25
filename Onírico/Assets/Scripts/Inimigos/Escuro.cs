@@ -29,7 +29,7 @@ public class Escuro : MonoBehaviour
 
         else
         {
-            velo = 1f;
+            velo = 2f;
         }
        if(!GameObject.Find("Player").GetComponent<Movimentacao>().Standby  && !Possoatacar&& 
             (comportamentoatual == "Stalking" || comportamentoatual == "Boss" || comportamentoatual == "Ataque"))
@@ -95,7 +95,7 @@ public class Escuro : MonoBehaviour
 
             }
         this.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
-        if (GameObject.Find("Player").GetComponent<Movimentacao>().Standby&&comportamentoatual!="Boss")
+        if (!GameObject.Find("Player").GetComponent<Movimentacao>().Standby&&comportamentoatual!="Boss")
         {
             
 
@@ -103,6 +103,14 @@ public class Escuro : MonoBehaviour
                 comportamentoatual = Comportamentos[Random.Range(1, 3)];
                 posicaoPlayer = GameObject.Find("Player").transform.position;
                 transform.position = new Vector2(posicaoPlayer.x + Random.Range(-8f,8f), posicaoPlayer.y+1.2f);
+        }
+        else
+        {
+
+          if(comportamentoatual!="Boss")
+            {
+             Invoke(nameof(Trocadecomportamento), Random.Range(10, 30));
+            }
         }
             if (comportamentoatual != "Nas sombras")
             {
@@ -172,7 +180,7 @@ public class Escuro : MonoBehaviour
     
     void Boss()
     {
-       
+       velo=2f;
         Animator anim = GetComponent<Animator>();
         anim.Play("Escuro_idle");
         comportamentoatual = "Boss";

@@ -81,7 +81,7 @@ public class Display_notas : MonoBehaviour
                 
                     if(nota.gameObject.name == "Nota_Despensa")
                     {
-                        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Hm, um manequim de roupa rosa?";
+                        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Hm, um manequim de roupa rosa? Será que é uma pista?";
                     }
                 
                 GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
@@ -107,6 +107,14 @@ public class Display_notas : MonoBehaviour
         Notatexto.CrossFadeAlpha(1, 1, false);
         Paginas.CrossFadeAlpha(1, 1, false);
         Notaimg.CrossFadeAlpha(1f, 1, false);
+         if(Notatexto.text=="Imagem")
+            {
+                Notatexto.text = "";
+                imagem.gameObject.SetActive(true);
+                imagem.sprite = nota.imagem;
+                imagem.CrossFadeAlpha(1, 1, false);
+
+            }
         Escuro.GetComponent<Image>().CrossFadeAlpha(0.69f, 1, false);
         Trava = true;
         Invoke(nameof(Destravar), 2f);

@@ -32,7 +32,7 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
         {
             Animacao3();
         }
-        if (Img_gas[0].transform.localScale.y==4&& Img_gas[1].transform.localScale.y == 4 && Img_gas[2].transform.localScale.y == 4
+        if (Img_gas[0].transform.localScale.y==4&&Img_gas[1].transform.localScale.y ==4&&Img_gas[2].transform.localScale.y==4
             && Status=="")
         {
             Status = "Gasativo";

@@ -74,7 +74,7 @@ public class Insetos : MonoBehaviour,Interagiveis
     }
     public void Interacao (Movimentacao player)
     {
-        if (player.Inventario[player.Numeroitem].name == "Vela Acesa")
+        if (player.Inventario[player.Numeroitem]!=null&&player.Inventario[player.Numeroitem].name == "Vela Acesa")
         {
             espantado = true;
             Player.Inventario[Player.Numeroitem] = vela;

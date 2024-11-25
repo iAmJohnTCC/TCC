@@ -31,6 +31,7 @@ public class Movimentacao : MonoBehaviour
    public Porta porta;
     GameObject esconderijo;
     [SerializeField] LayerMask interagiveis;
+[SerializeField] GameObject Mapa;
 
 
 
@@ -196,6 +197,18 @@ public class Movimentacao : MonoBehaviour
         {
             transform.localScale = new Vector3(horizontal, 1, 1);
         }
+        if (Input.GetKeyDown(KeyCode.M))
+         {
+           if(Mapa.activeSelf)
+           {
+           Mapa.SetActive(false);
+           }
+            else
+           {
+
+             Mapa.SetActive(true);
+           }     
+         }
 
 
       
@@ -291,6 +304,8 @@ public class Movimentacao : MonoBehaviour
         if(collision.CompareTag("Morte"))
         {
             Morte = true;
+             gameObject.GetComponent<SpriteRenderer>().enabled = true;
+             escondido=false;
             Invoke(nameof(morrer), 5f);
             Standby = true;
         }

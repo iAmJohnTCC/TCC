@@ -10,6 +10,14 @@ public class Menu : MonoBehaviour
         gameObject.GetComponent<Animator>().Play("Menu2");
         Invoke(nameof(Trocarnivel), 3f);
     }
+    public void Creditos()
+    {
+        gameObject.GetComponent<Animator>().Play("Menu3");
+    }
+    public void Voltar()
+    {
+        gameObject.GetComponent<Animator>().Play("Menu4");
+    }
     public void Trocarnivel()
     {
         

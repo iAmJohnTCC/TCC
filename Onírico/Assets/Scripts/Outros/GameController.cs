@@ -75,6 +75,7 @@ public class GameController : MonoBehaviour
     {
         Animator anim= GetComponent<Animator>();
         anim.Play("GameController_Death");
+        GameObject.Find("Palhaco").GetComponent<AudioSource>().enabled = false;
     }
     void Tempo()
     {

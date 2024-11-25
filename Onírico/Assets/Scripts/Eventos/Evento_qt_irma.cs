@@ -70,6 +70,7 @@ public class Evento_qt_irma : MonoBehaviour
             if (Palhaco.GetComponent<Palhaco>().Normalspeed != 1f)
             {
                 GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Eu tenho que me esconder! 'Corra!'";
+                Palhaco.GetComponent<Palhaco>().parar = false;
                 Palhaco.GetComponent<Palhaco>().Normalspeed = 1f;
             }
         }
@@ -80,7 +81,7 @@ public class Evento_qt_irma : MonoBehaviour
         GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "O que é isso!?";
         GameObject.Find("Player").GetComponent<Movimentacao>().Standby = true;
         Palhaco_intro.GetComponent<Animator>().Play("Palhaco_intro");
-        Invoke(nameof(Funbegins), 3f);
+        Invoke(nameof(Funbegins), 5f);
         Palhaco.GetComponent<AudioSource>().enabled = true;
        
     }

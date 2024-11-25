@@ -19,7 +19,7 @@ public class Sons_palhaco : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (palhaco.Localizacao == GameObject.Find("Player").GetComponent<Movimentacao>().AndarAtual && palhaco.PararDeVer==0 
+        if (palhaco.localizacao2 == GameObject.Find("Player").GetComponent<Movimentacao>().Localizacao && palhaco.PararDeVer==0 
             && Fonte_musica.clip != musicapalhaco[0])
         {
             Fonte_musica.clip= musicapalhaco[0];
