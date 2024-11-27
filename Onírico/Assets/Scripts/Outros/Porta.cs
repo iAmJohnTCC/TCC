@@ -10,6 +10,7 @@ public class Porta : MonoBehaviour,Interagiveis
     public string Iten_desbloqueio;
     public string Localizacao;
     public string Andaratual;
+    [SerializeField] GameObject trancado;
     [SerializeField]string Motivopranaoentrar;
     Movimentacao Player;
     public void Interacao(Movimentacao player)
@@ -32,25 +33,40 @@ public class Porta : MonoBehaviour,Interagiveis
         }
         else
         {
-            if (player.Item_Atual!=null&&player.porta.Iten_desbloqueio == player.Item_Atual.name)
+            if (player.Item_Atual != null && player.porta.Iten_desbloqueio == player.Item_Atual.name)
             {
                 if (player.porta.Bloqueio != null)
                 {
-                    GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1f,false);
-                    Invoke(nameof(desbloquear),1.01f);
+                    GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1f, false);
+                    Invoke(nameof(desbloquear), 1.01f);
                     
                 }
                 player.porta.Aberto = true;
+                trancado.SetActive(false);
                 if (this.gameObject.name != "Escada_bloqueada")
                 {
+                   
                     player.Inventario[player.Numeroitem] = null;
+                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(9);
                 }
-                GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(9);
+                else
+                {
+                    GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Explorar o porão";
+                    GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo2.text = "";
+                }
+                
                 player.porta = null;
             }
             else
             {
-                player.Textoguia.text = Motivopranaoentrar;
+                if (this.gameObject.name == "Escada_bloqueada")
+                {
+                    GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo2.text = "-Ganhar acesso ao porão.";
+                }
+               
+                    player.Textoguia.text = Motivopranaoentrar;
+                
+                trancado.SetActive(true);
                 player.porta = null;
             }
         }

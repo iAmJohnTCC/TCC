@@ -83,7 +83,8 @@ public class Evento_qt_irma : MonoBehaviour
         Palhaco_intro.GetComponent<Animator>().Play("Palhaco_intro");
         Invoke(nameof(Funbegins), 5f);
         Palhaco.GetComponent<AudioSource>().enabled = true;
-       
+        GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Se esconder";
+
     }
     void Funbegins()
     {

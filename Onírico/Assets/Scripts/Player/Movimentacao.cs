@@ -13,6 +13,7 @@ public class Movimentacao : MonoBehaviour
      float horizontal;
     public bool Standby=false;
     public bool Morte = false;
+    bool susto=false;
     Rigidbody2D Rb;
     public bool escondido = false;
     bool podeseesconder=true;
@@ -161,6 +162,25 @@ public class Movimentacao : MonoBehaviour
 
             gameObject.GetComponent<Lanterna>().enabled = false;
         }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (Mapa.activeSelf)
+            {
+                Mapa.SetActive(false);
+                GameObject.Find("CM_Mapa").GetComponent<Mapa>().Minimapa = true;
+                if(Standby)
+                { Standby = false; }
+            }
+            else
+            {
+                if (!Standby)
+                {
+                    Standby = true;
+                    Mapa.SetActive(true);
+                    GameObject.Find("CM_Mapa").GetComponent<Mapa>().Minimapa = false;
+                }
+            }
+        }
         if (!Standby)
         {
             if(Input.anyKey)
@@ -197,18 +217,7 @@ public class Movimentacao : MonoBehaviour
         {
             transform.localScale = new Vector3(horizontal, 1, 1);
         }
-        if (Input.GetKeyDown(KeyCode.M))
-         {
-           if(Mapa.activeSelf)
-           {
-           Mapa.SetActive(false);
-           }
-            else
-           {
-
-             Mapa.SetActive(true);
-           }     
-         }
+     
 
 
       

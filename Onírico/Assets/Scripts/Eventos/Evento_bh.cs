@@ -42,6 +42,7 @@ public class Evento_bh : MonoBehaviour
         GameObject.Find("Insetos").GetComponent<Insetos>().enabled = true;
         GameObject.Find("Insetos").GetComponent<BoxCollider2D>().enabled = true;
         Movi.Textoguia.text = "Eu não vou me esconder aqui, enquanto tiver esses insetos";
+        GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Explorar o terreo";
         Destroy(Ev.Bloqueiotutorial);
         Destroy(Ev);
         Destroy(this);

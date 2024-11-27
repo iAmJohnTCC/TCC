@@ -57,8 +57,15 @@ public class GameController : MonoBehaviour
             Bosstime = true;
             luz.GetComponent<Light2DBase>().enabled = true;
             luz.GetComponent<PolygonCollider2D>().enabled = true;
-
             Invoke(nameof(Desligarluz), 0.6f);
+        }
+        else
+        {
+            if (!Bool.PodeLigar)
+            {
+                GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Restaurar a energia do gerador";
+                GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text="Não consigo ligar a luz, parece ter um problema no gerador";
+            }
         }
     }
     void Desligarluz()

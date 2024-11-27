@@ -47,26 +47,32 @@ public class Item2 : MonoBehaviour,Interagiveis
             if (Meu_Item.name == "Chave Lavanderia")
             {
                 Player.Textoguia.text = "A chave da lavanderia!";
+                GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Abrir a porta da lavanderia";
             }
             if (Meu_Item.name == "Roupa Rosa")
             {
                 Player.Textoguia.text = "Consegui a roupa rosa! Eu lembro de ter visto ela antes.";
+                GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Descobrir o que fazer com a roupa rosa";
             }
             if (Meu_Item.name == "Roupa(Amarelo)")
             {
                 Player.Textoguia.text = "Essa é a roupa amarela.";
+                GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Descobrir o que fazer com as roupas";
             }
             if (Meu_Item.name == "Roupa(Azul)")
             {
                 Player.Textoguia.text = "Essa é a roupa azul.";
+                GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Descobrir o que fazer com as roupas";
             }
             if (Meu_Item.name == "Roupa(Violeta)")
             {
                 Player.Textoguia.text = "Essa é a roupa violeta.";
+                GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Descobrir o que fazer com as roupas";
             }
             if (Meu_Item.name == "Chave Mae")
             {
                 Player.Textoguia.text = "Peguei a chave!";
+                GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Achar o que a chave abre";
             }
 
             Player.AdicionarItem(Meu_Item.Iten);

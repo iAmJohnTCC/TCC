@@ -26,6 +26,7 @@ public class Evento_Manequim : MonoBehaviour, Interagiveis
         else
         {
             prayer.Textoguia.text = "Parece ter algo na boca do manequim,mas eu não consigo tirar";
+            GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo2.text = "-Achar um jeito de pegar a chave do manequim.";
         }
     }
 
@@ -37,6 +38,7 @@ public class Evento_Manequim : MonoBehaviour, Interagiveis
             Instantiate(Chave, new Vector2(-34.88f, -33.4f), Quaternion.identity);
         GameObject.Find("Player").GetComponent<Movimentacao>().Standby = false;
        GameObject.Find("Player").GetComponent<Movimentacao>().Textoguia.text = "Esse manequim estava escondendo uma chave! Não lembro para que ela serve.";
+        GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo2.text = "";
         Minhaluz.SetActive(false);
     }
 }

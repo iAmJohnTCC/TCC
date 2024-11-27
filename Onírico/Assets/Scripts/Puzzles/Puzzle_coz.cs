@@ -51,10 +51,12 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
         if(Gas[0]==50&&Gas[1]==50&&Gas[2]==50)
         {
             player.Textoguia.text = "Eu consegui! Agora eu preciso acende-lo. Onde será que minha mãe deixou o acendedor?";
+            GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Usar o acendedor no fogão";
         }
         Gas[0] = 0;
         Gas[1] = 0;
         Gas[2] = 0;
+        GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Regular o nível do gás.";
         GameObject.Find("GameController").GetComponent<GameController>().Fadeout(1,true);
         Invoke(nameof(Ui), 1.1f);
       
@@ -204,7 +206,8 @@ public class Puzzle_coz : MonoBehaviour,Interagiveis
                 {
                     Status = "Acendeu";
                     player.Textoguia.text = "Ok, liguei o fogo. Só preciso arrumar um jeito para carregar a chama, lembro de ter visto uma vela em algum lugar...";
-                     GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(8);
+                    GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Achar algo para carregar a chama do fogão";
+                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(8);
                     gameObject.GetComponent<AudioSource>().Play();
                 }
                 else

@@ -36,6 +36,7 @@ public class Puzzle_qt_irma : MonoBehaviour,Interagiveis
     {
         if (Senha.text == "1984")
         {
+            GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo.text = "-Ligar a lanterna";
             GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(0);
             tranca.sprite = Desbloqueado;
             Lanterna = Instantiate(Lanterna,Gaveta.transform.position,Quaternion.identity);
