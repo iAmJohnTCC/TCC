@@ -84,6 +84,7 @@ public class Insetos : MonoBehaviour,Interagiveis
         }
         else
         {
+            player.Susto();
             player.Textoguia.text = "Credo, eu não vou me esconder aqui.";
         }
     }

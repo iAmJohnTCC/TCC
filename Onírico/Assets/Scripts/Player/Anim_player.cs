@@ -18,65 +18,97 @@ public class Anim_player : MonoBehaviour
     void Update()
     {
 
-
-        if (Input.GetAxisRaw("Horizontal") != 0 && !player.Standby&&player.Velocidade>0)
+        if (player.susto)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                anim.speed = 1.5f;
-
-            }
-            else
-            {
-                anim.speed = 1f;
-            }
+            anim.speed = 1f;
             if (gameObject.GetComponent<Lanterna>().enabled == true)
             {
-                anim.Play("Andando_comlanterna");
+                anim.Play("Player_susto_comlanterna");
 
             }
             else
             {
-                anim.Play("Andando_semlanterna");
+                anim.Play("Player_susto");
             }
         }
         else
         {
-            if (player.porta != null && (player.porta.gameObject.CompareTag("Porta_naolaterais")|| player.porta.gameObject.CompareTag("Escada")))
+            if (Input.GetAxisRaw("Horizontal") != 0 && !player.Standby && player.Velocidade > 0)
             {
-                anim.Play("Player_costas");
-            }
-            else
-            {
-                if (player.Morte)
+                if (Input.GetKey(KeyCode.LeftShift))
                 {
-                    anim.Play("Player_Morte");
+                    anim.speed = 1.5f;
+
                 }
                 else
                 {
                     anim.speed = 1f;
+                }
+                if (gameObject.GetComponent<Lanterna>().enabled == true)
+                {
+                    anim.Play("Andando_comlanterna");
+
+                }
+                else
+                {
+                    anim.Play("Andando_semlanterna");
+                }
+            }
+            else
+            {
+                if (player.porta != null && (player.porta.gameObject.CompareTag("Porta_naolaterais") || player.porta.gameObject.CompareTag("Escada")))
+                {
                     if (gameObject.GetComponent<Lanterna>().enabled == true)
                     {
-                        anim.Play("idle_comLanterna");
+                        anim.Play("Player_costascomlanterna");
 
                     }
                     else
                     {
-                        anim.Play("idle_semLanterna");
+                        anim.Play("Player_costas");
                     }
 
                 }
-            }
-            if (player.Textoguia.text != mudouotexto)
-            {
-                CancelInvoke(nameof(PodeRepetir));
-                player.Textoguia.GetComponent<Animator>().Play("Guia_textoanim", -1, 0);
-                mudouotexto = player.Textoguia.text;
-               
-                Invoke(nameof(PodeRepetir), 6.1f);
+                else
+                {
+                    if (player.Morte)
+                    {
+                        if (gameObject.GetComponent<Lanterna>().enabled == true)
+                        {
+                            anim.Play("Player_morte_lanterna");
+
+                        }
+                        else
+                        {
+                            anim.Play("Player_Morte");
+                        }
+
+                    }
+                    else
+                    {
+                        anim.speed = 1f;
+                        if (gameObject.GetComponent<Lanterna>().enabled == true)
+                        {
+                            anim.Play("idle_comLanterna");
+
+                        }
+                        else
+                        {
+                            anim.Play("idle_semLanterna");
+                        }
+
+                    }
+                }
+                if (player.Textoguia.text != mudouotexto)
+                {
+                    CancelInvoke(nameof(PodeRepetir));
+                    player.Textoguia.GetComponent<Animator>().Play("Guia_textoanim", -1, 0);
+                    mudouotexto = player.Textoguia.text;
+
+                    Invoke(nameof(PodeRepetir), 6.1f);
+                }
             }
         }
-        
     }
     void PodeRepetir()
     {

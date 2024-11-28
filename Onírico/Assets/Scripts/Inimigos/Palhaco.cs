@@ -64,6 +64,7 @@ public class Palhaco : MonoBehaviour
                 {
                    if(PararDeVer==0)
                     {
+                        Player.GetComponent<Movimentacao>().Susto();
                          PararDeVer = 10;
                         parar = true; 
                         Invoke(nameof(Comecearezar), 4f);
@@ -123,7 +124,7 @@ public class Palhaco : MonoBehaviour
                 if (transform.position.x == Pontos_Finais[Objetivo].transform.position.x&&Objetivo!=15)
                 {
                     Cheguei_No_Fim = true;
-                     Debug.Log("UM CICLO SEM FIM2");
+                     
                 }
                 else
                 {

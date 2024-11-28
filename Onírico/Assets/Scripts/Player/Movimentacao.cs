@@ -13,7 +13,7 @@ public class Movimentacao : MonoBehaviour
      float horizontal;
     public bool Standby=false;
     public bool Morte = false;
-    bool susto=false;
+    public bool susto=false;
     Rigidbody2D Rb;
     public bool escondido = false;
     bool podeseesconder=true;
@@ -262,7 +262,15 @@ public class Movimentacao : MonoBehaviour
             
 
         
-
+    public void Susto()
+    {
+        susto = true;
+        Invoke(nameof(Nahidwin), 0.9f);
+    }
+    void Nahidwin()
+    {
+        susto=false;
+    }
     
     void Escondido()
     {
