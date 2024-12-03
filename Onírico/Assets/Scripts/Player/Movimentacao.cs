@@ -32,7 +32,7 @@ public class Movimentacao : MonoBehaviour
    public Porta porta;
     GameObject esconderijo;
     [SerializeField] LayerMask interagiveis;
-[SerializeField] GameObject Mapa;
+[SerializeField] public GameObject Mapa;
 
 
 

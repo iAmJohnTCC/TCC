@@ -24,6 +24,10 @@ public class Mapa : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.M))
+        {
+            cam.m_Lens.OrthographicSize = 25;
+        }
         cam.m_Lens.OrthographicSize -= Input.mouseScrollDelta.y * Time.deltaTime * 50;
         cam.m_Lens.OrthographicSize=Mathf.Clamp(cam.m_Lens.OrthographicSize,1,29.5f);
         if (Minimapa)

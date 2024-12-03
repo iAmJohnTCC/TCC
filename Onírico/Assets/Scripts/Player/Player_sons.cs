@@ -16,7 +16,7 @@ public class Player_sons : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(player.Morte)
+        if(player.Morte||player.susto)
         {
             if(Fonte_som.clip != sons_player[3])
             {

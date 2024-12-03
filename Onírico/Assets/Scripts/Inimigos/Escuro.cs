@@ -7,6 +7,7 @@ public class Escuro : MonoBehaviour
 {
     [SerializeField] string[] Comportamentos;
     public float health = 5;
+    AudioSource som;
     public Vector2 posicaoPlayer;
     bool Bossfight = false;
     [SerializeField] float velo;
@@ -18,6 +19,11 @@ public class Escuro : MonoBehaviour
 
 
     // Update is called once per frame
+    void Start()
+    {
+
+        som=GetComponent<AudioSource>();
+     }
     void Update()
     {
        if (GameObject.Find("Player").GetComponent<Movimentacao>().Standby == true&&Possoatacar)
@@ -114,6 +120,7 @@ public class Escuro : MonoBehaviour
         }
             if (comportamentoatual != "Nas sombras")
             {
+                som.Play();
                 gameObject.GetComponent<SpriteRenderer>().enabled = true;
             }
 

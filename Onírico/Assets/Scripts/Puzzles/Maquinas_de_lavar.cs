@@ -41,9 +41,10 @@ public class Maquinas_de_lavar : MonoBehaviour,Interagiveis
             }
             if ( Roupas_adquiridas[0] != null && !GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().puzzleresolvido)
             {
-                GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(12);
+               
                 if (gameObject.name == "Mqndelavar_limpar")
                 {
+                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(12);
                     GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().roupassujas = Roupas_adquiridas;
                     GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().Limpar();
                     Roupas_adquiridas = null;
@@ -52,6 +53,7 @@ public class Maquinas_de_lavar : MonoBehaviour,Interagiveis
                 }
                 else
                 {
+                    GameObject.Find("Sons_de_fundo").GetComponent<Fundo_sons>().Sons(13);
                     GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().roupas = Roupas_adquiridas;
                     GameObject.Find("Puzzle_lav").GetComponent<Puzzle_lav>().Combinar();
                     Roupas_adquiridas = null;

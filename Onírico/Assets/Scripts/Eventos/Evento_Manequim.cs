@@ -26,7 +26,7 @@ public class Evento_Manequim : MonoBehaviour, Interagiveis
         else
         {
             prayer.Textoguia.text = "Parece ter algo na boca do manequim,mas eu não consigo tirar";
-            GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo2.text = "-Achar um jeito de pegar a chave do manequim.";
+            GameObject.Find("CM_Mapa").GetComponent<Mapa>().objetivo2.text = "-Achar um jeito de pegar o objeto na boca do manequim.";
         }
     }
 

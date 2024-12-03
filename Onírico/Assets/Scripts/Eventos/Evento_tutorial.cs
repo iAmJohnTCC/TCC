@@ -34,7 +34,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if (Ensinamento == "Andar")
         {
-            Tutorialtexto.text = "Aperte A/D ou <-/->";
+            Tutorialtexto.text = "Aperte A/D ou <-/->.";
             if (Input.GetAxisRaw("Horizontal")>0)
             {
                 andoupradireita = true;
@@ -51,7 +51,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if(Ensinamento=="Correr")
         {
-            Tutorialtexto.text = "Segure o shift para correr";
+            Tutorialtexto.text = "'Segure o shift para correr'";
             if (Input.GetAxisRaw("Horizontal") > 0&&Input.GetKey(KeyCode.LeftShift))
             {
                 correupradireita = true;
@@ -62,9 +62,57 @@ public class Evento_tutorial : MonoBehaviour
             }
             if (correupradireita && correupraesquerda)
             {
-                Ensinamento = "Pegar itens";
+                Ensinamento = "Abrir mapa";
             }
         }
+        if (Ensinamento == "Abrir mapa")
+        {
+            Tutorialtexto.text = "'Aperte M para abrir o mapa'";
+            if(Player.Mapa.activeSelf)
+            {
+                andoupradireita = false;
+                andoupraesquerda = false;
+                Ensinamento = "Mover mapa";
+            }
+
+        }
+        if (Ensinamento == "Mover mapa")
+        {
+            Tutorialtexto.text = "Aperte A/D ou <-/-> para mexer o mapa.";
+            if (Input.GetAxisRaw("Horizontal") > 0)
+            {
+                andoupradireita = true;
+            }
+            if (Input.GetAxisRaw("Horizontal") < 0)
+            {
+                andoupraesquerda = true;
+            }
+            if (andoupradireita && andoupraesquerda)
+            {
+                Ensinamento = "Zoom";
+            }
+
+        }
+        if (Ensinamento == "Zoom")
+        {
+            Tutorialtexto.text = "'Utilize o scroll do mouse para aumentar ou diminuir o zoom .'";
+         if(Player.Mapa.GetComponent<Camera>().orthographicSize!=8)
+            {
+                Ensinamento = "Sair mapa";
+            }
+
+        }
+        if (Ensinamento == "Sair mapa")
+        {
+            Tutorialtexto.text = "'Aperte M para fechar o mapa'";
+            if (!Player.Mapa.activeSelf)
+            {
+                Ensinamento = "Pegar itens";
+            }
+
+        }
+
+
         if (Ensinamento=="Pegar itens")
         {
             Tutorialtexto.text = "Mas antes, pegue aquela pilha que está no chão.";
@@ -86,7 +134,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if(Ensinamento=="Ligar a lanterna")
         {
-            Tutorialtexto.text = "Aperte F para ligar a lanterna.";
+            Tutorialtexto.text = "'Aperte F para ligar a lanterna.'";
             if (Player.gameObject.GetComponent<Lanterna>().Luz.activeSelf)
             {
                 Ensinamento = "Desligar a lanterna";
@@ -96,7 +144,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if (Ensinamento == "Desligar a lanterna")
         {
-            Tutorialtexto.text = "Aperte F para desligar a lanterna.";
+            Tutorialtexto.text = "'Aperte F para desligar a lanterna.'";
             if (!Player.gameObject.GetComponent<Lanterna>().Luz.activeSelf)
             {
                 Ensinamento = "Recarregar Lanterna";
@@ -104,19 +152,10 @@ public class Evento_tutorial : MonoBehaviour
 
 
         }
-        if (Ensinamento=="Stun")
-        {
-            Tutorialtexto.text = "Você também pode apertar F enquanto a lanterna está acesa para desliga-la, agora quero que você aperte espaço enquanto a lanterna está acesa";
-            Player.gameObject.GetComponent<Lanterna>().Energia = 100;
-            if(Player.gameObject.GetComponent<Lanterna>().Stunning)
-            {
-                Ensinamento = "Recarregar Lanterna";
-                Player.gameObject.GetComponent<Lanterna>().Energia = 0;
-            }
-        }
+       
         if(Ensinamento=="Recarregar Lanterna")
         {
-            Tutorialtexto.text = "Aperte R para recarregar a lanterna.";
+            Tutorialtexto.text = "'Aperte R para recarregar a lanterna.'";
             
             if (Player.Inventario[0]==null||Player.Inventario[1]==null)
             {
@@ -126,7 +165,7 @@ public class Evento_tutorial : MonoBehaviour
         }
         if(Ensinamento=="Dropar itens")
         {
-            Tutorialtexto.text ="Aperte X pra largar o item atual ";
+            Tutorialtexto.text ="'Aperte X pra largar o item atual' ";
             if (Player.Inventario[1] == null)
             {
                 Ensinamento = "Abrir porta";
